@@ -4,6 +4,7 @@ import (
 	"github.com/hoisie/web"
 )
 
+// Create a blank HTML5 page
 func NewHTML5Page(titleText string) *Page {
 	page := NewPage(titleText, "<!DOCTYPE html>")
 	html := page.root.AddNewTag("html")
@@ -29,15 +30,16 @@ func CSS(page *Page) func(*web.Context) string {
 	}
 }
 
-func (page *Page) SetMargin(tagname string, em int) (*Tag, error) {
-	tag, err := page.root.GetTag(tagname)
+// Set the margins of the body
+func (page *Page) SetMargin(em int) (*Tag, error) {
+	tag, err := page.root.GetTag("body")
 	if err == nil {
 		tag.SetMargin(em)
 	}
 	return tag, err
 }
 
-// Set one of the css styles of the <body>
+// Set one of the css styles of the body
 func (page *Page) bodyAttr(key, value string) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {
@@ -46,6 +48,7 @@ func (page *Page) bodyAttr(key, value string) (*Tag, error) {
 	return tag, err
 }
 
+// Set the foreground and background color of the body
 func (page *Page) SetColor(fgColor string, bgColor string) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {
@@ -55,15 +58,21 @@ func (page *Page) SetColor(fgColor string, bgColor string) (*Tag, error) {
 	return tag, err
 }
 
+// Set the font family
 func (page *Page) SetFont(fontFamily string) (*Tag, error) {
 	return page.bodyAttr("font-family", fontFamily)
 }
 
-// Add a box
+// Add a box, for testing
 func (page *Page) AddBox(id string, rounded bool) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {
-		tag.AddBox(id, rounded, "0.9em", "HEOI HEOI", "green", "black", "3em")
+		return tag.AddBox(id, rounded, "0.9em", "Speaks browser so you don't have to", "white", "black", "3em"), nil
 	}
 	return tag, err
+}
+
+// Used for debugging, should be a template instead
+func message(title, msg string) string {
+	return "<!DOCTYPE html><html><head><title>" + title + "</title></head><body style=\"margin:4em; font-family:courier; color:gray; background-color:light gray;\"><h2>" + title + "</h2><hr style=\"margin-top:-1em; margin-bottom: 2em; margin-right: 20%; text-align: left; border: 1px dotted #b0b0b0; height:1px;\"><div style=\"margin-left: 2em;\">" + msg + "</div></body></html>"
 }

@@ -75,7 +75,7 @@ func (tag *Tag) GetCSS() string {
 	for key, value := range tag.style {
 		ret += "  " + key + ": " + value + ";\n"
 	}
-	ret += "}\n"
+	ret += "}\n\n"
 	return ret
 }
 
@@ -151,12 +151,11 @@ func (tag *Tag) AddContent(content string) {
 }
 
 func (tag *Tag) CountChildren() int {
-	count := 0
 	child := tag.firstChild
 	if child == nil {
-		return count
+		return 0
 	}
-	count++
+	count := 1
 	if child.nextSibling == nil {
 		return count
 	}
@@ -169,12 +168,11 @@ func (tag *Tag) CountChildren() int {
 }
 
 func (tag *Tag) CountSiblings() int {
-	count := 0
 	sib := tag.nextSibling
 	if sib == nil {
-		return count
+		return 0
 	}
-	count++
+	count := 1
 	if sib.nextSibling == nil {
 		return count
 	}
@@ -194,14 +192,14 @@ func (tag *Tag) LastChild() *Tag {
 	return child
 }
 
-// Returns a tag or nil if not found
+// Find a tag by name, returns an error if not found
 func (cursor *Tag) GetTag(name string) (*Tag, error) {
 	if strings.Index(cursor.name, name) == 0 {
 		return cursor, nil
 	}
 	couldNotFindError := errors.New("Could not find tag: " + name)
 	if cursor.CountChildren() == 0 {
-		// No children and not found so far
+		// No children. Not found so far
 		return nil, couldNotFindError
 	}
 
@@ -217,7 +215,6 @@ func (cursor *Tag) GetTag(name string) (*Tag, error) {
 	return nil, couldNotFindError
 }
 
-// Nicer formatting can be done here
 func GetHTMLRecursively(cursor *Tag, level int) string {
 
 	if cursor.CountChildren() == 0 {
@@ -240,17 +237,11 @@ func GetHTMLRecursively(cursor *Tag, level int) string {
 
 	level--
 
-	//cursor.AddContent(content)
 	cursor.htmlContent = cursor.content + content
 
 	ret := cursor.GetFlatHTML(level)
 	if level > 0 {
 		ret += "\n"
-		//if cursor.CountSiblings() > 0 {
-		//	ret += "\n"
-		//} else {
-		//	ret += "\n"
-		//}
 	}
 	return ret
 }
@@ -292,6 +283,3 @@ func (page Page) PrettyPrint() {
 	fmt.Printf("CSS:\n%s\n", page.GetCSS())
 }
 
-func message(title, msg string) string {
-	return "<!DOCTYPE html><html><head><title>" + title + "</title></head><body style=\"margin:4em; font-family:courier; color:gray; background-color:light gray;\"><h2>" + title + "</h2><hr style=\"margin-top:-1em; margin-bottom: 2em; margin-right: 20%; text-align: left; border: 1px dotted #b0b0b0; height:1px;\"><div style=\"margin-left: 2em;\">" + msg + "</div></body></html>"
-}

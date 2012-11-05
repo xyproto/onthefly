@@ -4,6 +4,7 @@ import (
 	"strconv"
 )
 
+// Margins
 func (tag *Tag) SetMargin(em int) {
 	value := strconv.Itoa(em) + "em"
 	tag.AddStyle("margin", value)
@@ -18,13 +19,14 @@ func (tag *Tag) SetRounded(em string) {
 	tag.AddStyle("-moz-border-radius", value)
 }
 
+// Colors
 func (tag *Tag) SetColor(fgColor, bgColor string) {
 	tag.AddStyle("color", fgColor)
 	tag.AddStyle("background-color", bgColor)
 }
 
 // Add a box
-func (tag *Tag) AddBox(id string, rounded bool, em, text, fgColor, bgColor, leftPadding string) {
+func (tag *Tag) AddBox(id string, rounded bool, em, text, fgColor, bgColor, leftPadding string) *Tag {
 	div := tag.AddNewTag("div")
 	div.AddAttr("id", id)
 	div.AddContent(text)
@@ -33,4 +35,13 @@ func (tag *Tag) AddBox(id string, rounded bool, em, text, fgColor, bgColor, left
 	}
 	div.SetColor(fgColor, bgColor)
 	div.AddStyle("padding-left", leftPadding)
+	return div
+}
+
+// Add an image
+func (tag *Tag) AddImage(url string, width string) *Tag {
+	img := tag.AddNewTag("img")
+	img.AddAttr("src", url)
+	img.AddStyle("width", width)
+	return img
 }
