@@ -1,24 +1,24 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strings"
-	"errors"
 )
 
 type Tag struct {
-	name string
-	style map[string]string
-	content string
+	name        string
+	style       map[string]string
+	content     string
 	htmlContent string
-	attrs map[string]string
+	attrs       map[string]string
 	nextSibling *Tag // siblings
-	firstChild *Tag // first child
+	firstChild  *Tag // first child
 }
 
 type Page struct {
-	title string
-	root *Tag
+	title  string
+	root   *Tag
 	cursor *Tag
 }
 
@@ -129,7 +129,7 @@ func (tag *Tag) GetFlatHTML(level int) string {
 func (tag *Tag) GetChildren() []*Tag {
 	var children []*Tag
 	current := tag.firstChild
-	for (current != nil) {
+	for current != nil {
 		children = append(children, current)
 		current = current.nextSibling
 	}
@@ -161,7 +161,7 @@ func (tag *Tag) CountChildren() int {
 		return count
 	}
 	child = child.nextSibling
-	for (child != nil) {
+	for child != nil {
 		count++
 		child = child.nextSibling
 	}
@@ -179,7 +179,7 @@ func (tag *Tag) CountSiblings() int {
 		return count
 	}
 	sib = sib.nextSibling
-	for (sib != nil) {
+	for sib != nil {
 		count++
 		sib = sib.nextSibling
 	}
@@ -188,7 +188,7 @@ func (tag *Tag) CountSiblings() int {
 
 func (tag *Tag) LastChild() *Tag {
 	child := tag.firstChild
-	for (child.nextSibling != nil) {
+	for child.nextSibling != nil {
 		child = child.nextSibling
 	}
 	return child

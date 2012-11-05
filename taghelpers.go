@@ -34,4 +34,3 @@ func (tag *Tag) AddBox(id string, rounded bool, em, text, fgColor, bgColor, left
 	div.SetColor(fgColor, bgColor)
 	div.AddStyle("padding-left", leftPadding)
 }
-

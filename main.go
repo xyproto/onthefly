@@ -40,8 +40,8 @@ func buildpage(cssurl string) *Page {
 }
 
 // func rootpage(w http.ResponseWriter, r *http.Request) {
-	// r.URL.Path[1:]
-	//fmt.Fprintf(w, message("root page", "hello: " + r.URL.RawQuery + " - " + r.URL.Host + " - " + html.EscapeString(r.URL.Path[1:])))
+// r.URL.Path[1:]
+//fmt.Fprintf(w, message("root page", "hello: " + r.URL.RawQuery + " - " + r.URL.Host + " - " + html.EscapeString(r.URL.Path[1:])))
 //}
 
 func errorlog() string {
@@ -53,7 +53,7 @@ func errorlog() string {
 }
 
 func hello(val string) string {
-	return message("root page", "hello: " + val)
+	return message("root page", "hello: "+val)
 }
 
 func notFound(ctx *web.Context, message string) {
