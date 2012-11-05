@@ -1,4 +1,4 @@
-package main
+package browserspeak
 
 import (
 	"github.com/hoisie/web"
