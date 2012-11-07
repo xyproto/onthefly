@@ -29,7 +29,7 @@ while true; do
     echo
     echo -n 'Recompiling...'
     [ -e $LOG ] && rm $LOG
-    go build -o main > $LOG
+    go build -o $BIN > $LOG
     if [ "$(wc -c $LOG | cut -d' ' -f1)" == '0' ]; then
       rm $LOG
     fi
