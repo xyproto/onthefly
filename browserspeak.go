@@ -282,4 +282,3 @@ func (page Page) PrettyPrint() {
 	fmt.Printf("HTML:\n%s\n", page.GetHTML())
 	fmt.Printf("CSS:\n%s\n", page.GetCSS())
 }
-

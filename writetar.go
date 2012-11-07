@@ -1,4 +1,4 @@
-package browserspeak
+package main
 
 import (
 	"archive/tar"
