@@ -192,6 +192,10 @@ func (tag *Tag) LastChild() *Tag {
 	return child
 }
 
+func (page *Page) GetTag(name string) (*Tag, error) {
+	return page.root.GetTag(name)
+}
+
 // Find a tag by name, returns an error if not found
 func (cursor *Tag) GetTag(name string) (*Tag, error) {
 	if strings.Index(cursor.name, name) == 0 {
