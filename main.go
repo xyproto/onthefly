@@ -87,7 +87,7 @@ func main() {
 
 	web.Get("/hello/(.*)", hello)
 
-	// TODO: Wrap a debian repo
+	// TODO: Wrap a debian repo, skip signatures for now, create a translation list for base packages
 	web.Get("/archlinux/my/os/x86_64/my.db", onTheFlyRepo)
 	web.Get("/archlinux/my/os/x86_64/my.db.sig", hi)
 	web.Get("/archlinux/my/os/x86_64/zlib-1.2.7-2-x86_64.pkg.tar.xz", hi)
