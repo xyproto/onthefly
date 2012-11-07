@@ -19,12 +19,12 @@ func testbuilder(cssurl string) *browserspeak.Page {
 	h1.SetMargin(1)
 	h1.AddContent("Browser")
 
-	h1, err := page.root.GetTag("h1")
+	h1, err := page.GetTag("h1")
 	if err == nil {
 		h1.AddContent("Spe")
 	}
 
-	head, err := page.root.GetTag("head")
+	head, err := page.GetTag("head")
 	if err == nil {
 		link := head.AddNewTag("link")
 		link.AddAttr("rel", "stylesheet")
@@ -78,7 +78,7 @@ func onTheFlyRepo(ctx *web.Context) {
 }
 
 func main() {
-	Publish("/", "/main.css", testbuilder)
+	browserspeak.Publish("/", "/main.css", testbuilder)
 
 	web.Get("/error", errorlog)
 
