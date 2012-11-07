@@ -64,6 +64,7 @@ func writeTar(fw io.Writer) {
 		desc["filename"] = pkgdir + "-x86_64.pkg.tar.xz"
 		desc["name"] = "zlib"
 		desc["version"] = "1.2.7-2"
+		desc["desc"] = "Compression library implementing the deflate compression method found in gzip and PKZIP"
 		desc["csize"] = "79156"
 		desc["isize"] = "368640"
 		desc["md5sum"] = "986040c038621e82e327480c4f28c804"
@@ -96,7 +97,7 @@ func writeTarGzToFile(tarfilename string) error {
 func writeTarGz(rw web.ResponseWriter) {
 	gz := gzip.NewWriter(rw)
 	writeTar(gz)
-	//gz.Close()
+	gz.Close()
 }
 
 func test_writetar() {
