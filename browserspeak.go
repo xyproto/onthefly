@@ -8,7 +8,7 @@ import (
 
 // TODO Add functions for building templates
 
-const VERSION = 0.2
+const VERSION = 0.3
 
 type Tag struct {
 	name        string
