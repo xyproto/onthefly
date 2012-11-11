@@ -47,6 +47,7 @@ func NewTag(name string) *Tag {
 	tag.attrs = make(map[string]string)
 	tag.nextSibling = nil
 	tag.firstChild = nil
+	tag.content = ""
 	return &tag
 }
 
@@ -54,7 +55,7 @@ func NewTag(name string) *Tag {
 // lower in the hierarchy of tags. You can for example add
 // a body tag to an html tag.
 func (tag *Tag) AddNewTag(name string) *Tag {
-	var child *Tag = NewTag(name)
+	child := NewTag(name)
 	tag.AddChild(child)
 	return child
 }
@@ -147,7 +148,8 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 		ret += " />"
 	} else {
 		if len(tag.htmlContent) > 0 {
-			ret += ">" + newLine + tag.content + tag.htmlContent + spacing + "</" + tag.name + ">"
+			//ret += ">" + newLine + tag.content + tag.htmlContent + spacing + "</" + tag.name + ">"
+			ret += ">" + newLine + tag.content + spacing + "</" + tag.name + ">"
 		} else {
 			ret += ">" + tag.content + "</" + tag.name + ">"
 			// Indented content
