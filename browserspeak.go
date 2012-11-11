@@ -366,6 +366,17 @@ func (page *Page) LinkCSS(cssurl string) error {
 	return err
 }
 
+// Add content to the body tag
+// Returns the body tag and nil if successful
+// Returns and an error if no body tag is found, else nil
+func (page *Page) AddContent(content string) (*Tag, error) {
+	body, err := page.root.GetTag("body")
+	if err == nil {
+		body.AddContent(content)
+	}
+	return body, err
+}
+
 // Generate non-indented text for a Page
 // Works for HTML, SVG and other XML files
 func (page *Page) String() string {
