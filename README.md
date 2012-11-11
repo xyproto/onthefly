@@ -69,7 +69,7 @@ func svgGenerator() string {
 func main() {
 	fmt.Println("BrowserSpeak Version:", browserspeak.VERSION)
 
-	// Connect the url for the HTML and CSS with the HTML and CSS generated from htmlPage
+	// Connect the url for the HTML and CSS with the HTML and CSS generated from helloPage
 	browserspeak.Publish("/", "/hello.css", helloPage)
 
 	// Connect /test.svg with svgGenerator
@@ -84,5 +84,5 @@ func main() {
 Version: 0.31
 License: MIT
 
-Alexander Rødseth <rodseth@gmail.com>
+Alexander Rødseth <rodseth@ at gmail.com>
 
