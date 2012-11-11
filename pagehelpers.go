@@ -15,14 +15,14 @@ func NewHTML5Page(titleText string) *Page {
 	return page
 }
 
-// Get a function that returns a string that is the html for this page
+// Create a web.go compatible function that returns a string that is the HTML for this page
 func HTML(page *Page) func(*web.Context) string {
 	return func(ctx *web.Context) string {
 		return page.GetXML(true)
 	}
 }
 
-// Get a function that returns a string that is the css for this page
+// Create a web.go compatible function that returns a string that is the CSS for this page
 func CSS(page *Page) func(*web.Context) string {
 	return func(ctx *web.Context) string {
 		ctx.ContentType("css")
@@ -30,7 +30,7 @@ func CSS(page *Page) func(*web.Context) string {
 	}
 }
 
-// Get a web.go function that returns a string that is the xml for this page
+// Get a web.go compatible function that returns a string that is the XML for this page
 func XML(page *Page) func(*web.Context) string {
 	return func(ctx *web.Context) string {
 		ctx.ContentType("xml")
@@ -47,7 +47,7 @@ func (page *Page) SetMargin(em int) (*Tag, error) {
 	return tag, err
 }
 
-// Set one of the css styles of the body
+// Set one of the CSS styles of the body
 func (page *Page) bodyAttr(key, value string) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {

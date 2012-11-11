@@ -60,6 +60,11 @@ func (tag *Tag) AddNewTag(name string) *Tag {
 	return child
 }
 
+// Add a tag to another tag
+func (tag *Tag) AddTag(child *Tag) {
+	tag.AddChild(child)
+}
+
 // Add CSS style to a tag, for instance
 // "background-color" and "red"
 func (tag Tag) AddStyle(styleName, styleValue string) {
