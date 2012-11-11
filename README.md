@@ -80,6 +80,11 @@ func main() {
 }
 ```
 
+API Documentation
+-----------------
+
+[go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
+
 
 Version: 0.31
 License: MIT
