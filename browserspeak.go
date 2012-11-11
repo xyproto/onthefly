@@ -67,13 +67,13 @@ func (tag *Tag) AddTag(child *Tag) {
 
 // Add CSS style to a tag, for instance
 // "background-color" and "red"
-func (tag Tag) AddStyle(styleName, styleValue string) {
+func (tag *Tag) AddStyle(styleName, styleValue string) {
 	tag.style[styleName] = styleValue
 }
 
 // Add an attribute to a tag, for instance
 // "size" and "20"
-func (tag Tag) AddAttr(attrName, attrValue string) {
+func (tag *Tag) AddAttr(attrName, attrValue string) {
 	tag.attrs[attrName] = attrValue
 }
 
@@ -338,22 +338,22 @@ func getCSSRecursively(cursor *Tag) string {
 
 // Generate XML for a page
 // The output can go directly in an XML file
-func (page Page) GetXML(indent bool) string {
+func (page *Page) GetXML(indent bool) string {
 	return getXMLRecursively(page.root, indent, 0)
 }
 
 // Generate CSS for a page
 // The output can go directly in a CSS file
-func (page Page) GetCSS() string {
+func (page *Page) GetCSS() string {
 	return getCSSRecursively(page.root)
 }
 
 // Show various information for a page, used for debugging
-func (page Page) prettyPrint() {
+func (page *Page) prettyPrint() {
+	root := *page.root
 	fmt.Println("Page title:", page.title)
-	fmt.Println("Page root tag name:", page.root.name)
-	rootPointer := page.root
-	fmt.Println("Root tag children count:", rootPointer.CountChildren())
+	fmt.Println("Page root tag name:", root.name)
+	fmt.Println("Root tag children count:", root.CountChildren())
 	fmt.Printf("HTML:\n%s\n", page.GetXML(true))
 	fmt.Printf("CSS:\n%s\n", page.GetCSS())
 }
