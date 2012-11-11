@@ -63,11 +63,19 @@ func notFound(ctx *web.Context, message string) {
 	ctx.NotFound("Page not found")
 }
 
+func exampleSVG() string {
+	svg := NewExampleSVG()
+	return svg.GetHTML(false)
+}
+
 func main() {
 	Publish("/", "/main.css", testbuilder)
 
 	web.Get("/error", errorlog)
 	web.Get("/hello", hello)
+
+	web.Get("/svg", exampleSVG)
+
 	web.Get("/(.*)", notFound)
 
 	web.Run("0.0.0.0:8080")

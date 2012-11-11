@@ -18,7 +18,7 @@ func NewHTML5Page(titleText string) *Page {
 // Get a function that returns a string that is the html for this page
 func HTML(page *Page) func(*web.Context) string {
 	return func(ctx *web.Context) string {
-		return page.GetHTML()
+		return page.GetHTML(true)
 	}
 }
 
