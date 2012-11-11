@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+// TODO Add functions for building templates
+
 const VERSION = 0.2
 
 type Tag struct {
@@ -121,7 +123,7 @@ func GetSpaces(level int) string {
 // Generate a string for a tag, non-recursively
 // indent is if the output should be indented or nto
 // level is how many levels deep the output should be indented.
-func (tag *Tag) getFlatHTML(indent bool, level int) string {
+func (tag *Tag) getFlatXML(indent bool, level int) string {
 	newLine := ""
 	if indent {
 		newLine = "\n"
@@ -135,7 +137,7 @@ func (tag *Tag) getFlatHTML(indent bool, level int) string {
 	if indent {
 		spacing = GetSpaces(level)
 	}
-	// Generate the HTML based on the tag
+	// Generate the XML based on the tag
 	attrs := tag.GetAttrString()
 	ret := spacing + "<" + tag.name
 	if len(attrs) > 0 {
@@ -264,11 +266,11 @@ func (tag *Tag) GetTag(name string) (*Tag, error) {
 	return nil, couldNotFindError
 }
 
-// Generate HTML for a tag, recursively
+// Generate XML for a tag, recursively
 // indent is if the output should be indented or not
 // level is the indentation level
-// Returns the generated HTML as a string
-func getHTMLRecursively(cursor *Tag, indent bool, level int) string {
+// Returns the generated XML as a string
+func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 
 	newLine := ""
 	if indent {
@@ -276,7 +278,7 @@ func getHTMLRecursively(cursor *Tag, indent bool, level int) string {
 	}
 
 	if cursor.CountChildren() == 0 {
-		return cursor.getFlatHTML(indent, level) + newLine
+		return cursor.getFlatXML(indent, level) + newLine
 	}
 
 	content := ""
@@ -286,7 +288,7 @@ func getHTMLRecursively(cursor *Tag, indent bool, level int) string {
 
 	child := cursor.firstChild
 	for child != nil {
-		htmlContent = getHTMLRecursively(child, indent, level)
+		htmlContent = getXMLRecursively(child, indent, level)
 		if len(htmlContent) > 0 {
 			content += htmlContent
 		}
@@ -297,7 +299,7 @@ func getHTMLRecursively(cursor *Tag, indent bool, level int) string {
 
 	cursor.htmlContent = cursor.content + content
 
-	ret := cursor.getFlatHTML(indent, level)
+	ret := cursor.getFlatXML(indent, level)
 	if level > 0 {
 		ret += newLine
 	}
@@ -327,10 +329,10 @@ func getCSSRecursively(cursor *Tag) string {
 	return cursor.GetCSS() + style
 }
 
-// Generate HTML for a page
-// The output can go directly in an HTML file
-func (page Page) GetHTML(indent bool) string {
-	return getHTMLRecursively(page.root, indent, 0)
+// Generate XML for a page
+// The output can go directly in an XML file
+func (page Page) GetXML(indent bool) string {
+	return getXMLRecursively(page.root, indent, 0)
 }
 
 // Generate CSS for a page
@@ -345,7 +347,29 @@ func (page Page) prettyPrint() {
 	fmt.Println("Page root tag name:", page.root.name)
 	rootPointer := page.root
 	fmt.Println("Root tag children count:", rootPointer.CountChildren())
-	fmt.Printf("HTML:\n%s\n", page.GetHTML(true))
+	fmt.Printf("HTML:\n%s\n", page.GetXML(true))
 	fmt.Printf("CSS:\n%s\n", page.GetCSS())
 }
+
+// Link a page up with a CSS file
+// Takes the url to a CSS file as a string
+// The given page must have a "head" tag for this to work
+// Returns an error if no "head" tag is found, or nil
+func (page *Page) LinkCSS(cssurl string) error {
+	head, err := page.root.GetTag("head")
+	if err == nil {
+		link := head.AddNewTag("link")
+		link.AddAttr("rel", "stylesheet")
+		link.AddAttr("href", cssurl)
+		link.AddAttr("type", "text/css")
+	}
+	return err
+}
+
+// Generate non-indented text for a Page
+// Works for HTML, SVG and other XML files
+func (page *Page) String() string {
+	return page.GetXML(false)
+}
+
 

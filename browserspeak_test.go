@@ -4,8 +4,8 @@ import "testing"
 
 func TestSVG(t *testing.T) {
 	svg := NewExampleSVG()
-	svg.GetHTML(false)
-	//s := svg.GetHTML(false)
+	svg.String()
+	//s := svg.GetXML(false)
 	t.Log("hi")
 	//t.Errorf("%s\n", s)
 	//const in, out = 4, 2
@@ -16,6 +16,7 @@ func TestSVG(t *testing.T) {
 
 func TestSVG2(t *testing.T) {
 	svg := NewExampleSVG2()
-	s := svg.GetHTML(false)
-	t.Errorf("%s\n", s)
+	svg.String()
+	//s := svg.String()
+	//t.Errorf("%s\n", s)
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/hoisie/web"
 )
 
-// TODO Add functions for building templates as well
 
 // This is a test function
 func testbuilder(cssurl string) *Page {
@@ -22,12 +21,7 @@ func testbuilder(cssurl string) *Page {
 		h1.AddContent("Spe")
 	}
 
-	head, err := page.root.GetTag("head")
-	if err == nil {
-		link := head.AddNewTag("link")
-		link.AddAttr("rel", "stylesheet")
-		link.AddAttr("href", cssurl)
-		link.AddAttr("type", "text/css")
+	if err := page.LinkCSS(cssurl); err == nil {
 		h1.AddContent("ak")
 	} else {
 		h1.AddContent("akkkkkkkk")
@@ -65,7 +59,7 @@ func notFound(ctx *web.Context, message string) {
 
 func exampleSVG() string {
 	svg := NewExampleSVG()
-	return svg.GetHTML(false)
+	return svg.String()
 }
 
 func main() {

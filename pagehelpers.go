@@ -18,7 +18,7 @@ func NewHTML5Page(titleText string) *Page {
 // Get a function that returns a string that is the html for this page
 func HTML(page *Page) func(*web.Context) string {
 	return func(ctx *web.Context) string {
-		return page.GetHTML(true)
+		return page.GetXML(true)
 	}
 }
 
@@ -27,6 +27,14 @@ func CSS(page *Page) func(*web.Context) string {
 	return func(ctx *web.Context) string {
 		ctx.ContentType("css")
 		return page.GetCSS()
+	}
+}
+
+// Get a web.go function that returns a string that is the xml for this page
+func XML(page *Page) func(*web.Context) string {
+	return func(ctx *web.Context) string {
+		ctx.ContentType("xml")
+		return page.GetXML(false)
 	}
 }
 
