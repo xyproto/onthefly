@@ -8,7 +8,7 @@ import (
 
 // TODO Add functions for building templates
 
-const VERSION = 0.3
+const VERSION = 0.31
 
 type Tag struct {
 	name        string
@@ -149,7 +149,7 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	} else {
 		if len(tag.htmlContent) > 0 {
 			//ret += ">" + newLine + tag.content + tag.htmlContent + spacing + "</" + tag.name + ">"
-			ret += ">" + newLine + tag.content + spacing + "</" + tag.name + ">"
+			ret += ">" + newLine + tag.htmlContent + spacing + "</" + tag.name + ">"
 		} else {
 			ret += ">" + tag.content + "</" + tag.name + ">"
 			// Indented content
