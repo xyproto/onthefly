@@ -72,7 +72,7 @@ func (page *Page) SetFont(fontFamily string) (*Tag, error) {
 }
 
 // Add a box, for testing
-func (page *Page) AddBox(id string, rounded bool) (*Tag, error) {
+func (page *Page) addBox(id string, rounded bool) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {
 		return tag.AddBox(id, rounded, "0.9em", "Speaks browser so you don't have to", "white", "black", "3em"), nil

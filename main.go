@@ -30,7 +30,7 @@ func testbuilder(cssurl string) *Page {
 	page.SetColor("#202020", "#A0A0A0")
 	page.SetFont("sans serif")
 
-	box, _ := page.AddBox("box0", true)
+	box, _ := page.addBox("box0", true)
 	box.AddStyle("margin-top", "-2em")
 	box.AddStyle("margin-bottom", "3em")
 
@@ -58,7 +58,7 @@ func notFound(ctx *web.Context, message string) {
 }
 
 func exampleSVG() string {
-	svg := NewExampleSVG()
+	svg := newExampleSVG()
 	return svg.String()
 }
 

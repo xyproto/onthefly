@@ -100,7 +100,7 @@ func (svg *Tag) Dot(cx, cy, r, g, b int) *Tag {
 	return circle
 }
 
-func NewExampleSVG() *Page {
+func newExampleSVG() *Page {
 	page, svg := NewTinySVG(0, 0, 30, 30)
 	desc := svg.AddNewTag("desc")
 	desc.AddContent("Example SVG file")
@@ -111,7 +111,7 @@ func NewExampleSVG() *Page {
 	return page
 }
 
-func NewExampleSVG2() *Page {
+func newExampleSVG2() *Page {
 	w := 160
 	h := 90
 	stepx := 8
