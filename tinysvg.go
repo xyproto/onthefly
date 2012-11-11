@@ -32,6 +32,18 @@ func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	return rect
 }
 
+func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
+	sx := strconv.Itoa(x)
+	sy := strconv.Itoa(y)
+	sradius := strconv.Itoa(radius)
+	circle := svg.AddNewTag("circle")
+	circle.AddAttr("cx", sx)
+	circle.AddAttr("cy", sy)
+	circle.AddAttr("r", sradius)
+	circle.Fill(color)
+	return circle
+}
+
 func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
