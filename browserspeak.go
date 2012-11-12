@@ -118,7 +118,7 @@ func (tag *Tag) GetAttrString() string {
 }
 
 // Get spaces for indenting based on a given level
-func GetSpaces(level int) string {
+func getSpaces(level int) string {
 	spacing := ""
 	for i := 1; i < level; i++ {
 		spacing += "  "
@@ -141,7 +141,7 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	// For indenting
 	spacing := ""
 	if indent {
-		spacing = GetSpaces(level)
+		spacing = getSpaces(level)
 	}
 	// Generate the XML based on the tag
 	attrs := tag.GetAttrString()
@@ -158,7 +158,7 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 		} else {
 			ret += ">" + tag.content + "</" + tag.name + ">"
 			// Indented content
-			//ret += ">" + "\n" + GetSpaces(level + 1) + tag.content + "\n" + spacing + "</" + tag.name + ">"
+			//ret += ">" + "\n" + getSpaces(level + 1) + tag.content + "\n" + spacing + "</" + tag.name + ">"
 		}
 	}
 	return ret
