@@ -1,6 +1,8 @@
 package browserspeak
 
 import (
+	"strconv"
+
 	"github.com/hoisie/web"
 )
 
@@ -40,11 +42,8 @@ func XML(page *Page) func(*web.Context) string {
 
 // Set the margins of the body
 func (page *Page) SetMargin(em int) (*Tag, error) {
-	tag, err := page.root.GetTag("body")
-	if err == nil {
-		tag.SetMargin(em)
-	}
-	return tag, err
+	value := strconv.Itoa(em) + "em"
+	return page.bodyAttr("margin", value)
 }
 
 // Set one of the CSS styles of the body
