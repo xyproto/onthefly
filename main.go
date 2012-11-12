@@ -28,7 +28,7 @@ func testbuilder(cssurl string) *Page {
 	}
 
 	page.SetColor("#202020", "#A0A0A0")
-	page.SetFont("sans serif")
+	page.SetFontFamily("sans serif")
 
 	box, _ := page.addBox("box0", true)
 	box.AddStyle("margin-top", "-2em")

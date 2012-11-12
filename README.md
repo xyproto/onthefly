@@ -33,7 +33,7 @@ func helloPage(cssurl string) *browserspeak.Page {
 	page.SetMargin(3)
 
 	// Change the font family
-	page.SetFont("sans serif")
+	page.SetFontFamily("sans serif")
 
 	// Change the color scheme
 	page.SetColor("#202020", "#a0a0a0")
