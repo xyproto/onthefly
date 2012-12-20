@@ -47,7 +47,7 @@ func (tag *Tag) AddImage(url string, width string) *Tag {
 }
 
 // Repeat the background. repeat can be for instance "repeat-x"
-func (tag *Tag) repeatBackground(bgimageurl, repeat string) {
+func (tag *Tag) RepeatBackground(bgimageurl, repeat string) {
 	tag.AddStyle("background-image", "url('" + bgimageurl + "')")
 	tag.AddStyle("background-repeat", repeat)
 }

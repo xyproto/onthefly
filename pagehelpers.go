@@ -96,7 +96,7 @@ func Publish(htmlurl, cssurl string, buildfunction (func (string) *Page)) {
 	web.Get(cssurl, CSS(page))
 }
 
-func (page *Page) linkToCSS(cssurl string) error {
+func (page *Page) LinkToCSS(cssurl string) error {
 	head, err := page.GetTag("head")
 	if err == nil {
 		link := head.AddNewTag("link")
@@ -108,7 +108,7 @@ func (page *Page) linkToCSS(cssurl string) error {
 }
 
 // Takes a charset, for example UTF-8, and creates a <meta> tag in <head>
-func (page *Page) metaCharset(charset string) error {
+func (page *Page) MetaCharset(charset string) error {
 	// Add a meta tag
 	head, err := page.GetTag("head")
 	if err == nil {
@@ -120,7 +120,7 @@ func (page *Page) metaCharset(charset string) error {
 }
 
 // Link to Google Fonts
-func linkToGoogleFont(page *Page, name string) error {
+func LinkToGoogleFont(page *Page, name string) error {
 	url := "http://fonts.googleapis.com/css?family="
 	// Replace space with +, if needed
 	if strings.Contains(name, " ") {
