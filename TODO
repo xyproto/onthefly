@@ -1,0 +1,24 @@
+If there is already unindented content at a tag, when adding a tag:
+
+* add indent in front of the text that is already there
+* add a newline after the content that is already there
+
+This is the current situation:
+
+  <h1>
+    <a href="/">
+Arch      <font id="blue">Linux</font>
+      <font id="gray">Norway</font>
+    </a>
+  </h1>
+
+This is preferrable:
+
+  <h1>
+    <a href="/">
+      Arch
+      <font id="blue">Linux</font>
+      <font id="gray">Norway</font>
+    </a>
+  </h1>
+
