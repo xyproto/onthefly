@@ -129,7 +129,7 @@ func LinkToGoogleFont(page *Page, name string) error {
 		url += name
 	}
 	// Link to the CSS for the given font name
-	return page.linkToCSS(url)
+	return page.LinkToCSS(url)
 }
 
 // Creates a page based on the contents of "error.log". Useful for showing compile errors while creating an application.
