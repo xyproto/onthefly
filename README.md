@@ -6,6 +6,11 @@ Can also be used for generating templates and SVG
 
 <img src="https://raw.github.com/xyproto/browserspeak/master/browserspeak.png">
 
+Online API Documentation
+------------------------
+
+[go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
+
 Example
 -------
 
@@ -80,14 +85,9 @@ func main() {
 }
 ```
 
-API Documentation
------------------
 
-[go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
-
-
-Version: 0.31
+Version: 0.4
 License: MIT
 
-Alexander Rødseth <rodseth@ at gmail.com>
+Alexander Rødseth <rodseth at gmail.com>
 

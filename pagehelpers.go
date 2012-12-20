@@ -2,6 +2,10 @@ package browserspeak
 
 import (
 	"strconv"
+	"strings"
+	"path/filepath"
+	"io/ioutil"
+	"bytes"
 
 	"github.com/hoisie/web"
 )
@@ -92,4 +96,79 @@ func Publish(htmlurl, cssurl string, buildfunction (func (string) *Page)) {
 	web.Get(cssurl, CSS(page))
 }
 
+func (page *Page) linkToCSS(cssurl string) error {
+	head, err := page.GetTag("head")
+	if err == nil {
+		link := head.AddNewTag("link")
+		link.AddAttr("rel", "stylesheet")
+		link.AddAttr("href", cssurl)
+		link.AddAttr("type", "text/css")
+	}
+	return err
+}
 
+// Takes a charset, for example UTF-8, and creates a <meta> tag in <head>
+func (page *Page) metaCharset(charset string) error {
+	// Add a meta tag
+	head, err := page.GetTag("head")
+	if err == nil {
+		meta := head.AddNewTag("meta")
+		meta.AddAttr("http-equiv", "Content-Type")
+		meta.AddAttr("content", "text/html; charset=" + charset)
+	}
+	return err
+}
+
+// Link to Google Fonts
+func linkToGoogleFont(page *Page, name string) error {
+	url := "http://fonts.googleapis.com/css?family="
+	// Replace space with +, if needed
+	if strings.Contains(name, " ") {
+		url += strings.Replace(name, " ", "+", -1)
+	} else {
+		url += name
+	}
+	// Link to the CSS for the given font name
+	return page.linkToCSS(url)
+}
+
+// Creates a page based on the contents of "error.log". Useful for showing compile errors while creating an application.
+func Errorlog() string {
+	data, err := ioutil.ReadFile("error.log")
+	if err != nil {
+		return Message("Good", "No errors")
+	}
+	errors := strings.Replace(string(data), "\n", "</br>", -1)
+	return Message("Errors", errors)
+}
+
+// Handles pages that are not found
+func NotFound(ctx *web.Context, val string) {
+	ctx.NotFound(Message("No", "Page not found"))
+}
+
+// Takes a filename and a file extension and returns a function that can handle the request
+func FILE(filename, extension string) (func (ctx *web.Context) string) {
+	return func (ctx *web.Context) string {
+		if extension != "" {
+			ctx.ContentType(extension)
+		}
+		imagebytes, _ := ioutil.ReadFile(filename)
+		buf := bytes.NewBuffer(imagebytes)
+		return buf.String()
+	}
+}
+
+// Takes an url and a filename and offers that file at the given url
+func PublishFile(url, filename string) {
+	var extension string
+	if strings.Contains(filename, ".") {
+		extension = filepath.Ext(filename)
+	}
+	web.Get(url, FILE(filename, extension))
+}
+
+// Takes a filename and offers that file at the root url
+func PublishRootFile(filename string) {
+	PublishFile("/" + filename, filename)
+}

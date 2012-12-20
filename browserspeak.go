@@ -6,9 +6,7 @@ import (
 	"strings"
 )
 
-// TODO Add functions for building templates
-
-const VERSION = 0.31
+const VERSION = 0.4
 
 type Tag struct {
 	name        string
