@@ -120,7 +120,7 @@ func (page *Page) MetaCharset(charset string) error {
 }
 
 // Link to Google Fonts
-func (Page *page) LinkToGoogleFont(name string) error {
+func (page *Page) LinkToGoogleFont(name string) error {
 	url := "http://fonts.googleapis.com/css?family="
 	// Replace space with +, if needed
 	if strings.Contains(name, " ") {
