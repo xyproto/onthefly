@@ -32,7 +32,7 @@ func TestGen(t *testing.T) {
 	// Add a link to /test.svg
 	body, err := page.GetTag("body")
 	if err == nil {
-		body.AddNewTag("a")
+		body.AddNewTag("br")
 	//	a := body.AddNewTag("a")
 	//	a.AddAttr("href", "/test.svg")
 	//	a.AddContent("See SVG")

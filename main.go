@@ -63,7 +63,7 @@ func exampleSVG() string {
 }
 
 func main() {
-	Publish("/", "/main.css", testbuilder)
+	PublishPage("/", "/main.css", testbuilder)
 
 	web.Get("/error", errorlog)
 	web.Get("/hello", hello)

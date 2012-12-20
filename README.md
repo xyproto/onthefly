@@ -1,15 +1,19 @@
 Browserspeak
 ============
 
-Go library for generating HTML and CSS, so you don't have to
-Can also be used for generating templates and SVG
-
-<img src="https://raw.github.com/xyproto/browserspeak/master/browserspeak.png">
+* Go library for generating HTML and CSS, so you don't have to.
+* Can also be used for generating templates and SVG.
+* It's easier to refactor and DRY with code than HTML+CSS.
 
 Online API Documentation
 ------------------------
 
 [go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
+
+Screenshot of resulting output
+------------------------------
+
+<img src="https://raw.github.com/xyproto/browserspeak/master/browserspeak.png">
 
 Example
 -------
@@ -75,7 +79,7 @@ func main() {
 	fmt.Println("BrowserSpeak Version:", browserspeak.VERSION)
 
 	// Connect the url for the HTML and CSS with the HTML and CSS generated from helloPage
-	browserspeak.Publish("/", "/hello.css", helloPage)
+	browserspeak.PublishPage("/", "/hello.css", helloPage)
 
 	// Connect /test.svg with svgGenerator
 	web.Get("/test.svg", svgGenerator)
@@ -86,7 +90,7 @@ func main() {
 ```
 
 
-Version: 0.41
+Version: 0.42
 License: MIT
 
 Alexander Rødseth <rodseth at gmail.com>

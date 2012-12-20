@@ -6,13 +6,13 @@ import (
 	"strings"
 )
 
-const VERSION = 0.41
+const VERSION = 0.42
 
 type Tag struct {
 	name        string
 	style       map[string]string
 	content     string
-	htmlContent string
+	xmlContent  string
 	attrs       map[string]string
 	nextSibling *Tag // siblings
 	firstChild  *Tag // first child
@@ -134,7 +134,7 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	}
 	// For the root tag
 	if (len(tag.name) > 0) && (tag.name[0] == '<') {
-		return tag.name + newLine + tag.content + tag.htmlContent
+		return tag.name + newLine + tag.content + tag.xmlContent
 	}
 	// For indenting
 	spacing := ""
@@ -147,12 +147,16 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	if len(attrs) > 0 {
 		ret += " " + attrs
 	}
-	if (len(tag.content) == 0) && (len(tag.htmlContent) == 0) {
+	if (len(tag.content) == 0) && (len(tag.xmlContent) == 0) {
 		ret += " />"
 	} else {
-		if len(tag.htmlContent) > 0 {
-			//ret += ">" + newLine + tag.content + tag.htmlContent + spacing + "</" + tag.name + ">"
-			ret += ">" + newLine + tag.htmlContent + spacing + "</" + tag.name + ">"
+		if len(tag.xmlContent) > 0 {
+			if tag.xmlContent[0] != ' ' {
+				ret += ">" + newLine + spacing + tag.xmlContent + newLine + spacing + "</" + tag.name + ">"
+			} else {
+				//ret += ">" + newLine + tag.content + tag.xmlContent + spacing + "</" + tag.name + ">"
+				ret += ">" + newLine + tag.xmlContent + spacing + "</" + tag.name + ">"
+			}
 		} else {
 			ret += ">" + tag.content + "</" + tag.name + ">"
 			// Indented content
@@ -287,22 +291,22 @@ func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 	}
 
 	content := ""
-	htmlContent := ""
+	xmlContent := ""
 
 	level++
 
 	child := cursor.firstChild
 	for child != nil {
-		htmlContent = getXMLRecursively(child, indent, level)
-		if len(htmlContent) > 0 {
-			content += htmlContent
+		xmlContent = getXMLRecursively(child, indent, level)
+		if len(xmlContent) > 0 {
+			content += xmlContent
 		}
 		child = child.nextSibling
 	}
 
 	level--
 
-	cursor.htmlContent = cursor.content + content
+	cursor.xmlContent = cursor.content + content
 
 	ret := cursor.getFlatXML(indent, level)
 	if level > 0 {
@@ -387,5 +391,3 @@ func (page *Page) AddContent(content string) (*Tag, error) {
 func (page *Page) String() string {
 	return page.GetXML(false)
 }
-
-
