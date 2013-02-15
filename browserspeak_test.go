@@ -26,7 +26,7 @@ func TestSVG2(t *testing.T) {
 
 func TestGen(t *testing.T) {
 	page := NewHTML5Page("Hello Title")
-	page.LinkCSS("/test.css")
+	page.LinkToCSS("/test.css")
 	page.AddContent("hello body")
 
 	// Add a link to /test.svg

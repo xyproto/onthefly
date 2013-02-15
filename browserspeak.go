@@ -360,21 +360,6 @@ func (page *Page) prettyPrint() {
 	fmt.Printf("CSS:\n%s\n", page.GetCSS())
 }
 
-// Link a page up with a CSS file
-// Takes the url to a CSS file as a string
-// The given page must have a "head" tag for this to work
-// Returns an error if no "head" tag is found, or nil
-func (page *Page) LinkCSS(cssurl string) error {
-	head, err := page.root.GetTag("head")
-	if err == nil {
-		link := head.AddNewTag("link")
-		link.AddAttr("rel", "stylesheet")
-		link.AddAttr("href", cssurl)
-		link.AddAttr("type", "text/css")
-	}
-	return err
-}
-
 // Add content to the body tag
 // Returns the body tag and nil if successful
 // Returns and an error if no body tag is found, else nil

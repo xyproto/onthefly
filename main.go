@@ -21,7 +21,7 @@ func testbuilder(cssurl string) *Page {
 		h1.AddContent("Spe")
 	}
 
-	if err := page.LinkCSS(cssurl); err == nil {
+	if err := page.LinkToCSS(cssurl); err == nil {
 		h1.AddContent("ak")
 	} else {
 		h1.AddContent("akkkkkkkk")

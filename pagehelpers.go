@@ -89,8 +89,10 @@ func Message(title, msg string) string {
 	return "<!DOCTYPE html><html><head><title>" + title + "</title></head><body style=\"margin:4em; font-family:courier; color:gray; background-color:light gray;\"><h2>" + title + "</h2><hr style=\"margin-top:-1em; margin-bottom: 2em; margin-right: 20%; text-align: left; border: 1px dotted #b0b0b0; height:1px;\"><div style=\"margin-left: 2em;\">" + msg + "</div></body></html>"
 }
 
-
-
+// Link a page up with a CSS file
+// Takes the url to a CSS file as a string
+// The given page must have a "head" tag for this to work
+// Returns an error if no "head" tag is found, or nil
 func (page *Page) LinkToCSS(cssurl string) error {
 	head, err := page.GetTag("head")
 	if err == nil {
@@ -101,6 +103,22 @@ func (page *Page) LinkToCSS(cssurl string) error {
 	}
 	return err
 }
+
+// Link a page up with a Favicon file
+// Takes the url to a favicon file as a string
+// The given page must have a "head" tag for this to work
+// Returns an error if no "head" tag is found, or nil
+func (page *Page) LinkToFavicon(favurl string) error {
+	head, err := page.root.GetTag("head")
+	if err == nil {
+		link := head.AddNewTag("link")
+		link.AddAttr("rel", "shortcut icon")
+		link.AddAttr("href", favurl)
+	}
+	return err
+}
+
+
 
 // Takes a charset, for example UTF-8, and creates a <meta> tag in <head>
 func (page *Page) MetaCharset(charset string) error {
