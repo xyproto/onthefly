@@ -1,6 +1,6 @@
 #!/bin/sh
-SOURCE=main.go
-BIN=main
+SOURCE=*.go
+BIN=archweb
 PIDFILE=$BIN.pid
 LOG=error.log
 M5=nop
@@ -14,7 +14,7 @@ if [ -e $PIDFILE ]; then
 fi
 while true; do
   OLDM5=$M5
-  md5sum *.go > $SUMFILE
+  md5sum $SOURCE > $SUMFILE
   M5=$(md5sum $SUMFILE)
   if [ "$OLDM5" != "$M5" ]; then
     echo 'Source changed'
@@ -46,5 +46,5 @@ while true; do
     pgrep $BIN > $PIDFILE
   fi
   # Wait for the source to be changed
-  inotifywait *.go
+  inotifywait $SOURCE
 done
