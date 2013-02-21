@@ -1,8 +1,8 @@
 package browserspeak
 
 import (
-	"testing"
 	"strings"
+	"testing"
 )
 
 func TestSVG(t *testing.T) {
@@ -33,9 +33,9 @@ func TestGen(t *testing.T) {
 	body, err := page.GetTag("body")
 	if err == nil {
 		body.AddNewTag("br")
-	//	a := body.AddNewTag("a")
-	//	a.AddAttr("href", "/test.svg")
-	//	a.AddContent("See SVG")
+		//	a := body.AddNewTag("a")
+		//	a.AddAttr("href", "/test.svg")
+		//	a.AddContent("See SVG")
 	}
 
 	if strings.Count(body.GetContent(), "hello body") > 1 {

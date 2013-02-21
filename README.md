@@ -90,7 +90,7 @@ func main() {
 ```
 
 
-Version: 0.42
+Version: 0.43
 License: MIT
 
 Alexander Rødseth <rodseth at gmail.com>

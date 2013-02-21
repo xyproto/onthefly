@@ -6,7 +6,6 @@ import (
 	"github.com/hoisie/web"
 )
 
-
 // This is a test function
 func testbuilder(cssurl string) *Page {
 	page := NewHTML5Page("Hello")

@@ -1,8 +1,8 @@
 package browserspeak
 
 import (
-	"strconv"
 	"fmt"
+	"strconv"
 )
 
 func NewTinySVG(x, y, w, h int) (*Page, *Tag) {
@@ -15,7 +15,7 @@ func NewTinySVG(x, y, w, h int) (*Page, *Tag) {
 	sy := strconv.Itoa(y)
 	sw := strconv.Itoa(w)
 	sh := strconv.Itoa(h)
-	svg.AddAttr("viewBox", sx + " " + sy + " " + sw + " " + sh)
+	svg.AddAttr("viewBox", sx+" "+sy+" "+sw+" "+sh)
 	return page, svg
 }
 
