@@ -3,7 +3,7 @@ package browserspeak
 import (
 	"io/ioutil"
 
-	"github.com/hoisie/web"
+	"github.com/xyproto/web"
 )
 
 // This is a test function

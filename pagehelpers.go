@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hoisie/web"
+	"github.com/xyproto/web"
 )
 
 // Create a blank HTML5 page
