@@ -156,6 +156,7 @@ func Errorlog() string {
 // Handles pages that are not found
 func NotFound(ctx *web.Context, val string) {
 	ctx.NotFound(Message("No", "Page not found"))
+	return ""
 }
 
 // Takes a filename and returns a function that can handle the request
