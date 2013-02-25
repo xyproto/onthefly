@@ -6,6 +6,13 @@ import (
 	"github.com/xyproto/web"
 )
 
+type (
+	// Various functiomn signatures for handling requests
+	WebHandle           (func(ctx *web.Context, val string) string)
+	SimpleWebHandle     (func(string) string)
+	SimpleContextHandle (func(ctx *web.Context) string)
+)
+
 // This is a test function
 func testbuilder(cssurl string) *Page {
 	page := NewHTML5Page("Hello")
