@@ -114,6 +114,7 @@ func (page *Page) LinkToJS(jsurl string) error {
 		src := head.AddNewTag("script")
 		src.AddAttr("src", jsurl)
 		src.AddAttr("type", "text/javascript")
+		src.AddContent(" ")
 	}
 	return err
 }
