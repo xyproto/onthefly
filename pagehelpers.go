@@ -104,6 +104,20 @@ func (page *Page) LinkToCSS(cssurl string) error {
 	return err
 }
 
+// Link a page up with a JS file
+// Takes the url to a JS file as a string
+// The given page must have a "head" tag for this to work
+// Returns an error if no "head" tag is found, or nil
+func (page *Page) LinkToJS(jsurl string) error {
+	head, err := page.GetTag("head")
+	if err == nil {
+		src := head.AddNewTag("script")
+		src.AddAttr("src", jsurl)
+		src.AddAttr("type", "text/javascript")
+	}
+	return err
+}
+
 // Link a page up with a Favicon file
 // Takes the url to a favicon file as a string
 // The given page must have a "head" tag for this to work
