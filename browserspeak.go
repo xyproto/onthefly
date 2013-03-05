@@ -307,7 +307,7 @@ func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 
 	level--
 
-	cursor.xmlContent = cursor.content + content
+	cursor.xmlContent = cursor.content + content + cursor.lastContent
 
 	ret := cursor.getFlatXML(indent, level)
 	if level > 0 {
