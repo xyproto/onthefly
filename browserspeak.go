@@ -6,12 +6,13 @@ import (
 	"strings"
 )
 
-const VERSION = 0.45
+const VERSION = 0.46
 
 type Tag struct {
 	name        string
 	style       map[string]string
 	content     string
+	lastContent string
 	xmlContent  string
 	attrs       map[string]string
 	nextSibling *Tag // siblings
@@ -46,6 +47,7 @@ func NewTag(name string) *Tag {
 	tag.nextSibling = nil
 	tag.firstChild = nil
 	tag.content = ""
+	tag.lastContent = ""
 	return &tag
 }
 
@@ -134,7 +136,7 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	}
 	// For the root tag
 	if (len(tag.name) > 0) && (tag.name[0] == '<') {
-		return tag.name + newLine + tag.content + tag.xmlContent
+		return tag.name + newLine + tag.content + tag.xmlContent + tag.lastContent
 	}
 	// For indenting
 	spacing := ""
@@ -147,20 +149,17 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	if len(attrs) > 0 {
 		ret += " " + attrs
 	}
-	if (len(tag.content) == 0) && (len(tag.xmlContent) == 0) {
+	if (len(tag.content) == 0) && (len(tag.xmlContent) == 0) && (len(tag.lastContent) == 0) {
 		ret += " />"
 	} else {
 		if len(tag.xmlContent) > 0 {
 			if tag.xmlContent[0] != ' ' {
 				ret += ">" + newLine + spacing + tag.xmlContent + newLine + spacing + "</" + tag.name + ">"
 			} else {
-				//ret += ">" + newLine + tag.content + tag.xmlContent + spacing + "</" + tag.name + ">"
 				ret += ">" + newLine + tag.xmlContent + spacing + "</" + tag.name + ">"
 			}
 		} else {
-			ret += ">" + tag.content + "</" + tag.name + ">"
-			// Indented content
-			//ret += ">" + "\n" + getSpaces(level + 1) + tag.content + "\n" + spacing + "</" + tag.name + ">"
+			ret += ">" + tag.content + tag.lastContent + "</" + tag.name + ">"
 		}
 	}
 	return ret
@@ -191,16 +190,18 @@ func (tag *Tag) AddChild(child *Tag) {
 
 // Add content to a tag. This is what will appear
 // between two tags, for example: <tag>content</tag>
+// If the tag contains child tags, they will be added after this
 func (tag *Tag) AddContent(content string) {
 	tag.content += content
 }
 
-// Get the content of a tag
-func (tag *Tag) GetContent() string {
-	return tag.content
+// Add content that will be added within a tag, but after
+// the other content and any child tags
+func (tag *Tag) AddLastContent(content string) {
+	tag.lastContent += content
 }
 
-// Count how many children a tag has
+// Count how many children a tag has  
 // Returns an integer
 func (tag *Tag) CountChildren() int {
 	child := tag.firstChild
