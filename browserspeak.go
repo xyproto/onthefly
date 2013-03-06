@@ -351,6 +351,11 @@ func (page *Page) GetCSS() string {
 	return getCSSRecursively(page.root)
 }
 
+// Generate HTML for a page
+func (page *Page) GetHTML() string {
+	return page.GetXML(false)
+}
+
 // Show various information for a page, used for debugging
 func (page *Page) prettyPrint() {
 	root := *page.root
@@ -372,8 +377,7 @@ func (page *Page) AddContent(content string) (*Tag, error) {
 	return body, err
 }
 
-// Generate non-indented text for a Page
-// Works for HTML, SVG and other XML files
+// Get the string for the page
 func (page *Page) String() string {
-	return page.GetXML(false)
+	return page.GetHTML()
 }
