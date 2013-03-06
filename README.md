@@ -4,6 +4,7 @@ Browserspeak
 * Go library for generating HTML and CSS, so you don't have to.
 * Can also be used for generating templates and SVG.
 * It's easier to refactor and DRY with code than HTML+CSS.
+* Now also with support for Mustache templates
 
 Online API Documentation
 ------------------------

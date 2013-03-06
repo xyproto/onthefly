@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-const VERSION = 0.46
+const VERSION = 0.47
 
 type Tag struct {
 	name        string
