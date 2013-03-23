@@ -2,9 +2,8 @@ package main
 
 import (
 	"io/ioutil"
-	//"fmt"
 
-	"github.com/hoisie/web"
+	"github.com/xyproto/web"
 	"github.com/xyproto/browserspeak"
 )
 
@@ -36,9 +35,9 @@ func testbuilder(cssurl string) *browserspeak.Page {
 	}
 
 	page.SetColor("#202020", "#A0A0A0")
-	page.SetFont("sans serif")
+	page.SetFontFamily("sans serif")
 
-	box, _ := page.AddBox("box0", true)
+	box := body.AddBox("box0", true, "0.9em", "Text", "white", "black", "3em")
 	box.AddStyle("margin-top", "-2em")
 	box.AddStyle("margin-bottom", "3em")
 
@@ -79,7 +78,7 @@ func onTheFlyRepo(ctx *web.Context) {
 }
 
 func main() {
-	browserspeak.Publish("/", "/main.css", testbuilder)
+	browserspeak.PublishPage("/", "/main.css", testbuilder)
 
 	web.Get("/error", errorlog)
 

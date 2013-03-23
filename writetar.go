@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hoisie/web"
+	"github.com/xyproto/web"
 )
 
 func writeFile(w *tar.Writer, pkgdir, filename string, contents map[string]string) {
