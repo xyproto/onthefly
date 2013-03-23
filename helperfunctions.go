@@ -12,7 +12,7 @@ func CowboyTag(tagname string) (*Page, *Tag) {
 	return page, tag
 }
 
-func tagString(tagname string) string {
+func TagString(tagname string) string {
 	page := NewPage("blank", tagname)
 	return page.String()
 }
