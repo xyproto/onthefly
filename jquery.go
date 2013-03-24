@@ -81,6 +81,11 @@ func ShowInlineAnimated(tagname string) string {
 	return ShowInline(tagname) + Hide(tagname) + ShowAnimated(tagname)
 }
 
+// Same as ShowAnimatedIf, but set display to inline instead of block
+func ShowInlineAnimatedIf(tagname string) string {
+	return "$.get(" + quote(booleanURL) + ", function(data) { if (data == \"1\") {" + ShowInlineAnimated(tagname) + "}; });"
+}
+
 func Load(tagname, url string) string {
 	return methodString(tagname, "load", url)
 }
