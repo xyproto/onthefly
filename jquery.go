@@ -82,7 +82,7 @@ func ShowInlineAnimated(tagname string) string {
 }
 
 // Same as ShowAnimatedIf, but set display to inline instead of block
-func ShowInlineAnimatedIf(tagname string) string {
+func ShowInlineAnimatedIf(booleanURL, tagname string) string {
 	return "$.get(" + quote(booleanURL) + ", function(data) { if (data == \"1\") {" + ShowInlineAnimated(tagname) + "}; });"
 }
 
