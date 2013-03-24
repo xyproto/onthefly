@@ -115,9 +115,9 @@ func HideIfNotLoginLogoutRegister(threeBooleanURL, logintag, logouttag, register
 func ShowIfLoginLogoutRegister(threeBooleanURL, logintag, logouttag, registertag string) string {
 	src := "$.get(" + quote(threeBooleanURL) + ", function(data) {"
 	// TODO: See what happens if data < 3 length
-	src += "if (data[0] == \"1\") {" + ShowInline(logintag) + "};"
-	src += "if (data[1] == \"1\") {" + ShowInline(logouttag) + "};"
-	src += "if (data[2] == \"1\") {" + ShowInline(registertag) + "};"
+	src += "if (data[0] == \"1\") {" + ShowInlineAnimated(logintag) + "};"
+	src += "if (data[1] == \"1\") {" + ShowInlineAnimated(logouttag) + "};"
+	src += "if (data[2] == \"1\") {" + ShowInlineAnimated(registertag) + "};"
 	src += "});"
 	return src
 }
