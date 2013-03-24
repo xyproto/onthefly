@@ -11,6 +11,8 @@ import (
 	"github.com/xyproto/web"
 )
 
+var globalStringCache map[string]string
+
 // Create a blank HTML5 page
 func NewHTML5Page(titleText string) *Page {
 	page := NewPage(titleText, "<!DOCTYPE html>")
@@ -214,3 +216,30 @@ func PublishPage(htmlurl, cssurl string, buildfunction (func(string) *Page)) {
 	web.Get(htmlurl, GenerateHTML(page))
 	web.Get(cssurl, GenerateCSS(page))
 }
+
+func AddHeader(page *Page, js string) {
+	page.MetaCharset("UTF-8")
+	AddScriptToHeader(page, js)
+}
+
+// Wrap a SimpleContextHandle so that the output is cached (with an id)
+// Do not cache functions with side-effects! (that sets the mimetype for instance)
+// The safest thing for now is to only cache images.
+func CacheWrapper(id string, f SimpleContextHandle) SimpleContextHandle {
+	return func(ctx *web.Context) string {
+		if _, ok := globalStringCache[id]; !ok {
+			globalStringCache[id] = f(ctx)
+		}
+		return globalStringCache[id]
+	}
+}
+
+func Publish(url, filename string, cache bool) {
+	if cache {
+		web.Get(url, CacheWrapper(url, File(filename)))
+	} else {
+		web.Get(url, File(filename))
+	}
+}
+
+
