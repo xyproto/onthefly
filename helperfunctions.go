@@ -68,4 +68,3 @@ func MessageOKback(title, msg string) string {
 func MessageOKurl(title, msg, url string) string {
 	return messageComposer(title, msg, "location.href='"+url+"';")
 }
-

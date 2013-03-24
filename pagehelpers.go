@@ -241,5 +241,3 @@ func Publish(url, filename string, cache bool) {
 		web.Get(url, File(filename))
 	}
 }
-
-
