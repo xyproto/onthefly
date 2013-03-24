@@ -1,5 +1,7 @@
 package browserspeak
 
+// Various JavaScript and JQuery functions
+
 // Creates an anonymous function
 func fn(source string) string {
 	return "function() { " + source + " }"
@@ -98,28 +100,6 @@ func HideIfNot(booleanURL, tagname string) string {
 // Show a tag if booleanURL returns "1" (true)
 func ShowAnimatedIf(booleanURL, tagname string) string {
 	return "$.get(" + quote(booleanURL) + ", function(data) { if (data == \"1\") {" + ShowAnimated(tagname) + "}; });"
-}
-
-// Optimized function for login, logout and register
-func HideIfNotLoginLogoutRegister(threeBooleanURL, logintag, logouttag, registertag string) string {
-	src := "$.get(" + quote(threeBooleanURL) + ", function(data) {"
-	// TODO: See what happens if data < 3 length
-	src += "if (data[0] != \"1\") {" + Hide(logintag) + "};"
-	src += "if (data[1] != \"1\") {" + Hide(logouttag) + "};"
-	src += "if (data[2] != \"1\") {" + Hide(registertag) + "};"
-	src += "});"
-	return src
-}
-
-// Optimized function for login, logout and register
-func ShowIfLoginLogoutRegister(threeBooleanURL, logintag, logouttag, registertag string) string {
-	src := "$.get(" + quote(threeBooleanURL) + ", function(data) {"
-	// TODO: See what happens if data < 3 length
-	src += "if (data[0] == \"1\") {" + ShowInlineAnimated(logintag) + "};"
-	src += "if (data[1] == \"1\") {" + ShowInlineAnimated(logouttag) + "};"
-	src += "if (data[2] == \"1\") {" + ShowInlineAnimated(registertag) + "};"
-	src += "});"
-	return src
 }
 
 // Returns html to run javascript once the document is ready
