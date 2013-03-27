@@ -6,6 +6,7 @@ import (
 
 // Create an empty page only containing the given tag
 // Returns both the page and the tag
+// A lone tag, without a proper page
 func CowboyTag(tagname string) (*Page, *Tag) {
 	page := NewPage("blank", tagname)
 	tag, _ := page.GetTag(tagname)

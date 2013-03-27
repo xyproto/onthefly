@@ -353,7 +353,7 @@ func (page *Page) GetCSS() string {
 
 // Generate HTML for a page
 func (page *Page) GetHTML() string {
-	return page.GetXML(false)
+	return page.GetXML(true)
 }
 
 // Show various information for a page, used for debugging
