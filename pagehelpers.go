@@ -173,13 +173,15 @@ func (page *Page) LinkToGoogleFont(name string) error {
 }
 
 // Creates a page based on the contents of "error.log". Useful for showing compile errors while creating an application.
-func Errorlog(errorfilename string) string {
-	data, err := ioutil.ReadFile(errorfilename)
-	if err != nil {
-		return Message("Good", "No errors")
+func GenerateErrorHandle(errorfilename string) SimpleContextHandle {
+	return func(ctx *web.Context) string {
+		data, err := ioutil.ReadFile(errorfilename)
+		if err != nil {
+			return Message("Good", "No errors")
+		}
+		errors := strings.Replace(string(data), "\n", "</br>", -1)
+		return Message("Errors", errors)
 	}
-	errors := strings.Replace(string(data), "\n", "</br>", -1)
-	return Message("Errors", errors)
 }
 
 // Handles pages that are not found
