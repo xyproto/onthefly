@@ -4,7 +4,7 @@ BIN=archweb
 PIDFILE=$BIN.pid
 LOG=error.log
 M5=nop
-SUMFILE=sumfile.txt
+SUMFILE=/tmp/sumfile.txt
 echo 'Starting compilation loop'
 echo 'Reading pid'
 if [ -e $PIDFILE ]; then
