@@ -11,6 +11,9 @@ import (
 	"github.com/xyproto/web"
 )
 
+type TemplateValues map[string]string
+type TemplateValueGenerator func(*web.Context) TemplateValues
+
 var globalStringCache map[string]string
 
 // Create a blank HTML5 page
@@ -32,8 +35,9 @@ func GenerateHTML(page *Page) func(*web.Context) string {
 }
 
 // Create a web.go compatible function that returns a string that is the HTML for this page
-func GenerateHTMLwithTemplate(page *Page, values map[string]string) func(*web.Context) string {
+func GenerateHTMLwithTemplate(page *Page, tvg TemplateValueGenerator) func(*web.Context) string {
 	return func(ctx *web.Context) string {
+		values := tvg(ctx)
 		return mustache.Render(page.GetXML(true), values)
 	}
 }
@@ -169,8 +173,8 @@ func (page *Page) LinkToGoogleFont(name string) error {
 }
 
 // Creates a page based on the contents of "error.log". Useful for showing compile errors while creating an application.
-func Errorlog() string {
-	data, err := ioutil.ReadFile("error.log")
+func Errorlog(errorfilename string) string {
+	data, err := ioutil.ReadFile(errorfilename)
 	if err != nil {
 		return Message("Good", "No errors")
 	}
