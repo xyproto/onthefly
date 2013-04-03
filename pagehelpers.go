@@ -9,6 +9,7 @@ import (
 
 	"github.com/drbawb/mustache"
 	"github.com/xyproto/web"
+	"github.com/xyproto/instapage"
 )
 
 type TemplateValues map[string]string
@@ -97,12 +98,6 @@ func (page *Page) addBox(id string, rounded bool) (*Tag, error) {
 	return tag, err
 }
 
-// Creates a HTML page with a title that displays a message
-// Can be used for debugging
-func Message(title, msg string) string {
-	return "<!DOCTYPE html><html><head><title>" + title + "</title></head><body style=\"margin:4em; font-family:courier; color:gray; background-color:light gray;\"><h2>" + title + "</h2><hr style=\"margin-top:-1em; margin-bottom: 2em; margin-right: 20%; text-align: left; border: 1px dotted #b0b0b0; height:1px;\"><div style=\"margin-left: 2em;\">" + msg + "</div></body></html>"
-}
-
 // Link a page up with a CSS file
 // Takes the url to a CSS file as a string
 // The given page must have a "head" tag for this to work
@@ -177,16 +172,16 @@ func GenerateErrorHandle(errorfilename string) SimpleContextHandle {
 	return func(ctx *web.Context) string {
 		data, err := ioutil.ReadFile(errorfilename)
 		if err != nil {
-			return Message("Good", "No errors")
+			return instapage.Message("Good", "No errors")
 		}
 		errors := strings.Replace(string(data), "\n", "</br>", -1)
-		return Message("Errors", errors)
+		return instapage.Message("Errors", errors)
 	}
 }
 
 // Handles pages that are not found
 func NotFound(ctx *web.Context, val string) string {
-	ctx.NotFound(Message("No", "Page not found"))
+	ctx.NotFound(instapage.Message("No", "Page not found"))
 	return ""
 }
 

@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 
 	"github.com/xyproto/web"
+	"github.com/xyproto/instapage"
 )
 
 type (
@@ -56,7 +57,7 @@ func errorlog() string {
 }
 
 func hello(val string) string {
-	return Message("root page", "hello: "+val)
+	return instapage.Message("root page", "hello: "+val)
 }
 
 func notFound(ctx *web.Context, message string) {
