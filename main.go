@@ -3,8 +3,8 @@ package browserspeak
 import (
 	"io/ioutil"
 
-	"github.com/xyproto/web"
 	"github.com/xyproto/instapage"
+	"github.com/xyproto/web"
 )
 
 type (

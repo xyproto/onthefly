@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/drbawb/mustache"
-	"github.com/xyproto/web"
 	"github.com/xyproto/instapage"
+	"github.com/xyproto/web"
 )
 
 type TemplateValues map[string]string

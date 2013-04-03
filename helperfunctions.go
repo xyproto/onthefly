@@ -41,4 +41,3 @@ func SetWidthAndSide(tag *Tag, width string, leftside bool) {
 	tag.AddStyle("float", side)
 	tag.AddStyle("width", width)
 }
-
