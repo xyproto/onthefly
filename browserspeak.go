@@ -201,7 +201,7 @@ func (tag *Tag) AddLastContent(content string) {
 	tag.lastContent += content
 }
 
-// Count how many children a tag has  
+// Count how many children a tag has
 // Returns an integer
 func (tag *Tag) CountChildren() int {
 	child := tag.firstChild
