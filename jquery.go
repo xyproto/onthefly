@@ -69,6 +69,10 @@ func Show(tagname string) string {
 	return "$(" + quote(tagname) + ").show();"
 }
 
+func Focus(tagname string) string {
+	return "$(" + quote(tagname) + ").focus();"
+}
+
 func ShowAnimated(tagname string) string {
 	return "$(" + quote(tagname) + ").show('normal');" // 'fast', 'normal', 'slow' or milliseconds
 }
@@ -102,11 +106,18 @@ func ShowAnimatedIf(booleanURL, tagname string) string {
 	return "$.get(" + quote(booleanURL) + ", function(data) { if (data == \"1\") {" + ShowAnimated(tagname) + "}; });"
 }
 
+func JS(source string) string {
+	if source != "" {
+		return "<script type=\"text/javascript\">" + source + "</script>"
+	}
+	return ""
+}
+
 // Returns html to run javascript once the document is ready
 // Returns an empty string if there is no javascript to run.
-func BodyJS(source string) string {
+func DocumentReadyJS(source string) string {
 	if source != "" {
-		return "<script type=\"text/javascript\">" + OnDocumentReady(source) + "</script>"
+		return JS(OnDocumentReady(source))
 	}
 	return ""
 }
