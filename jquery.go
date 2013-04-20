@@ -106,6 +106,10 @@ func ShowAnimatedIf(booleanURL, tagname string) string {
 	return "$.get(" + quote(booleanURL) + ", function(data) { if (data == \"1\") {" + ShowAnimated(tagname) + "}; });"
 }
 
+func ScrollDownAnimated() string {
+	return "$('html, body').animate({scrollTop:$(document).height()}, 'slow');"
+}
+
 func JS(source string) string {
 	if source != "" {
 		return "<script type=\"text/javascript\">" + source + "</script>"
@@ -124,4 +128,9 @@ func DocumentReadyJS(source string) string {
 
 func Redirect(url string) string {
 	return "window.location.href = \"" + url + "\";"
+}
+
+// TODO: Move to a different file
+func BackButton() string {
+	return "<button onClick='history.go(-1);'>Back</button>"
 }
