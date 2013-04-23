@@ -6,7 +6,9 @@ import (
 	"strings"
 )
 
-const VERSION = 0.47
+const (
+	NOATTRIBUTE = "NOATTRIBUTE"
+)
 
 type Tag struct {
 	name        string
@@ -77,6 +79,11 @@ func (tag *Tag) AddAttr(attrName, attrValue string) {
 	tag.attrs[attrName] = attrValue
 }
 
+// Add an attribute without a value
+func (tag *Tag) AddBareAttr(attrName string) {
+	tag.attrs[attrName] = NOATTRIBUTE
+}
+
 // Generate the CSS text for a given tag
 // The generated string can be used directly in a CSS file
 func (tag *Tag) GetCSS() string {
@@ -85,6 +92,8 @@ func (tag *Tag) GetCSS() string {
 	}
 
 	ret := ""
+
+	// TODO: Support for "class" as well as "id"
 
 	// If there is an id="name" defined, use that id instead of the tag name
 	value, found := tag.attrs["id"]
@@ -109,7 +118,11 @@ func (tag *Tag) GetCSS() string {
 func (tag *Tag) GetAttrString() string {
 	ret := ""
 	for key, value := range tag.attrs {
-		ret += key + "=\"" + value + "\"" + " "
+		if value == NOATTRIBUTE {
+			ret += key + " "
+		} else {
+			ret += key + "=\"" + value + "\"" + " "
+		}
 	}
 	if len(ret) > 0 {
 		ret = ret[:len(ret)-1]
