@@ -38,10 +38,6 @@ func TestGen(t *testing.T) {
 		//	a.AddContent("See SVG")
 	}
 
-	//if strings.Count(body.GetContent(), "hello body") > 1 {
-	//	t.Errorf("Error, text appears more than once in body content!\n")
-	//}
-
 	p := *page
 	p.prettyPrint()
 
