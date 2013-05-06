@@ -3,15 +3,8 @@ package browserspeak
 import (
 	"io/ioutil"
 
+	"github.com/hoisie/web"
 	"github.com/xyproto/instapage"
-	"github.com/xyproto/web"
-)
-
-type (
-	// Various functiomn signatures for handling requests
-	WebHandle           (func(ctx *web.Context, val string) string)
-	SimpleWebHandle     (func(string) string)
-	SimpleContextHandle (func(ctx *web.Context) string)
 )
 
 // This is a test function

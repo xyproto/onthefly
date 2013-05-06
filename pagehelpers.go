@@ -8,12 +8,18 @@ import (
 	"strings"
 
 	"github.com/drbawb/mustache"
+	"github.com/hoisie/web"
 	"github.com/xyproto/instapage"
-	"github.com/xyproto/web"
 )
 
-type TemplateValues map[string]string
-type TemplateValueGenerator func(*web.Context) TemplateValues
+type (
+	// Various functiomn signatures for handling requests
+	WebHandle              (func(ctx *web.Context, val string) string)
+	SimpleWebHandle        (func(string) string)
+	SimpleContextHandle    (func(ctx *web.Context) string)
+	TemplateValues         map[string]string
+	TemplateValueGenerator func(*web.Context) TemplateValues
+)
 
 var globalStringCache map[string]string
 
