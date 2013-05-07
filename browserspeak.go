@@ -7,7 +7,8 @@ import (
 )
 
 const (
-	NOATTRIBUTE = "NOATTRIBUTE"
+	Version     = 0.5
+	noAttribute = "NIL"
 )
 
 type Tag struct {
@@ -81,7 +82,7 @@ func (tag *Tag) AddAttr(attrName, attrValue string) {
 
 // Add an attribute without a value
 func (tag *Tag) AddBareAttr(attrName string) {
-	tag.attrs[attrName] = NOATTRIBUTE
+	tag.attrs[attrName] = noAttribute
 }
 
 // Generate the CSS text for a given tag
@@ -118,7 +119,7 @@ func (tag *Tag) GetCSS() string {
 func (tag *Tag) GetAttrString() string {
 	ret := ""
 	for key, value := range tag.attrs {
-		if value == NOATTRIBUTE {
+		if value == noAttribute {
 			ret += key + " "
 		} else {
 			ret += key + "=\"" + value + "\"" + " "

@@ -25,7 +25,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/xyproto/web"
+	"github.com/hoisie/web"
 	"github.com/xyproto/browserspeak"
 )
 
@@ -34,7 +34,7 @@ func helloPage(cssurl string) *browserspeak.Page {
 	page := browserspeak.NewHTML5Page("Hello Title")
 
 	// Link the page to the css file generated from this page
-	page.LinkCSS(cssurl)
+	page.LinkToCSS(cssurl)
 
 	// Add some text
 	page.AddContent("hello body")
@@ -77,7 +77,7 @@ func svgGenerator() string {
 }
 
 func main() {
-	fmt.Println("BrowserSpeak Version:", browserspeak.VERSION)
+	fmt.Println("BrowserSpeak Version:", browserspeak.Version)
 
 	// Connect the url for the HTML and CSS with the HTML and CSS generated from helloPage
 	browserspeak.PublishPage("/", "/hello.css", helloPage)
@@ -90,8 +90,10 @@ func main() {
 }
 ```
 
+Version, license and author
+---------------------------
 
-Version: 0.43
+Version: 0.5
 License: MIT
 
 Alexander Rødseth <rodseth at gmail.com>
