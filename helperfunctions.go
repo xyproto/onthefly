@@ -6,9 +6,7 @@ import (
 
 // Create an empty page only containing the given tag
 // Returns both the page and the tag
-// A lone tag, without a proper page
-// TODO: Find a better name
-func CowboyTag(tagname string) (*Page, *Tag) {
+func StandaloneTag(tagname string) (*Page, *Tag) {
 	page := NewPage("blank", tagname)
 	tag, _ := page.GetTag(tagname)
 	return page, tag

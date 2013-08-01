@@ -129,8 +129,3 @@ func DocumentReadyJS(source string) string {
 func Redirect(url string) string {
 	return "window.location.href = \"" + url + "\";"
 }
-
-// TODO: Move to a different file
-func BackButton() string {
-	return "<button onClick='history.go(-1);'>Back</button>"
-}
