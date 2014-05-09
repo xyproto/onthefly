@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/hoisie/web"
+    "github.com/go-martini/martini"
+	"github.com/martini-contrib/web"
 	"github.com/xyproto/browserspeak"
 )
 
@@ -57,12 +58,15 @@ func svgGenerator() string {
 func main() {
 	fmt.Println("BrowserSpeak Version:", browserspeak.Version)
 
+	m := martini.Classic()
+    m.Use(web.ContextWithCookieSecret(""))
+
 	// Connect the url for the HTML and CSS with the HTML and CSS generated from helloPage
-	browserspeak.PublishPage("/", "/hello.css", helloPage)
+	browserspeak.PublishPage(m, "/", "/hello.css", helloPage)
 
 	// Connect /test.svg with svgGenerator
-	web.Get("/test.svg", svgGenerator)
+	m.Get("/test.svg", svgGenerator)
 
-	// Run the web server at port 8080
-	web.Run("0.0.0.0:8080")
+	// Run the web server at environment variables HOST and PORT
+	m.Run()
 }

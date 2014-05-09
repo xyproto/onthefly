@@ -25,7 +25,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/hoisie/web"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/web"
 	"github.com/xyproto/browserspeak"
 )
 

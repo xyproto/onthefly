@@ -2,8 +2,8 @@ package browserspeak
 
 import (
 	"io/ioutil"
-
-	"github.com/hoisie/web"
+    "github.com/go-martini/martini"
+	"github.com/martini-contrib/web"
 	"github.com/xyproto/instapage"
 )
 
@@ -63,14 +63,17 @@ func exampleSVG() string {
 }
 
 func main() {
-	PublishPage("/", "/main.css", testbuilder)
+	m := martini.Classic()
+    m.Use(web.ContextWithCookieSecret(""))
 
-	web.Get("/error", errorlog)
-	web.Get("/hello", hello)
+	PublishPage(m, "/", "/main.css", testbuilder)
 
-	web.Get("/svg", exampleSVG)
+	m.Get("/error", errorlog)
+	m.Get("/hello", hello)
 
-	web.Get("/(.*)", notFound)
+	m.Get("/svg", exampleSVG)
 
-	web.Run("0.0.0.0:8080")
+	m.Get("/(.*)", notFound)
+
+	m.Run() // "0.0.0.0:8080"
 }
