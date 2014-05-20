@@ -35,7 +35,7 @@ func AddScriptToHeader(page *Page, js string) error {
 	head, err := page.GetTag("head")
 	if err == nil {
 		script := head.AddNewTag("script")
-		script.AddAttr("type", "text/javascript")
+		script.AddAttrib("type", "text/javascript")
 		script.AddContent(js)
 	}
 	return err

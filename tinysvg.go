@@ -8,14 +8,14 @@ import (
 func NewTinySVG(x, y, w, h int) (*Page, *Tag) {
 	page := NewPage("", "<?xml version=\"1.0\"?>")
 	svg := page.root.AddNewTag("svg")
-	svg.AddAttr("xmlns", "http://www.w3.org/2000/svg")
-	svg.AddAttr("version", "1.2")
-	svg.AddAttr("baseProfile", "tiny")
+	svg.AddAttrib("xmlns", "http://www.w3.org/2000/svg")
+	svg.AddAttrib("version", "1.2")
+	svg.AddAttrib("baseProfile", "tiny")
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
 	sw := strconv.Itoa(w)
 	sh := strconv.Itoa(h)
-	svg.AddAttr("viewBox", sx+" "+sy+" "+sw+" "+sh)
+	svg.AddAttrib("viewBox", sx+" "+sy+" "+sw+" "+sh)
 	return page, svg
 }
 
@@ -25,10 +25,10 @@ func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	sw := strconv.Itoa(w)
 	sh := strconv.Itoa(h)
 	rect := svg.AddNewTag("rect")
-	rect.AddAttr("x", sx)
-	rect.AddAttr("y", sy)
-	rect.AddAttr("width", sw)
-	rect.AddAttr("height", sh)
+	rect.AddAttrib("x", sx)
+	rect.AddAttrib("y", sy)
+	rect.AddAttrib("width", sw)
+	rect.AddAttrib("height", sh)
 	return rect
 }
 
@@ -37,9 +37,9 @@ func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
 	sy := strconv.Itoa(y)
 	sradius := strconv.Itoa(radius)
 	circle := svg.AddNewTag("circle")
-	circle.AddAttr("cx", sx)
-	circle.AddAttr("cy", sy)
-	circle.AddAttr("r", sradius)
+	circle.AddAttrib("cx", sx)
+	circle.AddAttrib("cy", sy)
+	circle.AddAttrib("r", sradius)
 	circle.Fill(color)
 	return circle
 }
@@ -49,14 +49,14 @@ func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	sy := strconv.Itoa(y)
 	sradius := strconv.Itoa(radius)
 	circle := svg.AddNewTag("circle")
-	circle.AddAttr("cx", sx)
-	circle.AddAttr("cy", sy)
-	circle.AddAttr("r", sradius)
+	circle.AddAttrib("cx", sx)
+	circle.AddAttrib("cy", sy)
+	circle.AddAttrib("r", sradius)
 	return circle
 }
 
 func (rect *Tag) Fill(color string) {
-	rect.AddAttr("fill", color)
+	rect.AddAttrib("fill", color)
 }
 
 // Converts r, g and b which are integers in the range from 0..255

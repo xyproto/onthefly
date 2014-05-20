@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	Version     = 0.5
+	Version     = 0.6
 	noAttribute = "NIL"
 )
 
@@ -76,12 +76,12 @@ func (tag *Tag) AddStyle(styleName, styleValue string) {
 
 // Add an attribute to a tag, for instance
 // "size" and "20"
-func (tag *Tag) AddAttr(attrName, attrValue string) {
+func (tag *Tag) AddAttrib(attrName, attrValue string) {
 	tag.attrs[attrName] = attrValue
 }
 
 // Add an attribute without a value
-func (tag *Tag) AddBareAttr(attrName string) {
+func (tag *Tag) AddSingularAttrib(attrName string) {
 	tag.attrs[attrName] = noAttribute
 }
 
@@ -97,9 +97,11 @@ func (tag *Tag) GetCSS() string {
 	// TODO: Support for "class" as well as "id"
 
 	// If there is an id="name" defined, use that id instead of the tag name
-	value, found := tag.attrs["id"]
-	if found {
+
+	if value, found := tag.attrs["id"]; found {
 		ret = "#" + value
+	} else if value, found := tag.attrs["class"]; found {
+		ret = "." + value
 	} else {
 		ret = tag.name
 	}

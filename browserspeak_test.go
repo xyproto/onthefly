@@ -34,7 +34,7 @@ func TestGen(t *testing.T) {
 	if err == nil {
 		body.AddNewTag("br")
 		//	a := body.AddNewTag("a")
-		//	a.AddAttr("href", "/test.svg")
+		//	a.AddAttrib("href", "/test.svg")
 		//	a.AddContent("See SVG")
 	}
 

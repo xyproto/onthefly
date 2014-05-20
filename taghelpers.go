@@ -28,7 +28,7 @@ func (tag *Tag) SetColor(fgColor, bgColor string) {
 // Add a box
 func (tag *Tag) AddBox(id string, rounded bool, em, text, fgColor, bgColor, leftPadding string) *Tag {
 	div := tag.AddNewTag("div")
-	div.AddAttr("id", id)
+	div.AddAttrib("id", id)
 	div.AddContent(text)
 	if rounded {
 		div.SetRounded(em)
@@ -41,7 +41,7 @@ func (tag *Tag) AddBox(id string, rounded bool, em, text, fgColor, bgColor, left
 // Add an image
 func (tag *Tag) AddImage(url string, width string) *Tag {
 	img := tag.AddNewTag("img")
-	img.AddAttr("src", url)
+	img.AddAttrib("src", url)
 	img.AddStyle("width", width)
 	return img
 }

@@ -25,8 +25,19 @@ var globalStringCache map[string]string
 
 // Create a blank HTML5 page
 func NewHTML5Page(titleText string) *Page {
-	page := NewPage(titleText, "<!DOCTYPE html>")
+	page := NewPage(titleText, "<!doctype html>") // DOCTYPE is better?
 	html := page.root.AddNewTag("html")
+	head := html.AddNewTag("head")
+	title := head.AddNewTag("title")
+	title.AddContent(titleText)
+	html.AddNewTag("body")
+	return page
+}
+
+func NewAngularPage(titleText string) *Page {
+	page := NewPage(titleText, "<!doctype html>") // DOCTYPE is better?
+	html := page.root.AddNewTag("html")
+	html.AddAttribute("ng-app")
 	head := html.AddNewTag("head")
 	title := head.AddNewTag("title")
 	title.AddContent(titleText)
@@ -112,9 +123,9 @@ func (page *Page) LinkToCSS(cssurl string) error {
 	head, err := page.GetTag("head")
 	if err == nil {
 		link := head.AddNewTag("link")
-		link.AddAttr("rel", "stylesheet")
-		link.AddAttr("href", cssurl)
-		link.AddAttr("type", "text/css")
+		link.AddAttrib("rel", "stylesheet")
+		link.AddAttrib("href", cssurl)
+		link.AddAttrib("type", "text/css")
 	}
 	return err
 }
@@ -127,8 +138,8 @@ func (page *Page) LinkToJS(jsurl string) error {
 	head, err := page.GetTag("head")
 	if err == nil {
 		src := head.AddNewTag("script")
-		src.AddAttr("src", jsurl)
-		src.AddAttr("type", "text/javascript")
+		src.AddAttrib("src", jsurl)
+		src.AddAttrib("type", "text/javascript")
 		src.AddContent(" ")
 	}
 	return err
@@ -142,8 +153,8 @@ func (page *Page) LinkToFavicon(favurl string) error {
 	head, err := page.root.GetTag("head")
 	if err == nil {
 		link := head.AddNewTag("link")
-		link.AddAttr("rel", "shortcut icon")
-		link.AddAttr("href", favurl)
+		link.AddAttrib("rel", "shortcut icon")
+		link.AddAttrib("href", favurl)
 	}
 	return err
 }
@@ -154,8 +165,8 @@ func (page *Page) MetaCharset(charset string) error {
 	head, err := page.GetTag("head")
 	if err == nil {
 		meta := head.AddNewTag("meta")
-		meta.AddAttr("http-equiv", "Content-Type")
-		meta.AddAttr("content", "text/html; charset="+charset)
+		meta.AddAttrib("http-equiv", "Content-Type")
+		meta.AddAttrib("content", "text/html; charset="+charset)
 	}
 	return err
 }
