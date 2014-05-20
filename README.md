@@ -1,6 +1,9 @@
 Browserspeak
 ============
 
+[![Build Status](https://travis-ci.org/xyproto/browserspeak.svg?branch=master)](https://travis-ci.org/xyproto/browserspeak)
+[![Build Status](https://drone.io/github.com/xyproto/browserspeak/status.png)](https://drone.io/github.com/xyproto/browserspeak/latest)
+
 * Go library for generating HTML and CSS, so you don't have to.
 * Can also be used for generating templates and SVG.
 * It's easier to refactor and DRY with code than HTML+CSS.
