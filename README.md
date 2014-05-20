@@ -27,37 +27,52 @@ import (
 	"github.com/xyproto/browserspeak"
 )
 
-// Generate a new Page (HTML with CSS)
-func helloPage(cssurl string) *browserspeak.Page {
-	page := browserspeak.NewHTML5Page("Hello Title")
+// Generate a new browserspeak Page (HTML5 and CSS)
+func indexPage(cssurl string) *browserspeak.Page {
+	page := browserspeak.NewHTML5Page("Demonstration")
 
 	// Link the page to the css file generated from this page
 	page.LinkToCSS(cssurl)
 
 	// Add some text
-	page.AddContent("hello body")
+	page.AddContent(fmt.Sprintf("browserspeak %.1f", browserspeak.Version))
 
-	// Change the margin
-	page.SetMargin(3)
+	// Change the margin (em is default)
+	page.SetMargin(7)
 
 	// Change the font family
-	page.SetFontFamily("sans serif")
+	page.SetFontFamily("serif") // sans serif
 
 	// Change the color scheme
-	page.SetColor("#202020", "#a0a0a0")
+	page.SetColor("#f02020", "#101010")
 
-	// Add a link to /test.svg
+	// Include the generated SVG image on the page
 	body, err := page.GetTag("body")
 	if err == nil {
-		a := body.AddNewTag("a")
-		a.AddAttrib("href", "/test.svg")
-		a.AddContent("See SVG")
+		// CSS attributes for the body tag
+		body.AddStyle("font-size", "2em")
+
+		// Paragraph
+		p := body.AddNewTag("p")
+
+		// CSS style
+		p.AddStyle("margin-top", "2em")
+
+		// Image tag
+		img := p.AddNewTag("img")
+
+		// HTML attributes
+		img.AddAttrib("src", "/circles.svg")
+		img.AddAttrib("alt", "Three circles")
+
+		// CSS style
+		img.AddStyle("width", "60%")
 	}
 
 	return page
 }
 
-// Generate a new Page (SVG)
+// Generate a new SVG Page
 func svgPage() *browserspeak.Page {
 	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
 	desc := svg.AddNewTag("desc")
@@ -68,20 +83,25 @@ func svgPage() *browserspeak.Page {
 	return page
 }
 
-// Get the string from the SVG Page
-func svgGenerator() string {
+// Generator for a handle that returns the generated SVG content.
+// Also sets the content type.
+func svgHandlerGenerator() func(ctx *web.Context) string {
 	page := svgPage()
-	return page.String()
+	return func(ctx *web.Context) string {
+		ctx.ContentType("image/svg+xml")
+		return page.String()
+	}
 }
 
+// Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("BrowserSpeak Version:", browserspeak.Version)
+	fmt.Println("browserspeak ", browserspeak.Version)
 
-	// Connect the url for the HTML and CSS with the HTML and CSS generated from helloPage
-	browserspeak.PublishPage("/", "/hello.css", helloPage)
+	// Connect the url for the HTML and CSS with the HTML and CSS generated from indexPage
+	browserspeak.PublishPage("/", "/style.css", indexPage)
 
-	// Connect /test.svg with svgGenerator
-	web.Get("/test.svg", svgGenerator)
+	// Connect /circles.svg with the generated handle
+	web.Get("/circles.svg", svgHandlerGenerator())
 
 	// Run the web server at port 8080
 	web.Run("0.0.0.0:8080")

@@ -25,7 +25,7 @@ var globalStringCache map[string]string
 
 // Create a blank HTML5 page
 func NewHTML5Page(titleText string) *Page {
-	page := NewPage(titleText, "<!doctype html>") // DOCTYPE is better?
+	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
 	head := html.AddNewTag("head")
 	title := head.AddNewTag("title")
@@ -35,7 +35,7 @@ func NewHTML5Page(titleText string) *Page {
 }
 
 func NewAngularPage(titleText string) *Page {
-	page := NewPage(titleText, "<!doctype html>") // DOCTYPE is better?
+	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
 	html.AddSingularAttrib("ng-app")
 	head := html.AddNewTag("head")
