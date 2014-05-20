@@ -4,10 +4,10 @@ Browserspeak
 [![Build Status](https://travis-ci.org/xyproto/browserspeak.svg?branch=master)](https://travis-ci.org/xyproto/browserspeak)
 [![Build Status](https://drone.io/github.com/xyproto/browserspeak/status.png)](https://drone.io/github.com/xyproto/browserspeak/latest)
 
-* Go library for generating HTML and CSS, so you don't have to.
-* Can also be used for generating templates and SVG.
-* It's easier to refactor and DRY with code than HTML+CSS.
-* Now also with support for Mustache templates
+* Go package for generating SVG, CSS and HTML on the fly. 
+* It's easier to refactor code than markup language.
+* It's easier to follow the DRY principle (don't repeat yourself) with code than with markup language.
+* Can also be used for generating templates (also supports Mustache templates).
 
 Online API Documentation
 ------------------------
