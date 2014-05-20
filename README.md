@@ -111,7 +111,7 @@ func main() {
 Screenshot of resulting output
 ------------------------------
 
-<img src="https://raw.github.com/xyproto/browserspeak/master/img/svg_screenshot.png">
+<img src="https://raw.github.com/xyproto/browserspeak/master/img/inbrowser.png">
 
 
 Version, license and author
