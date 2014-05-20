@@ -37,7 +37,7 @@ func NewHTML5Page(titleText string) *Page {
 func NewAngularPage(titleText string) *Page {
 	page := NewPage(titleText, "<!doctype html>") // DOCTYPE is better?
 	html := page.root.AddNewTag("html")
-	html.AddAttribute("ng-app")
+	html.AddSingularAttrib("ng-app")
 	head := html.AddNewTag("head")
 	title := head.AddNewTag("title")
 	title.AddContent(titleText)

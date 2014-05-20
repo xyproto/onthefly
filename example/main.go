@@ -30,7 +30,7 @@ func helloPage(cssurl string) *browserspeak.Page {
 	body, err := page.GetTag("body")
 	if err == nil {
 		a := body.AddNewTag("a")
-		a.AddAttr("href", "/test.svg")
+		a.AddAttrib("href", "/test.svg")
 		a.AddContent("See SVG")
 	}
 

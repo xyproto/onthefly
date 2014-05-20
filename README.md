@@ -14,11 +14,6 @@ Online API Documentation
 
 [go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
 
-Screenshot of resulting output
-------------------------------
-
-<img src="https://raw.github.com/xyproto/browserspeak/master/browserspeak.png">
-
 Example
 -------
 
@@ -55,7 +50,7 @@ func helloPage(cssurl string) *browserspeak.Page {
 	body, err := page.GetTag("body")
 	if err == nil {
 		a := body.AddNewTag("a")
-		a.AddAttr("href", "/test.svg")
+		a.AddAttrib("href", "/test.svg")
 		a.AddContent("See SVG")
 	}
 
@@ -93,11 +88,16 @@ func main() {
 }
 ```
 
+Screenshot of resulting output
+------------------------------
+
+<img src="https://raw.github.com/xyproto/browserspeak/master/img/svg_screenshot.png">
+
+
 Version, license and author
 ---------------------------
 
-Version: 0.5
-License: MIT
-
-Alexander Rødseth <rodseth at gmail.com>
+* Version: 0.5
+* License: MIT
+* Alexander Rødseth
 
