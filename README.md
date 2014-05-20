@@ -108,8 +108,8 @@ func main() {
 }
 ```
 
-Screenshot of resulting output
-------------------------------
+Generated on the fly
+--------------------
 
 <img src="https://raw.github.com/xyproto/browserspeak/master/img/inbrowser.png">
 
@@ -117,7 +117,7 @@ Screenshot of resulting output
 Version, license and author
 ---------------------------
 
-* Version: 0.5
+* Version: 0.6
 * License: MIT
 * Alexander Rødseth
 
