@@ -6,7 +6,7 @@ import (
 )
 
 func TestSVG(t *testing.T) {
-	svg := newExampleSVG()
+	svg := SampleSVG1()
 	svg.String()
 	//s := svg.GetXML(false)
 	t.Log("hi")
@@ -18,7 +18,7 @@ func TestSVG(t *testing.T) {
 }
 
 func TestSVG2(t *testing.T) {
-	svg := newExampleSVG2()
+	svg := SampleSVG2()
 	svg.String()
 	//s := svg.String()
 	//t.Errorf("%s\n", s)

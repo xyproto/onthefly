@@ -101,10 +101,10 @@ func (svg *Tag) Dot(cx, cy, r, g, b int) *Tag {
 	return circle
 }
 
-func newExampleSVG() *Page {
+func SampleSVG1() *Page {
 	page, svg := NewTinySVG(0, 0, 30, 30)
 	desc := svg.AddNewTag("desc")
-	desc.AddContent("Example SVG file")
+	desc.AddContent("Sample SVG file 1")
 	rect := svg.AddRect(10, 10, 10, 10)
 	rect.Fill("green")
 	svg.Pixel(10, 10, 255, 0, 0)
@@ -112,14 +112,14 @@ func newExampleSVG() *Page {
 	return page
 }
 
-func newExampleSVG2() *Page {
+func SampleSVG2() *Page {
 	w := 160
 	h := 90
 	stepx := 8
 	stepy := 8
 	page, svg := NewTinySVG(0, 0, w, h)
 	desc := svg.AddNewTag("desc")
-	desc.AddContent("Example SVG file")
+	desc.AddContent("Sample SVG file 2")
 	increase := 0
 	decrease := 0
 	for y := stepy; y < h; y += stepy {

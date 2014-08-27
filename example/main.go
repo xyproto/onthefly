@@ -5,6 +5,7 @@ import (
 
 	"github.com/hoisie/web"
 	"github.com/xyproto/browserspeak"
+	"github.com/xyproto/webhandle"
 )
 
 // Generate a new browserspeak Page (HTML5 and CSS)
@@ -78,7 +79,7 @@ func main() {
 	fmt.Println("browserspeak ", browserspeak.Version)
 
 	// Connect the url for the HTML and CSS with the HTML and CSS generated from indexPage
-	browserspeak.PublishPage("/", "/style.css", indexPage)
+	webhandle.PublishPage("/", "/style.css", indexPage)
 
 	// Connect /circles.svg with the generated handle
 	web.Get("/circles.svg", svgHandlerGenerator())
