@@ -3,12 +3,12 @@ On the fly
 
 [![Build Status](https://travis-ci.org/xyproto/onthefly.svg?branch=master)](https://travis-ci.org/xyproto/onthefly)
 [![Build Status](https://drone.io/github.com/xyproto/onthefly/status.png)](https://drone.io/github.com/xyproto/onthefly/latest)
+[![GoDoc](https://godoc.org/github.com/xyproto/onthefly?status.svg)](http://godoc.org/github.com/xyproto/onthefly)
 
-* Package for generating SVG (TinySVG) on the fly
-* Can also be used for generating HTML and CSS, or templates for HTML and CSS
-* The recommended use is mainly for generating SVG files
-* Could be used to set up a diskless webserver that generates all the content
-  (which could also be done with templates)
+* Package for generating SVG (TinySVG) on the fly.
+* Can also be used for generating HTML and CSS, or templates for HTML and CSS.
+* Could be used to set up a diskless webserver that generates all the content on the fly
+  (something similar could also be achieved by using templates that are not stored on disk).
 
 Online API Documentation
 ------------------------
