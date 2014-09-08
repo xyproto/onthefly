@@ -1,8 +1,8 @@
 Browserspeak
 ============
 
-[![Build Status](https://travis-ci.org/xyproto/browserspeak.svg?branch=master)](https://travis-ci.org/xyproto/browserspeak)
-[![Build Status](https://drone.io/github.com/xyproto/browserspeak/status.png)](https://drone.io/github.com/xyproto/browserspeak/latest)
+[![Build Status](https://travis-ci.org/xyproto/onthefly.svg?branch=master)](https://travis-ci.org/xyproto/onthefly)
+[![Build Status](https://drone.io/github.com/xyproto/onthefly/status.png)](https://drone.io/github.com/xyproto/onthefly/latest)
 
 * Package for generating SVG (TinySVG) on the fly
 * Can also be used for generating HTML and CSS, or templates for HTML and CSS
@@ -13,12 +13,12 @@ Browserspeak
 Online API Documentation
 ------------------------
 
-[godoc.org](http://godoc.org/github.com/xyproto/browserspeak)
+[godoc.org](http://godoc.org/github.com/xyproto/onthefly)
 
 Generate content on the fly
 ---------------------------
 
-<img src="https://raw.github.com/xyproto/browserspeak/master/img/inbrowser.png">
+<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
 --------------------
@@ -30,12 +30,12 @@ import (
 	"net/http"
 
 	"github.com/codegangsta/negroni"
-	"github.com/xyproto/browserspeak"
+	"github.com/xyproto/onthefly"
 )
 
 // Generate a new SVG Page
-func svgPage() *browserspeak.Page {
-	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
+func svgPage() *onthefly.Page {
+	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
 	desc := svg.AddNewTag("desc")
 	desc.AddContent("Hello SVG")
 	svg.Circle(30, 10, 5, "red")
@@ -44,14 +44,14 @@ func svgPage() *browserspeak.Page {
 	return page
 }
 
-// Generate a new browserspeak Page (HTML5 and CSS combined)
-func indexPage(svgurl string) *browserspeak.Page {
+// Generate a new onthefly Page (HTML5 and CSS combined)
+func indexPage(svgurl string) *onthefly.Page {
 
 	// Create a new HTML5 page, with CSS included
-	page := browserspeak.NewHTML5Page("Demonstration")
+	page := onthefly.NewHTML5Page("Demonstration")
 
 	// Add some text
-	page.AddContent(fmt.Sprintf("browserspeak %.1f", browserspeak.Version))
+	page.AddContent(fmt.Sprintf("onthefly %.1f", onthefly.Version))
 
 	// Change the margin (em is default)
 	page.SetMargin(4)
@@ -91,7 +91,7 @@ func indexPage(svgurl string) *browserspeak.Page {
 
 // Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("browserspeak ", browserspeak.Version)
+	fmt.Println("onthefly ", onthefly.Version)
 
 	// Create a Negroni instance and a ServeMux instance
 	n := negroni.Classic()
@@ -126,13 +126,13 @@ import (
 	"fmt"
 
 	"github.com/hoisie/web"
-	"github.com/xyproto/browserspeak"
+	"github.com/xyproto/onthefly"
 	"github.com/xyproto/webhandle"
 )
 
 // Generate a new SVG Page
-func svgPage() *browserspeak.Page {
-	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
+func svgPage() *onthefly.Page {
+	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
 	desc := svg.AddNewTag("desc")
 	desc.AddContent("Hello SVG")
 	svg.Circle(30, 10, 5, "red")
@@ -151,15 +151,15 @@ func svgHandlerGenerator() func(ctx *web.Context) string {
 	}
 }
 
-// Generate a new browserspeak Page (HTML5 and CSS)
-func indexPage(cssurl string) *browserspeak.Page {
-	page := browserspeak.NewHTML5Page("Demonstration")
+// Generate a new onthefly Page (HTML5 and CSS)
+func indexPage(cssurl string) *onthefly.Page {
+	page := onthefly.NewHTML5Page("Demonstration")
 
 	// Link the page to the css file generated from this page
 	page.LinkToCSS(cssurl)
 
 	// Add some text
-	page.AddContent(fmt.Sprintf("browserspeak %.1f", browserspeak.Version))
+	page.AddContent(fmt.Sprintf("onthefly %.1f", onthefly.Version))
 
 	// Change the margin (em is default)
 	page.SetMargin(7)
@@ -198,7 +198,7 @@ func indexPage(cssurl string) *browserspeak.Page {
 
 // Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("browserspeak ", browserspeak.Version)
+	fmt.Println("onthefly ", onthefly.Version)
 
 	// Connect the url for the HTML and CSS with the HTML and CSS generated from indexPage
 	webhandle.PublishPage("/", "/style.css", indexPage)

@@ -1,4 +1,4 @@
-package browserspeak
+package onthefly
 
 // This is a test function
 func SamplePage(cssurl string) *Page {

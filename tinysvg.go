@@ -1,4 +1,4 @@
-package browserspeak
+package onthefly
 
 import (
 	"fmt"

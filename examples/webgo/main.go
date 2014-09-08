@@ -4,13 +4,13 @@ import (
 	"fmt"
 
 	"github.com/hoisie/web"
-	"github.com/xyproto/browserspeak"
+	"github.com/xyproto/onthefly"
 	"github.com/xyproto/webhandle"
 )
 
 // Generate a new SVG Page
-func svgPage() *browserspeak.Page {
-	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
+func svgPage() *onthefly.Page {
+	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
 	desc := svg.AddNewTag("desc")
 	desc.AddContent("Hello SVG")
 	svg.Circle(30, 10, 5, "red")
@@ -29,15 +29,15 @@ func svgHandlerGenerator() func(ctx *web.Context) string {
 	}
 }
 
-// Generate a new browserspeak Page (HTML5 and CSS)
-func indexPage(cssurl string) *browserspeak.Page {
-	page := browserspeak.NewHTML5Page("Demonstration")
+// Generate a new onthefly Page (HTML5 and CSS)
+func indexPage(cssurl string) *onthefly.Page {
+	page := onthefly.NewHTML5Page("Demonstration")
 
 	// Link the page to the css file generated from this page
 	page.LinkToCSS(cssurl)
 
 	// Add some text
-	page.AddContent(fmt.Sprintf("browserspeak %.1f", browserspeak.Version))
+	page.AddContent(fmt.Sprintf("onthefly %.1f", onthefly.Version))
 
 	// Change the margin (em is default)
 	page.SetMargin(7)
@@ -76,7 +76,7 @@ func indexPage(cssurl string) *browserspeak.Page {
 
 // Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("browserspeak ", browserspeak.Version)
+	fmt.Println("onthefly ", onthefly.Version)
 
 	// Connect the url for the HTML and CSS with the HTML and CSS generated from indexPage
 	webhandle.PublishPage("/", "/style.css", indexPage)

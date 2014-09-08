@@ -1,4 +1,4 @@
-package browserspeak
+package onthefly
 
 // Various JavaScript and JQuery functions
 

@@ -1,4 +1,4 @@
-package browserspeak
+package onthefly
 
 // Various "hardcoded" stylistic choices
 

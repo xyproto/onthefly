@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/codegangsta/negroni"
-	"github.com/xyproto/browserspeak"
+	"github.com/xyproto/onthefly"
 )
 
 // Generate a new SVG Page
-func svgPage() *browserspeak.Page {
-	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
+func svgPage() *onthefly.Page {
+	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
 	desc := svg.AddNewTag("desc")
 	desc.AddContent("Hello SVG")
 	svg.Circle(30, 10, 5, "red")
@@ -19,14 +19,14 @@ func svgPage() *browserspeak.Page {
 	return page
 }
 
-// Generate a new browserspeak Page (HTML5 and CSS combined)
-func indexPage(svgurl string) *browserspeak.Page {
+// Generate a new onthefly Page (HTML5 and CSS combined)
+func indexPage(svgurl string) *onthefly.Page {
 
 	// Create a new HTML5 page, with CSS included
-	page := browserspeak.NewHTML5Page("Demonstration")
+	page := onthefly.NewHTML5Page("Demonstration")
 
 	// Add some text
-	page.AddContent(fmt.Sprintf("browserspeak %.1f", browserspeak.Version))
+	page.AddContent(fmt.Sprintf("onthefly %.1f", onthefly.Version))
 
 	// Change the margin (em is default)
 	page.SetMargin(4)
@@ -66,7 +66,7 @@ func indexPage(svgurl string) *browserspeak.Page {
 
 // Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("browserspeak ", browserspeak.Version)
+	fmt.Println("onthefly ", onthefly.Version)
 
 	// Create a Negroni instance and a ServeMux instance
 	n := negroni.Classic()
