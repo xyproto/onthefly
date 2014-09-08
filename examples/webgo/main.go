@@ -8,6 +8,27 @@ import (
 	"github.com/xyproto/webhandle"
 )
 
+// Generate a new SVG Page
+func svgPage() *browserspeak.Page {
+	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
+	desc := svg.AddNewTag("desc")
+	desc.AddContent("Hello SVG")
+	svg.Circle(30, 10, 5, "red")
+	svg.Circle(110, 30, 2, "green")
+	svg.Circle(80, 40, 7, "blue")
+	return page
+}
+
+// Generator for a handle that returns the generated SVG content.
+// Also sets the content type.
+func svgHandlerGenerator() func(ctx *web.Context) string {
+	page := svgPage()
+	return func(ctx *web.Context) string {
+		ctx.ContentType("image/svg+xml")
+		return page.String()
+	}
+}
+
 // Generate a new browserspeak Page (HTML5 and CSS)
 func indexPage(cssurl string) *browserspeak.Page {
 	page := browserspeak.NewHTML5Page("Demonstration")
@@ -53,27 +74,6 @@ func indexPage(cssurl string) *browserspeak.Page {
 	return page
 }
 
-// Generate a new SVG Page
-func svgPage() *browserspeak.Page {
-	page, svg := browserspeak.NewTinySVG(0, 0, 128, 64)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Hello SVG")
-	svg.Circle(30, 10, 5, "red")
-	svg.Circle(110, 30, 2, "green")
-	svg.Circle(80, 40, 7, "blue")
-	return page
-}
-
-// Generator for a handle that returns the generated SVG content.
-// Also sets the content type.
-func svgHandlerGenerator() func(ctx *web.Context) string {
-	page := svgPage()
-	return func(ctx *web.Context) string {
-		ctx.ContentType("image/svg+xml")
-		return page.String()
-	}
-}
-
 // Set up the paths and handlers then start serving.
 func main() {
 	fmt.Println("browserspeak ", browserspeak.Version)
@@ -85,5 +85,5 @@ func main() {
 	web.Get("/circles.svg", svgHandlerGenerator())
 
 	// Run the web server at port 8080
-	web.Run("0.0.0.0:8080")
+	web.Run(":8080")
 }
