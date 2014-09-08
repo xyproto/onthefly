@@ -13,6 +13,8 @@ func svgPage() *onthefly.Page {
 	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
 	desc := svg.AddNewTag("desc")
 	desc.AddContent("Hello SVG")
+
+	// x, y, radius, color
 	svg.Circle(30, 10, 5, "red")
 	svg.Circle(110, 30, 2, "green")
 	svg.Circle(80, 40, 7, "blue")
