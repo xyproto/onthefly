@@ -6,7 +6,8 @@ On the fly
 [![GoDoc](https://godoc.org/github.com/xyproto/onthefly?status.svg)](http://godoc.org/github.com/xyproto/onthefly)
 
 * Package for generating SVG (TinySVG) on the fly.
-* Can also be used for generating HTML and CSS, or templates for HTML and CSS.
+* Can also be used for generating HTML, XML or CSS (or templates).
+* HTML and CSS can be generated together, but be presented as two seperate (but linked) files.
 * Could be used to set up a diskless webserver that generates all the content on the fly
   (something similar could also be achieved by using templates that are not stored on disk).
 
