@@ -20,7 +20,7 @@ Generate content on the fly
 
 <img src="https://raw.github.com/xyproto/browserspeak/master/img/inbrowser.png">
 
-Example with [Negroni](https://github.com/codegangsta/negroni)
+Example for [Negroni](https://github.com/codegangsta/negroni)
 --------------------
 ~~~ go
 package main
@@ -117,7 +117,7 @@ func main() {
 }
 ~~~
 
-Example with [web.go](https://github.com/hoisie/web.go)
+Example for [web.go](https://github.com/hoisie/web)
 --------------------
 ~~~ go
 package main
