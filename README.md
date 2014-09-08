@@ -4,16 +4,15 @@ Browserspeak
 [![Build Status](https://travis-ci.org/xyproto/browserspeak.svg?branch=master)](https://travis-ci.org/xyproto/browserspeak)
 [![Build Status](https://drone.io/github.com/xyproto/browserspeak/status.png)](https://drone.io/github.com/xyproto/browserspeak/latest)
 
-* Go package for generating SVG, CSS and HTML on the fly. 
-* It's easier to refactor code than markup language.
-* It's easier to follow the DRY principle (don't repeat yourself) with code than with markup language.
-* Can also be used for generating templates (also supports Mustache templates).
-* The recommended use is mainly for SVG files, templates is probably a better solution for HTML and CSS content.
+* Package for generating SVG (TinySVG) on the fly
+* Can also be used for generating HTML and CSS, but just using templates is recommended instead
+* Reasons for wanting to generate HTML and CSS on the fly could be to avoid repating code or as an experiment
+* The recommended use is mainly for generating SVG files or templates for SVG files
 
 Online API Documentation
 ------------------------
 
-[go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
+[godoc.org](http://godoc.org/github.com/xyproto/browserspeak)
 
 Generate content on the fly
 ---------------------------
