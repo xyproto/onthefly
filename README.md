@@ -5,9 +5,8 @@ Browserspeak
 [![Build Status](https://drone.io/github.com/xyproto/browserspeak/status.png)](https://drone.io/github.com/xyproto/browserspeak/latest)
 
 * Package for generating SVG (TinySVG) on the fly
-* Can also be used for generating HTML and CSS, but just using templates is recommended instead
-* Reasons for wanting to generate HTML and CSS on the fly could be to avoid repating code or as an experiment
-* The recommended use is mainly for generating SVG files or templates for SVG files
+* Can also be used for generating HTML and CSS, or templates for HTML and CSS
+* The recommended use is mainly for generating SVG files
 
 Online API Documentation
 ------------------------
