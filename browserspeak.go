@@ -3,11 +3,12 @@ package browserspeak
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 )
 
 const (
-	Version     = 0.7
+	Version     = 0.8
 	noAttribute = "NIL"
 )
 
@@ -396,4 +397,17 @@ func (page *Page) AddContent(content string) (*Tag, error) {
 // Get the string for the page
 func (page *Page) String() string {
 	return page.GetHTML()
+}
+
+// Publish the linked HTML and CSS for a Page
+func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string) {
+	page.LinkToCSS(cssurl)
+	mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Add("Content-Type", "text/html")
+		fmt.Fprintf(w, page.GetHTML())
+	})
+	mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Add("Content-Type", "text/css")
+		fmt.Fprintf(w, page.GetCSS())
+	})
 }
