@@ -18,7 +18,8 @@ Online API Documentation
 Generate content on the fly
 ---------------------------
 
-<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser.png">
+<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_negroni.png">
+<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_webgo.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
 --------------------
