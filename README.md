@@ -7,6 +7,8 @@ Browserspeak
 * Package for generating SVG (TinySVG) on the fly
 * Can also be used for generating HTML and CSS, or templates for HTML and CSS
 * The recommended use is mainly for generating SVG files
+* Could be used to set up a diskless webserver that generates all the content
+  (which could also be done with templates)
 
 Online API Documentation
 ------------------------
