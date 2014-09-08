@@ -8,11 +8,17 @@ Browserspeak
 * It's easier to refactor code than markup language.
 * It's easier to follow the DRY principle (don't repeat yourself) with code than with markup language.
 * Can also be used for generating templates (also supports Mustache templates).
+* The recommended use is mainly for SVG files, templates is probably a better solution for HTML and CSS content.
 
 Online API Documentation
 ------------------------
 
 [go.pkgdoc.org](http://go.pkgdoc.org/github.com/xyproto/browserspeak)
+
+Generate content on the fly
+---------------------------
+
+<img src="https://raw.github.com/xyproto/browserspeak/master/img/inbrowser.png">
 
 Example
 -------
@@ -108,12 +114,6 @@ func main() {
 	web.Run("0.0.0.0:8080")
 }
 ```
-
-Generated on the fly
---------------------
-
-<img src="https://raw.github.com/xyproto/browserspeak/master/img/inbrowser.png">
-
 
 Version, license and author
 ---------------------------
