@@ -399,15 +399,28 @@ func (page *Page) String() string {
 	return page.GetHTML()
 }
 
-// Publish the linked HTML and CSS for a Page
-func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string) {
+// Publish the linked HTML and CSS for a Page. Specify if the contents should be generated every time or not.
+func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string, generate bool) {
 	page.LinkToCSS(cssurl)
-	mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
-		w.Header().Add("Content-Type", "text/html")
-		fmt.Fprintf(w, page.GetHTML())
-	})
-	mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
-		w.Header().Add("Content-Type", "text/css")
-		fmt.Fprintf(w, page.GetCSS())
-	})
+	if generate {
+		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Add("Content-Type", "text/html")
+			fmt.Fprint(w, page.GetHTML())
+		})
+		mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Add("Content-Type", "text/css")
+			fmt.Fprint(w, page.GetCSS())
+		})
+	} else {
+		html := page.GetHTML()
+		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Add("Content-Type", "text/html")
+			fmt.Fprint(w, html)
+		})
+		css := page.GetCSS()
+		mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
+			w.Header().Add("Content-Type", "text/css")
+			fmt.Fprint(w, css)
+		})
+	}
 }
