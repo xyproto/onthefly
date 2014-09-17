@@ -23,7 +23,7 @@ func indexPage() *onthefly.Page {
 
 	// Add a title paragraph
 	title := body.AddNewTag("p")
-	// Use id attributes to style similar elements separately
+	// Use id attributes to style similar tags separately
 	title.AddAttrib("id", "title")
 	title.AddContent(fmt.Sprintf("onthefly %.1f & angular %s", onthefly.Version, angular_version))
 	title.AddStyle("font-size", "2em")
@@ -84,6 +84,6 @@ func main() {
 	// Handler goes last
 	n.UseHandler(mux)
 
-	// Listen for requests at port 8080
-	n.Run(":8080")
+	// Listen for requests at port 9000
+	n.Run(":9000")
 }
