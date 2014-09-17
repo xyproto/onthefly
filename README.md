@@ -212,7 +212,7 @@ func main() {
 	// Connect /circles.svg with the generated handle
 	web.Get("/circles.svg", svgHandlerGenerator())
 
-	// Run the web server at port 8080
+	// Listen for requests at port 8080
 	web.Run(":8080")
 }
 ~~~
