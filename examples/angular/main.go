@@ -30,7 +30,7 @@ func indexPage() *onthefly.Page {
 	title.AddStyle("font-family", "sans-serif")
 	title.AddStyle("font-style", "italic")
 
-	// Add a paragraph for the angular demonstration code
+	// Add a paragraph for the angular related tags
 	angularp := body.AddNewTag("p")
 	angularp.AddAttrib("id", "angular")
 	angularp.AddStyle("margin-top", "2em")
@@ -46,15 +46,17 @@ func indexPage() *onthefly.Page {
 	input := angularp.AddNewTag("input")
 	input.AddAttrib("id", inputID)
 	input.AddAttrib("type", "text")
-	input.AddAttrib("ng-model", "sometext")
+	dataBindingName := "sometext"
+	input.AddAttrib("ng-model", dataBindingName)
 
 	// Angular output
 	h1 := angularp.AddNewTag("h1")
-	h1.AddAttrib("ng-show", "sometext")
-	h1.AddContent("HELLO {{ sometext | uppercase }}")
+	h1.AddAttrib("ng-show", dataBindingName)
+	h1.AddContent("HELLO {{ " + dataBindingName + " | uppercase }}")
 	h1.AddStyle("color", "red")
 	h1.AddStyle("margin", "2em")
 	h1.AddStyle("font-size", "4em")
+	h1.AddStyle("font-family", "courier")
 
 	// Set the margin (em is default)
 	page.SetMargin(5)
