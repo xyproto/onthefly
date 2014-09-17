@@ -6,7 +6,7 @@ import (
 )
 
 type (
-	// Various functiomn signatures for handling requests
+	// Various function signatures for handling requests
 	SimpleWebHandle (func(string) string)
 	TemplateValues  map[string]string
 )
@@ -22,7 +22,7 @@ func NewHTML5Page(titleText string) *Page {
 	return page
 }
 
-func NewAngularPage(titleText string) *Page {
+func NewAngularPage(titleText, angularVersion string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
 	html.AddSingularAttrib("ng-app")
@@ -30,6 +30,8 @@ func NewAngularPage(titleText string) *Page {
 	title := head.AddNewTag("title")
 	title.AddContent(titleText)
 	html.AddNewTag("body")
+	// Must be added after head has been added
+	page.LinkToJS("//ajax.googleapis.com/ajax/libs/angularjs/" + angularVersion + "/angular.min.js")
 	return page
 }
 
@@ -141,6 +143,7 @@ func (page *Page) LinkToGoogleFont(name string) error {
 	return page.LinkToCSS(url)
 }
 
+// Add javascript to the header and specify UTF-8 as the charset
 func AddHeader(page *Page, js string) {
 	page.MetaCharset("UTF-8")
 	AddScriptToHeader(page, js)
