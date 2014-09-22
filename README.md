@@ -222,5 +222,5 @@ Version, license and author
 
 * Version: 0.8
 * License: MIT
-* Alexander Rødseth
+* Alexander F Rødseth
 
