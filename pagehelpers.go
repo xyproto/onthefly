@@ -42,6 +42,20 @@ func (page *Page) SetMargin(em int) (*Tag, error) {
 	return page.bodyAttr("margin", value)
 }
 
+// Disable scrollbars. Needed when using "<!doctype html>" together with fullscreen canvas/webgl
+func (page *Page) NoScrollbars() (*Tag, error) {
+	return page.bodyAttr("overflow", "hidden")
+}
+
+// Prepare for a canvas/webgl tag that covers the entire page
+func (page *Page) FullCanvas() {
+	page.SetMargin(0)
+	// overflow:hidden
+	page.NoScrollbars()
+	// Inline CSS
+	page.AddStyle("canvas { width: 100%; height: 100%; }")
+}
+
 // Set one of the CSS styles of the body
 func (page *Page) bodyAttr(key, value string) (*Tag, error) {
 	tag, err := page.root.GetTag("body")

@@ -6,29 +6,35 @@ import "errors"
 // Takes the url to a JS file as a string
 // The given page must have a "head" tag for this to work
 // Returns an error if no "head" tag is found, or nil
-// todo: return (*Tag, error)
 func (page *Page) LinkToJS(jsurl string) error {
-	head, err := page.GetTag("head")
-	if err == nil {
-		src := head.AddNewTag("script")
-		src.AddAttrib("src", jsurl)
-		src.AddAttrib("type", "text/javascript")
-		src.AddContent(" ")
-	}
+	_, err := page.LinkToJSInHead(jsurl)
 	return err
 }
 
-// Link to javascript, at the end of the body
-// todo: return (*Tag, error)
-func (page *Page) LinkToJSInBody(jsurl string) error {
-	body, err := page.GetTag("body")
-	if err == nil {
-		src := body.AddNewTag("script")
-		src.AddAttrib("src", jsurl)
-		src.AddAttrib("type", "text/javascript")
-		src.AddContent(" ")
+// Link to javascript in the head
+func (page *Page) LinkToJSInHead(jsurl string) (*Tag, error) {
+	head, err := page.GetTag("head")
+	if err != nil {
+		return nil, err
 	}
-	return err
+	script := head.AddNewTag("script")
+	script.AddAttrib("src", jsurl)
+	script.AddAttrib("type", "text/javascript")
+	script.AddContent(" ")
+	return script, nil
+}
+
+// Link to javascript, at the end of the body
+func (page *Page) LinkToJSInBody(jsurl string) (*Tag, error) {
+	body, err := page.GetTag("body")
+	if err != nil {
+		return nil, err
+	}
+	script := body.AddNewTag("script")
+	script.AddAttrib("src", jsurl)
+	script.AddAttrib("type", "text/javascript")
+	script.AddContent(" ")
+	return script, nil
 }
 
 // Add javascript code in a script tag in the head tag

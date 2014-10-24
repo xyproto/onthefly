@@ -10,6 +10,7 @@ On the fly
 * HTML and CSS can be generated together, but be presented as two seperate (but linked) files.
 * Could be used to set up a diskless webserver that generates all the content on the fly
   (something similar could also be achieved by using templates that are not stored on disk).
+* Can also be used for generating WebGL graphics with Three.JS on the fly. [new feature]
 
 Online API Documentation
 ------------------------
