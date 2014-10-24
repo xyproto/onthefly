@@ -69,6 +69,11 @@ func NewMaterial(id, color string) *Material {
 	return &Material{id, js}
 }
 
+func NewNormalMaterial(id string) *Material {
+	js := "var " + id + " = new THREE.MeshNormalMaterial();"
+	return &Material{id, js}
+}
+
 type Geometry struct {
 	Id string // name of the geometry variable
 	Js string // javascript code for creating the geometry
@@ -81,8 +86,9 @@ func NewBoxGeometry(id string, w, h, d int) *Geometry {
 
 // Add a test cube to the scene
 // todo: create functions for adding geometry, material and creating meshes
-func (three *Tag) AddTestCube(id, color string) *Mesh {
-	material := NewMaterial(id+"_material", color)
+func (three *Tag) AddTestCube(id string) *Mesh {
+	//material := NewMaterial(id+"_material", color)
+	material := NewNormalMaterial(id + "_material")
 	geometry := NewBoxGeometry(id+"_geometry", 1, 1, 1)
 	cube := NewMesh(id, geometry, material)
 	three.AddToScene(cube)

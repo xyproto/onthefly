@@ -17,10 +17,10 @@ func ThreeJSPage() *onthefly.Page {
 	t.AddRenderer()
 
 	// Blue cube
-	cube1 := t.AddTestCube("cube1", "0x2000a0")
+	cube1 := t.AddTestCube("cube1")
 
 	// Red cube
-	cube2 := t.AddTestCube("cube2", "0xa00020")
+	cube2 := t.AddTestCube("cube2")
 	cube2.Js += "cube2.rotation.x += 0.9;"
 
 	// Render function
