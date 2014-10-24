@@ -95,8 +95,6 @@ func (tag *Tag) GetCSS() string {
 
 	ret := ""
 
-	// TODO: Support for "class" as well as "id"
-
 	// If there is an id="name" defined, use that id instead of the tag name
 
 	if value, found := tag.attrs["id"]; found {
@@ -403,21 +401,26 @@ func (page *Page) String() string {
 func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string, generate bool) {
 	page.LinkToCSS(cssurl)
 	if generate {
+		// Serve HTML that is generated for each call
 		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
 			w.Header().Add("Content-Type", "text/html")
 			fmt.Fprint(w, page.GetHTML())
 		})
+		// Serve CSS that is generated for each call
 		mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
 			w.Header().Add("Content-Type", "text/css")
 			fmt.Fprint(w, page.GetCSS())
 		})
 	} else {
+		// Cached
 		html := page.GetHTML()
+		css := page.GetCSS()
+		// Serve HTML
 		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
 			w.Header().Add("Content-Type", "text/html")
 			fmt.Fprint(w, html)
 		})
-		css := page.GetCSS()
+		// Serve CSS
 		mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
 			w.Header().Add("Content-Type", "text/css")
 			fmt.Fprint(w, css)

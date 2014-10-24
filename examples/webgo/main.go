@@ -45,7 +45,6 @@ func indexPage(cssurl string) *onthefly.Page {
 	page.SetMargin(7)
 
 	// Change the font family
-	page.SetFontFamily("serif") // sans serif
 
 	// Change the color scheme
 	page.SetColor("#f02020", "#101010")

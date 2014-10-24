@@ -25,22 +25,6 @@ func AddGoogleFonts(page *Page, googleFonts []string) {
 	}
 }
 
-func AddScriptToHeader(page *Page, js string) error {
-	// Check if there's anything to add
-	if js == "" {
-		// Nope
-		return nil
-	}
-	// Add a script tag
-	head, err := page.GetTag("head")
-	if err == nil {
-		script := head.AddNewTag("script")
-		script.AddAttrib("type", "text/javascript")
-		script.AddContent(js)
-	}
-	return err
-}
-
 func AddBodyStyle(page *Page, bgimageurl string, stretchBackground bool) {
 	body, _ := page.SetMargin(1)
 	body.SansSerif()
@@ -49,4 +33,15 @@ func AddBodyStyle(page *Page, bgimageurl string, stretchBackground bool) {
 	} else {
 		body.AddStyle("background", "url('"+bgimageurl+"')")
 	}
+}
+
+// Inline CSS. Returns the style tag.
+func (page *Page) AddStyle(s string) (*Tag, error) {
+	head, err := page.GetTag("head")
+	if err != nil {
+		return nil, err
+	}
+	style := head.AddNewTag("style")
+	style.AddContent(s)
+	return style, nil
 }

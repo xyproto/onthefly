@@ -22,6 +22,7 @@ func NewHTML5Page(titleText string) *Page {
 	return page
 }
 
+// Create a blank HTML5 page that links with Angular.js
 func NewAngularPage(titleText, angularVersion string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
@@ -85,21 +86,6 @@ func (page *Page) LinkToCSS(cssurl string) error {
 		link.AddAttrib("rel", "stylesheet")
 		link.AddAttrib("href", cssurl)
 		link.AddAttrib("type", "text/css")
-	}
-	return err
-}
-
-// Link a page up with a JS file
-// Takes the url to a JS file as a string
-// The given page must have a "head" tag for this to work
-// Returns an error if no "head" tag is found, or nil
-func (page *Page) LinkToJS(jsurl string) error {
-	head, err := page.GetTag("head")
-	if err == nil {
-		src := head.AddNewTag("script")
-		src.AddAttrib("src", jsurl)
-		src.AddAttrib("type", "text/javascript")
-		src.AddContent(" ")
 	}
 	return err
 }

@@ -34,7 +34,7 @@ func indexPage(svgurl string) *onthefly.Page {
 	page.SetMargin(4)
 
 	// Change the font family
-	page.SetFontFamily("serif") // sans serif
+	page.SetFontFamily("serif") // or: sans-serif
 
 	// Change the color scheme
 	page.SetColor("black", "#d0d0d0")
