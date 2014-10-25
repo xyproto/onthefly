@@ -2,21 +2,18 @@ package onthefly
 
 import (
 	"fmt"
-	"log"
 )
 
 // For generating IDs
 var (
 	geometryCounter = 0
 	materialCounter = 0
-	meshCounter     = 0
 )
 
 // Unique prefixes when generating IDs
 const (
 	geometryPrefix = "g"
 	materialPrefix = "ma"
-	meshPrefix     = "m"
 )
 
 type (
@@ -29,10 +26,9 @@ type (
 	RenderFunc struct {
 		head, mid, tail string
 	}
-	// Different types of elements
+	// Different types of elements. Mainly used for passing types safely around.
 	Geometry Element
 	Material Element
-	Mesh     Element
 )
 
 // Create a HTML5 page that links with Three.JS and sets up a scene
@@ -52,12 +48,6 @@ func NewThreeJS(titleText string) (*Page, *Tag) {
 	return page, script
 }
 
-// Add a camera with default settings
-// todo: create an AddCustomCamera function
-func (three *Tag) AddCamera() {
-	three.AddContent("var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);")
-}
-
 // Add a WebGL renderer with default settings
 func (three *Tag) AddRenderer() {
 	three.AddContent("var renderer = new THREE.WebGLRenderer();")
@@ -68,21 +58,6 @@ func (three *Tag) AddRenderer() {
 func (three *Tag) AddToScene(mesh *Mesh) {
 	three.AddContent(mesh.JS)
 	three.AddContent("scene.add(" + mesh.ID + ");")
-}
-
-func NewMesh(geometry *Geometry, material *Material) *Mesh {
-	id := fmt.Sprintf("%s%d", meshPrefix, meshCounter)
-	meshCounter++
-	js := geometry.JS + material.JS
-	js += "var " + id + " = new THREE.Mesh(" + geometry.ID + ", " + material.ID + ");"
-	return &Mesh{id, js}
-}
-
-func (three *Tag) CameraPos(axis string, value int) {
-	if (axis != "x") && (axis != "y") && (axis != "z") {
-		log.Fatalln("camera axis must be x, y or z")
-	}
-	three.AddContent(fmt.Sprintf("camera.position.%s = %d;", axis, value))
 }
 
 // Very simple type of material
@@ -113,7 +88,7 @@ func (three *Tag) AddTestCube() *Mesh {
 	//material := NewMaterial(color)
 	material := NewNormalMaterial()
 	geometry := NewBoxGeometry(1, 1, 1)
-	cube := NewMesh(geometry, material)
+	cube := NewMesh(geometry, material, true)
 	three.AddToScene(cube)
 	return cube
 }
