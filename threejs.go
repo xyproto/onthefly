@@ -5,6 +5,36 @@ import (
 	"log"
 )
 
+// For generating IDs
+var (
+	geometryCounter = 0
+	materialCounter = 0
+	meshCounter     = 0
+)
+
+// Unique prefixes when generating IDs
+const (
+	geometryPrefix = "g"
+	materialPrefix = "ma"
+	meshPrefix     = "m"
+)
+
+type (
+	// For Three.JS elements, like a mesh or material
+	Element struct {
+		ID string // name of the variable
+		JS string // javascript code for creating the element
+	}
+	// The Three.JS render function, where heand and tail are standard
+	RenderFunc struct {
+		head, mid, tail string
+	}
+	// Different types of elements
+	Geometry Element
+	Material Element
+	Mesh     Element
+)
+
 // Create a HTML5 page that links with Three.JS and sets up a scene
 func NewThreeJS(titleText string) (*Page, *Tag) {
 	page := NewHTML5Page(titleText)
@@ -35,19 +65,16 @@ func (three *Tag) AddRenderer() {
 	three.AddContent("document.body.appendChild(renderer.domElement);")
 }
 
-type Mesh struct {
-	Id string // name of the mesh variable
-	Js string // javascript code for creating the mesh
-}
-
 func (three *Tag) AddToScene(mesh *Mesh) {
-	three.AddContent(mesh.Js)
-	three.AddContent("scene.add(" + mesh.Id + ");")
+	three.AddContent(mesh.JS)
+	three.AddContent("scene.add(" + mesh.ID + ");")
 }
 
-func NewMesh(id string, geometry *Geometry, material *Material) *Mesh {
-	js := geometry.Js + material.Js
-	js += "var " + id + " = new THREE.Mesh(" + geometry.Id + ", " + material.Id + ");"
+func NewMesh(geometry *Geometry, material *Material) *Mesh {
+	id := fmt.Sprintf("%s%d", meshPrefix, meshCounter)
+	meshCounter++
+	js := geometry.JS + material.JS
+	js += "var " + id + " = new THREE.Mesh(" + geometry.ID + ", " + material.ID + ");"
 	return &Mesh{id, js}
 }
 
@@ -58,45 +85,37 @@ func (three *Tag) CameraPos(axis string, value int) {
 	three.AddContent(fmt.Sprintf("camera.position.%s = %d;", axis, value))
 }
 
-type Material struct {
-	Id string // name of the material variable
-	Js string // javascript code for creating the material
-}
-
 // Very simple type of material
-func NewMaterial(id, color string) *Material {
+func NewMaterial(color string) *Material {
+	id := fmt.Sprintf("%s%d", materialPrefix, materialCounter)
+	materialCounter++
 	js := "var " + id + " = new THREE.MeshBasicMaterial({color: " + color + "});"
 	return &Material{id, js}
 }
 
-func NewNormalMaterial(id string) *Material {
+func NewNormalMaterial() *Material {
+	id := fmt.Sprintf("%s%d", materialPrefix, materialCounter)
+	materialCounter++
 	js := "var " + id + " = new THREE.MeshNormalMaterial();"
 	return &Material{id, js}
 }
 
-type Geometry struct {
-	Id string // name of the geometry variable
-	Js string // javascript code for creating the geometry
-}
-
-func NewBoxGeometry(id string, w, h, d int) *Geometry {
+func NewBoxGeometry(w, h, d int) *Geometry {
+	id := fmt.Sprintf("%s%d", geometryPrefix, geometryCounter)
+	geometryCounter++
 	js := fmt.Sprintf("var %s = new THREE.BoxGeometry(%d, %d, %d);", id, w, h, d)
 	return &Geometry{id, js}
 }
 
 // Add a test cube to the scene
 // todo: create functions for adding geometry, material and creating meshes
-func (three *Tag) AddTestCube(id string) *Mesh {
-	//material := NewMaterial(id+"_material", color)
-	material := NewNormalMaterial(id + "_material")
-	geometry := NewBoxGeometry(id+"_geometry", 1, 1, 1)
-	cube := NewMesh(id, geometry, material)
+func (three *Tag) AddTestCube() *Mesh {
+	//material := NewMaterial(color)
+	material := NewNormalMaterial()
+	geometry := NewBoxGeometry(1, 1, 1)
+	cube := NewMesh(geometry, material)
 	three.AddToScene(cube)
 	return cube
-}
-
-type RenderFunc struct {
-	head, mid, tail string
 }
 
 func NewRenderFunction() *RenderFunc {

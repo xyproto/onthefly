@@ -17,20 +17,20 @@ func ThreeJSPage() *onthefly.Page {
 	t.AddRenderer()
 
 	// Blue cube
-	cube1 := t.AddTestCube("cube1")
+	cube1 := t.AddTestCube()
 
 	// Red cube
-	cube2 := t.AddTestCube("cube2")
-	cube2.Js += "cube2.rotation.x += 0.9;"
+	cube2 := t.AddTestCube()
+	cube2.JS += cube2.ID + ".rotation.x += 0.9;"
 
 	// Render function
 	r := onthefly.NewRenderFunction()
 
-	r.AddJS(cube1.Id + ".rotation.x += 0.02;")
-	r.AddJS(cube1.Id + ".rotation.y += 0.02;")
+	r.AddJS(cube1.ID + ".rotation.x += 0.02;")
+	r.AddJS(cube1.ID + ".rotation.y += 0.02;")
 
-	r.AddJS(cube2.Id + ".rotation.x += 0.04;")
-	r.AddJS(cube2.Id + ".rotation.y += 0.07;")
+	r.AddJS(cube2.ID + ".rotation.x += 0.04;")
+	r.AddJS(cube2.ID + ".rotation.y += 0.07;")
 
 	t.AddRenderFunction(r, true)
 
