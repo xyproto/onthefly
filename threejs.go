@@ -65,11 +65,14 @@ func (three *Tag) AddRenderer() {
 	three.AddContent("document.body.appendChild(renderer.domElement);")
 }
 
+// Add a mesh to the current scene.
 func (three *Tag) AddToScene(mesh *Mesh) {
 	three.AddContent(mesh.JS)
 	three.AddContent("scene.add(" + mesh.ID + ");")
 }
 
+// Create a new mesh, given geometry and material.
+// The geometry and material will be instanciated together with the mesh.
 func NewMesh(geometry *Geometry, material *Material) *Mesh {
 	id := fmt.Sprintf("%s%d", meshPrefix, meshCounter)
 	meshCounter++
@@ -78,6 +81,7 @@ func NewMesh(geometry *Geometry, material *Material) *Mesh {
 	return &Mesh{id, js}
 }
 
+// Set the camera position. Axis must be "x", "y", or "z".
 func (three *Tag) CameraPos(axis string, value int) {
 	if (axis != "x") && (axis != "y") && (axis != "z") {
 		log.Fatalln("camera axis must be x, y or z")
@@ -93,6 +97,7 @@ func NewMaterial(color string) *Material {
 	return &Material{id, js}
 }
 
+// Create a material which reflects the normals of the geometry
 func NewNormalMaterial() *Material {
 	id := fmt.Sprintf("%s%d", materialPrefix, materialCounter)
 	materialCounter++
@@ -100,6 +105,7 @@ func NewNormalMaterial() *Material {
 	return &Material{id, js}
 }
 
+// Create geometry for a box
 func NewBoxGeometry(w, h, d int) *Geometry {
 	id := fmt.Sprintf("%s%d", geometryPrefix, geometryCounter)
 	geometryCounter++
@@ -118,16 +124,20 @@ func (three *Tag) AddTestCube() *Mesh {
 	return cube
 }
 
+// Create a new render function, which is called at every animation frame
 func NewRenderFunction() *RenderFunc {
 	head := "var render = function() { requestAnimationFrame(render);"
 	tail := "renderer.render(scene, camera); };"
 	return &RenderFunc{head, "", tail}
 }
 
+// Add javascript code to the body of a render function
 func (r *RenderFunc) AddJS(s string) {
 	r.mid += s
 }
 
+// Add a render function.
+// If call is true, the render function is called at the end of the script.
 func (three *Tag) AddRenderFunction(r *RenderFunc, call bool) {
 	three.AddContent(r.head + r.mid + r.tail)
 	if call {
