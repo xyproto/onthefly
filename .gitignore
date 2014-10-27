@@ -1,0 +1,9 @@
+main
+examples/threejs/threejs
+examples/babylonjs/babylonjs
+examples/negroni/negroni
+examples/angular/angular
+examples/web/web
+
+*~
+.nfs*
