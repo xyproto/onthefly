@@ -16,10 +16,10 @@ func ThreeJSPage() *onthefly.Page {
 
 	t.AddRenderer()
 
-	// Blue cube
+	// Test cube with material that shows the normals
 	cube1 := t.AddTestCube()
 
-	// Red cube
+	// Test cube with material that shows the normals
 	cube2 := t.AddTestCube()
 	cube2.JS += cube2.ID + ".rotation.x += 0.9;"
 
