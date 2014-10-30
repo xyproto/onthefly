@@ -75,7 +75,6 @@ func indexPage(cssurl string) *onthefly.Page {
 	return page
 }
 
-// Set up the paths and handlers then start serving.
 func main() {
 	fmt.Println("onthefly ", onthefly.Version)
 
@@ -85,6 +84,6 @@ func main() {
 	// Connect /circles.svg with the generated handle
 	web.Get("/circles.svg", svgHandlerGenerator())
 
-	// Listen for requests at port 8080
-	web.Run(":8080")
+	// Listen for requests at port 3000
+	web.Run(":3000")
 }

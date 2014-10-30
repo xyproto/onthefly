@@ -22,7 +22,7 @@ func NewHTML5Page(titleText string) *Page {
 	return page
 }
 
-// Create a blank HTML5 page that links with Angular.js
+// Create a blank HTML5 page that links with Angular.JS
 func NewAngularPage(titleText, angularVersion string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")

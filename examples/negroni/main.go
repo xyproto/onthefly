@@ -89,6 +89,6 @@ func main() {
 	// Handler goes last
 	n.UseHandler(mux)
 
-	// Listen for requests at port 8080
-	n.Run(":8080")
+	// Listen for requests at port 3000
+	n.Run(":3000")
 }

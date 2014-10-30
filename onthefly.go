@@ -397,10 +397,12 @@ func (page *Page) String() string {
 	return page.GetHTML()
 }
 
-// Publish the linked HTML and CSS for a Page. Specify if the contents should be generated every time or not.
-func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string, generate bool) {
+// Publish the linked HTML and CSS for a Page.
+// If refresh is true, the contents are generated every time.
+// If refresh is false, the contents are cached.
+func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string, refresh bool) {
 	page.LinkToCSS(cssurl)
-	if generate {
+	if refresh {
 		// Serve HTML that is generated for each call
 		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
 			w.Header().Add("Content-Type", "text/html")

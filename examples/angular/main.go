@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	angular_version = "1.3.0-rc.2"
+	angular_version = "1.3.0"
 )
 
 // Generate a new onthefly Page (HTML5, Angular and CSS combined)
@@ -25,7 +25,7 @@ func indexPage() *onthefly.Page {
 	title := body.AddNewTag("p")
 	// Use id attributes to style similar tags separately
 	title.AddAttrib("id", "title")
-	title.AddContent(fmt.Sprintf("onthefly %.1f & angular %s", onthefly.Version, angular_version))
+	title.AddContent(fmt.Sprintf("onthefly %.1f and AngularJS %s", onthefly.Version, angular_version))
 	title.AddStyle("font-size", "2em")
 	title.AddStyle("font-family", "sans-serif")
 	title.AddStyle("font-style", "italic")
@@ -39,7 +39,7 @@ func indexPage() *onthefly.Page {
 	label := angularp.AddNewTag("label")
 	inputID := "input1"
 	label.AddAttrib("for", inputID)
-	label.AddContent("Input text:")
+	label.AddContent("Enter text:")
 	label.AddStyle("margin-right", "3em")
 
 	// Angular input
@@ -52,14 +52,14 @@ func indexPage() *onthefly.Page {
 	// Angular output
 	h1 := angularp.AddNewTag("h1")
 	h1.AddAttrib("ng-show", dataBindingName)
-	h1.AddContent("HELLO {{ " + dataBindingName + " | uppercase }}")
-	h1.AddStyle("color", "red")
+	h1.AddContent("HI {{ " + dataBindingName + " | uppercase }}")
+	h1.AddStyle("color", "blue")
 	h1.AddStyle("margin", "2em")
-	h1.AddStyle("font-size", "4em")
+	h1.AddStyle("font-size", "3em")
 	h1.AddStyle("font-family", "courier")
 
 	// Set the margin (em is default)
-	page.SetMargin(5)
+	page.SetMargin(4)
 
 	// Set the font family
 	page.SetFontFamily("serif")
@@ -84,6 +84,6 @@ func main() {
 	// Handler goes last
 	n.UseHandler(mux)
 
-	// Listen for requests at port 9000
-	n.Run(":9000")
+	// Listen for requests at port 3000
+	n.Run(":3000")
 }
