@@ -33,6 +33,22 @@ func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	return rect
 }
 
+// Add a box/rectangle, given x and y position, radius and a color
+func (svg *Tag) Box(x, y, w, h int, color string) *Tag {
+	sx := strconv.Itoa(x)
+	sy := strconv.Itoa(y)
+	sw := strconv.Itoa(w)
+	sh := strconv.Itoa(h)
+	rect := svg.AddNewTag("rect")
+	rect.AddAttrib("x", sx)
+	rect.AddAttrib("y", sy)
+	rect.AddAttrib("width", sw)
+	rect.AddAttrib("height", sh)
+	rect.Fill(color)
+	return rect
+}
+
+// Add a circle, given x and y position, radius and a color
 func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
@@ -82,8 +98,7 @@ func ColorString(r, g, b int) string {
 // Note that the size of the "pixel" depends on how large the viewBox is
 func (svg *Tag) Pixel(x, y, r, g, b int) *Tag {
 	color := ColorString(r, g, b)
-	rect := svg.AddRect(x, y, 1, 1)
-	rect.Fill(color)
+	rect := svg.Box(x, y, 1, 1, color)
 	return rect
 }
 
