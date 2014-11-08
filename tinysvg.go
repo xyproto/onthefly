@@ -33,32 +33,11 @@ func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	return rect
 }
 
-// Add a box/rectangle, given x and y position, radius and a color
+// Add a box/rectangle, given x and y position, width, height and color
 func (svg *Tag) Box(x, y, w, h int, color string) *Tag {
-	sx := strconv.Itoa(x)
-	sy := strconv.Itoa(y)
-	sw := strconv.Itoa(w)
-	sh := strconv.Itoa(h)
-	rect := svg.AddNewTag("rect")
-	rect.AddAttrib("x", sx)
-	rect.AddAttrib("y", sy)
-	rect.AddAttrib("width", sw)
-	rect.AddAttrib("height", sh)
+	rect := svg.AddRect(x, y, w, h)
 	rect.Fill(color)
 	return rect
-}
-
-// Add a circle, given x and y position, radius and a color
-func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
-	sx := strconv.Itoa(x)
-	sy := strconv.Itoa(y)
-	sradius := strconv.Itoa(radius)
-	circle := svg.AddNewTag("circle")
-	circle.AddAttrib("cx", sx)
-	circle.AddAttrib("cy", sy)
-	circle.AddAttrib("r", sradius)
-	circle.Fill(color)
-	return circle
 }
 
 func (svg *Tag) AddCircle(x, y, radius int) *Tag {
@@ -69,6 +48,20 @@ func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	circle.AddAttrib("cx", sx)
 	circle.AddAttrib("cy", sy)
 	circle.AddAttrib("r", sradius)
+	return circle
+}
+
+func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
+	triangle := svg.AddNewTag("path")
+	triangle.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x1, y1))
+	triangle.AddAttrib("fill", color)
+	return triangle
+}
+
+// Add a circle, given x and y position, radius and color
+func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
+	circle := svg.AddCircle(x, y, radius)
+	circle.Fill(color)
 	return circle
 }
 
