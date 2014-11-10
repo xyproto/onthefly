@@ -51,6 +51,19 @@ func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	return circle
 }
 
+func (svg *Tag) AddEllipse(x, y, rx, ry int) *Tag {
+	sx := strconv.Itoa(x)
+	sy := strconv.Itoa(y)
+	srx := strconv.Itoa(rx)
+	sry := strconv.Itoa(ry)
+	ellipse := svg.AddNewTag("ellipse")
+	ellipse.AddAttrib("cx", sx)
+	ellipse.AddAttrib("cy", sy)
+	ellipse.AddAttrib("rx", srx)
+	ellipse.AddAttrib("ry", sry)
+	return ellipse
+}
+
 // Add a line from (x1, y1) to (x2, y2) with a given stroke width and color
 func (svg *Tag) Line(x1, y1, x2, y2, thickness int, color string) *Tag {
 	sx1 := strconv.Itoa(x1)
@@ -75,11 +88,25 @@ func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
 	return triangle
 }
 
+func (svg *Tag) Poly4(x1, y1, x2, y2, x3, y3, x4, y4 int, color string) *Tag {
+	poly4 := svg.AddNewTag("path")
+	poly4.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x4, y4, x1, y1))
+	poly4.AddAttrib("fill", color)
+	return poly4
+}
+
 // Add a circle, given x and y position, radius and color
 func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
 	circle := svg.AddCircle(x, y, radius)
 	circle.Fill(color)
 	return circle
+}
+
+// Add an ellipse, given x and y position, x radius, y radius and color
+func (svg *Tag) Ellipse(x, y, xr, yr int, color string) *Tag {
+	ellipse := svg.AddEllipse(x, y, xr, yr)
+	ellipse.Fill(color)
+	return ellipse
 }
 
 func (rect *Tag) Fill(color string) {
