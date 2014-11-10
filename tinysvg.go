@@ -131,6 +131,13 @@ func ColorString(r, g, b int) string {
 	return "#" + rs + gs + bs
 }
 
+// Converts r, g and b which are integers in the range from 0..255
+// and a which is the alpha color in the range from 0.0 to 1.0
+// to a color-string on the form "rgba(255, 255, 255, 1.0)".
+func ColorStringAlpha(r, g, b int, a float64) string {
+	return fmt.Sprintf("rgba(%d, %d, %d, %f)", r, g, b, a)
+}
+
 // Creates a rectangle that is 1 wide with the given color
 // Note that the size of the "pixel" depends on how large the viewBox is
 func (svg *Tag) Pixel(x, y, r, g, b int) *Tag {
