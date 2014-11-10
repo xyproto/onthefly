@@ -51,6 +51,23 @@ func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	return circle
 }
 
+// Add a line from (x1, y1) to (x2, y2) with a given stroke width and color
+func (svg *Tag) Line(x1, y1, x2, y2, thickness int, color string) *Tag {
+	sx1 := strconv.Itoa(x1)
+	sy1 := strconv.Itoa(y1)
+	sx2 := strconv.Itoa(x2)
+	sy2 := strconv.Itoa(y2)
+	sw := strconv.Itoa(thickness)
+	line := svg.AddNewTag("line")
+	line.AddAttrib("x1", sx1)
+	line.AddAttrib("y1", sy1)
+	line.AddAttrib("x2", sx2)
+	line.AddAttrib("y2", sy2)
+	line.AddAttrib("stroke-width", sw)
+	line.AddAttrib("stroke", color)
+	return line
+}
+
 func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
 	triangle := svg.AddNewTag("path")
 	triangle.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x1, y1))
