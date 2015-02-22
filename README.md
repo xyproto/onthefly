@@ -132,8 +132,6 @@ func main() {
 }
 ~~~
 
-<!--<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_negroni.png">-->
-
 Example for [web.go](https://github.com/hoisie/web)
 --------------------
 
@@ -231,7 +229,12 @@ func main() {
 }
 ~~~
 
-<!--<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_webgo.png">-->
+Additional screenshots
+----------------------
+
+<img src="https://raw.github.com/xyproto/onthefly/master/img/svg_dark.png">
+
+<img src="https://raw.github.com/xyproto/onthefly/master/img/svg_light.png">
 
 Version, license and author
 ---------------------------
