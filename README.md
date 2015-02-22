@@ -24,17 +24,18 @@ Generate HTML, CSS and SVG in one go
 ------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/onthefly.png">
 
-Experiment with Angular
+Experiment with [Angular](https://angularjs.org/)
 -----------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
 
-Create hardware accelerated 3D-graphics with Three.JS
+Create hardware accelerated 3D-graphics with [three.js](http://threejs.org/)
 -----------------------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/threejs.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
 --------------------
-~~~ go
+
+~~~go
 package main
 
 import (
@@ -131,11 +132,12 @@ func main() {
 }
 ~~~
 
-<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_negroni.png">
+<!--<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_negroni.png">-->
 
 Example for [web.go](https://github.com/hoisie/web)
 --------------------
-~~~ go
+
+~~~go
 package main
 
 import (
@@ -229,7 +231,7 @@ func main() {
 }
 ~~~
 
-<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_webgo.png">
+<!--<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_webgo.png">-->
 
 Version, license and author
 ---------------------------
