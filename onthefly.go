@@ -1,3 +1,4 @@
+// Generate TinySVG, HTML and CSS on the fly
 package onthefly
 
 import (
