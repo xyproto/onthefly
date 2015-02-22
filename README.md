@@ -10,7 +10,10 @@ On the fly
 * HTML and CSS can be generated together, but be presented as two seperate (but linked) files.
 * Could be used to set up a diskless webserver that generates all the content on the fly
   (something similar could also be achieved by using templates that are not stored on disk).
-* Can also be used for generating WebGL graphics with Three.JS on the fly. [new feature]
+
+New/experimental features:
+* Generating WebGL graphics with Three.JS on the fly.
+* Generate AngularJS applications on the fly.
 
 Online API Documentation
 ------------------------
@@ -20,8 +23,12 @@ Online API Documentation
 Generate content on the fly
 ---------------------------
 
-<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_negroni.png">
-<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_webgo.png">
+Generate HTML, CSS and SVG in one go
+<img src="https://raw.github.com/xyproto/onthefly/master/img/onthefly.png">
+
+Experiment with Angular and Three.JS
+<img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
+<img src="https://raw.github.com/xyproto/onthefly/master/img/threejs.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
 --------------------
@@ -117,10 +124,12 @@ func main() {
 	// Handler goes last
 	n.UseHandler(mux)
 
-	// Listen for requests at port 8080
-	n.Run(":8080")
+	// Listen for requests at port 3000
+	n.Run(":3000")
 }
 ~~~
+
+<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_negroni.png">
 
 Example for [web.go](https://github.com/hoisie/web)
 --------------------
@@ -213,10 +222,12 @@ func main() {
 	// Connect /circles.svg with the generated handle
 	web.Get("/circles.svg", svgHandlerGenerator())
 
-	// Listen for requests at port 8080
-	web.Run(":8080")
+	// Listen for requests at port 3000
+	web.Run(":3000")
 }
 ~~~
+
+<img src="https://raw.github.com/xyproto/onthefly/master/img/inbrowser08_webgo.png">
 
 Version, license and author
 ---------------------------
