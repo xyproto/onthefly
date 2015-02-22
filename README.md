@@ -28,8 +28,8 @@ Experiment with Angular
 -----------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
 
-Create hardware accelerated real time 3D-graphics with Three.JS
----------------------------------------------------------------
+Create hardware accelerated 3D-graphics with Three.JS
+-----------------------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/threejs.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
