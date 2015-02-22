@@ -24,13 +24,13 @@ Generate HTML, CSS and SVG in one go
 ------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/onthefly.png">
 
-Experiment with [Angular](https://angularjs.org/)
------------------------
-<img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
-
 Create hardware accelerated 3D-graphics with [three.js](http://threejs.org/)
 -----------------------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/threejs.png">
+
+Experiment with [AngularJS](https://angularjs.org/)
+-----------------------
+<img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
 --------------------
