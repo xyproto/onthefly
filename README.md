@@ -20,14 +20,16 @@ Online API Documentation
 
 [godoc.org](http://godoc.org/github.com/xyproto/onthefly)
 
-Generate content on the fly
----------------------------
-
 Generate HTML, CSS and SVG in one go
+------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/onthefly.png">
 
-Experiment with Angular and Three.JS
+Experiment with Angular
+-----------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
+
+Create hardware accelerated real time 3D-graphics with Three.JS
+---------------------------------------------------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/threejs.png">
 
 Example for [Negroni](https://github.com/codegangsta/negroni)
