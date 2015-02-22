@@ -7,17 +7,17 @@ func SamplePage(cssurl string) *Page {
 
 	h1 := body.AddNewTag("h1")
 	h1.SetMargin(1)
-	h1.AddContent("Browser")
+	h1.AddContent("On")
 
 	h1, err := page.root.GetTag("h1")
 	if err == nil {
-		h1.AddContent("Spe")
+		h1.AddContent("The")
 	}
 
 	if err := page.LinkToCSS(cssurl); err == nil {
-		h1.AddContent("ak")
+		h1.AddContent("Fly")
 	} else {
-		h1.AddContent("akkkkkkkk")
+		h1.AddContent("Flyyyyyyy")
 	}
 
 	page.SetColor("#202020", "#A0A0A0")
