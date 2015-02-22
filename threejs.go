@@ -25,7 +25,7 @@ type (
 		ID string // name of the variable
 		JS string // javascript code for creating the element
 	}
-	// The Three.JS render function, where heand and tail are standard
+	// The Three.JS render function, where head and tail are standard
 	RenderFunc struct {
 		head, mid, tail string
 	}
@@ -48,13 +48,14 @@ func NewThreeJS(titleText string) (*Page, *Tag) {
 	// Add a scene
 	script, _ := page.AddScriptToBody("var scene = new THREE.Scene();")
 
-	// Return the sript tag that can be used for adding additional javascript/Three.JS code
+	// Return the script tag that can be used for adding additional
+	// javascript/Three.JS code
 	return page, script
 }
 
 // Add a camera with default settings
-// todo: create an AddCustomCamera function
 func (three *Tag) AddCamera() {
+	// TODO create an AddCustomCamera function
 	three.AddContent("var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);")
 }
 
@@ -65,7 +66,7 @@ func (three *Tag) AddRenderer() {
 	three.AddContent("document.body.appendChild(renderer.domElement);")
 }
 
-// Add a mesh to the current scene.
+// Add a mesh to the current scene
 func (three *Tag) AddToScene(mesh *Mesh) {
 	three.AddContent(mesh.JS)
 	three.AddContent("scene.add(" + mesh.ID + ");")
@@ -114,8 +115,8 @@ func NewBoxGeometry(w, h, d int) *Geometry {
 }
 
 // Add a test cube to the scene
-// todo: create functions for adding geometry, material and creating meshes
 func (three *Tag) AddTestCube() *Mesh {
+	// TODO Create functions for adding geometry, material and creating meshes
 	//material := NewMaterial(color)
 	material := NewNormalMaterial()
 	geometry := NewBoxGeometry(1, 1, 1)
