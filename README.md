@@ -116,7 +116,7 @@ func main() {
 	svgurl := "/circles.svg"
 	mux.HandleFunc(svgurl, func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add("Content-Type", "image/svg+xml")
-		fmt.Fprint(w, svgPage().String())
+		fmt.Fprint(w, svgPage())
 	})
 
 	// Generate a Page that includes the svg image
