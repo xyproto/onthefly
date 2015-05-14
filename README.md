@@ -1,4 +1,4 @@
-On the fly
+On The Fly
 ==========
 
 [![Build Status](https://travis-ci.org/xyproto/onthefly.svg?branch=master)](https://travis-ci.org/xyproto/onthefly)
