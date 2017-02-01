@@ -2,8 +2,10 @@ On The Fly
 ==========
 
 [![Build Status](https://travis-ci.org/xyproto/onthefly.svg?branch=master)](https://travis-ci.org/xyproto/onthefly)
-[![Build Status](https://drone.io/github.com/xyproto/onthefly/status.png)](https://drone.io/github.com/xyproto/onthefly/latest)
 [![GoDoc](https://godoc.org/github.com/xyproto/onthefly?status.svg)](http://godoc.org/github.com/xyproto/onthefly)
+[![License](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/xyproto/onthefly/master/LICENSE)
+[![Report Card](https://img.shields.io/badge/go_report-A+-brightgreen.svg?style=flat)](http://goreportcard.com/report/xyproto/onthefly)
+
 
 * Package for generating SVG (TinySVG) on the fly.
 * Can also be used for generating HTML, XML or CSS (or templates).
