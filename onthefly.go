@@ -280,7 +280,7 @@ func (tag *Tag) GetTag(name string) (*Tag, error) {
 		return nil, couldNotFindError
 	}
 
-	var child *Tag = tag.firstChild
+	child := tag.firstChild
 	for child != nil {
 		found, err := child.GetTag(name)
 		if err == nil {
@@ -297,8 +297,8 @@ func (tag *Tag) GetTag(name string) (*Tag, error) {
 // level is the indentation level
 // Returns the generated XML as a string
 func getXMLRecursively(cursor *Tag, indent bool, level int) string {
+	var newLine, content, xmlContent string
 
-	newLine := ""
 	if indent {
 		newLine = "\n"
 	}
@@ -306,9 +306,6 @@ func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 	if cursor.CountChildren() == 0 {
 		return cursor.getFlatXML(indent, level) + newLine
 	}
-
-	content := ""
-	xmlContent := ""
 
 	level++
 
@@ -336,12 +333,11 @@ func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 // Returns the generated CSS as a string
 // The output can go directly in a CSS file
 func getCSSRecursively(cursor *Tag) string {
+	var style, cssContent string
+
 	if cursor.CountChildren() == 0 {
 		return cursor.GetCSS()
 	}
-
-	style := ""
-	cssContent := ""
 
 	child := cursor.firstChild
 	for child != nil {

@@ -40,6 +40,7 @@ func (svg *Tag) Box(x, y, w, h int, color string) *Tag {
 	return rect
 }
 
+// Add a circle, given a position (x, y) and a radius
 func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
@@ -51,6 +52,7 @@ func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	return circle
 }
 
+// Add an ellipse, given a position (x, y), x-axis radius and a y-axis radius
 func (svg *Tag) AddEllipse(x, y, rx, ry int) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
@@ -81,6 +83,7 @@ func (svg *Tag) Line(x1, y1, x2, y2, thickness int, color string) *Tag {
 	return line
 }
 
+// Add a colored triangle
 func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
 	triangle := svg.AddNewTag("path")
 	triangle.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x1, y1))
@@ -88,6 +91,7 @@ func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
 	return triangle
 }
 
+// Add a colored polygon with 4 points
 func (svg *Tag) Poly4(x1, y1, x2, y2, x3, y3, x4, y4 int, color string) *Tag {
 	poly4 := svg.AddNewTag("path")
 	poly4.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x4, y4, x1, y1))
@@ -109,12 +113,13 @@ func (svg *Tag) Ellipse(x, y, xr, yr int, color string) *Tag {
 	return ellipse
 }
 
-func (rect *Tag) Fill(color string) {
-	rect.AddAttrib("fill", color)
+// Set the fill color
+func (svg *Tag) Fill(color string) {
+	svg.AddAttrib("fill", color)
 }
 
-// Converts r, g and b which are integers in the range from 0..255
-// to a color-string on the form "#nnnnnn".
+// Convert r, g and b (integers in the range 0..255) to a color string
+// on the form "#nnnnnn".
 func ColorString(r, g, b int) string {
 	rs := strconv.FormatInt(int64(r), 16)
 	gs := strconv.FormatInt(int64(g), 16)
@@ -131,14 +136,14 @@ func ColorString(r, g, b int) string {
 	return "#" + rs + gs + bs
 }
 
-// Converts r, g and b which are integers in the range from 0..255
+// Convert r, g and b which are integers in the range from 0..255
 // and a which is the alpha color in the range from 0.0 to 1.0
 // to a color-string on the form "rgba(255, 255, 255, 1.0)".
 func ColorStringAlpha(r, g, b int, a float64) string {
 	return fmt.Sprintf("rgba(%d, %d, %d, %f)", r, g, b, a)
 }
 
-// Creates a rectangle that is 1 wide with the given color
+// Create a rectangle that is 1 wide with the given color
 // Note that the size of the "pixel" depends on how large the viewBox is
 func (svg *Tag) Pixel(x, y, r, g, b int) *Tag {
 	color := ColorString(r, g, b)
@@ -146,47 +151,20 @@ func (svg *Tag) Pixel(x, y, r, g, b int) *Tag {
 	return rect
 }
 
-func (svg *Tag) AlphaDot(cx, cy, r, g, b int, a float32) *Tag {
+// Create a small circle that can be transparent
+// Takes a position (x, y) and a color (r, g, b, a)
+func (svg *Tag) AlphaDot(x, y, r, g, b int, a float32) *Tag {
 	color := fmt.Sprintf("rgba(%d, %d, %d, %f)", r, g, b, a)
-	circle := svg.AddCircle(cx, cy, 1)
+	circle := svg.AddCircle(x, y, 1)
 	circle.Fill(color)
 	return circle
 }
 
-func (svg *Tag) Dot(cx, cy, r, g, b int) *Tag {
+// Create a small colored circle
+// Takes a position (x, y) and a color (r, g, b)
+func (svg *Tag) Dot(x, y, r, g, b int) *Tag {
 	color := ColorString(r, g, b)
-	circle := svg.AddCircle(cx, cy, 1)
+	circle := svg.AddCircle(x, y, 1)
 	circle.Fill(color)
 	return circle
-}
-
-func SampleSVG1() *Page {
-	page, svg := NewTinySVG(0, 0, 30, 30)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Sample SVG file 1")
-	rect := svg.AddRect(10, 10, 10, 10)
-	rect.Fill("green")
-	svg.Pixel(10, 10, 255, 0, 0)
-	svg.AlphaDot(5, 5, 0, 0, 255, 0.5)
-	return page
-}
-
-func SampleSVG2() *Page {
-	w := 160
-	h := 90
-	stepx := 8
-	stepy := 8
-	page, svg := NewTinySVG(0, 0, w, h)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Sample SVG file 2")
-	increase := 0
-	decrease := 0
-	for y := stepy; y < h; y += stepy {
-		for x := stepx; x < w; x += stepx {
-			increase = int((float32(x) / float32(w)) * 255.0)
-			decrease = 255 - increase
-			svg.Dot(x, y, 255, decrease, increase)
-		}
-	}
-	return page
 }
