@@ -143,7 +143,7 @@ func getSpaces(level int) string {
 }
 
 // Generate a string for a tag, non-recursively
-// indent is if the output should be indented or nto
+// indent is if the output should be indented or not
 // level is how many levels deep the output should be indented.
 func (tag *Tag) getFlatXML(indent bool, level int) string {
 	newLine := ""

@@ -9,14 +9,14 @@ import (
 )
 
 const (
-	angular_version = "1.3.0"
+	angularVersion = "1.3.0"
 )
 
 // Generate a new onthefly Page (HTML5, Angular and CSS combined)
 func indexPage() *onthefly.Page {
 
 	// Create a new HTML5 page, with CSS included
-	page := onthefly.NewAngularPage("Demonstration", angular_version)
+	page := onthefly.NewAngularPage("Demonstration", angularVersion)
 
 	// Rely on the body tag being present
 	body, _ := page.GetTag("body")
@@ -25,7 +25,7 @@ func indexPage() *onthefly.Page {
 	title := body.AddNewTag("p")
 	// Use id attributes to style similar tags separately
 	title.AddAttrib("id", "title")
-	title.AddContent(fmt.Sprintf("onthefly %.1f and AngularJS %s", onthefly.Version, angular_version))
+	title.AddContent(fmt.Sprintf("onthefly %.1f and AngularJS %s", onthefly.Version, angularVersion))
 	title.AddStyle("font-size", "2em")
 	title.AddStyle("font-family", "sans-serif")
 	title.AddStyle("font-style", "italic")
