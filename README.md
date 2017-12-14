@@ -34,7 +34,7 @@ Experiment with [AngularJS](https://angularjs.org/)
 -----------------------
 <img src="https://raw.github.com/xyproto/onthefly/master/img/angular.png">
 
-Example for [Negroni](https://github.com/codegangsta/negroni)
+Example for [Negroni](https://github.com/urfave/negroni)
 --------------------
 
 ~~~go
@@ -44,7 +44,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/codegangsta/negroni"
+	"github.com/urfave/negroni"
 	"github.com/xyproto/onthefly"
 )
 
