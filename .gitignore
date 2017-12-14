@@ -4,6 +4,10 @@ examples/babylonjs/babylonjs
 examples/negroni/negroni
 examples/angular/angular
 examples/web/web
-
 *~
 .nfs*
+*.bak
+*.swp
+*.tmp
+*.o
+
