@@ -27,7 +27,6 @@ type Tag struct {
 type Page struct {
 	title  string
 	root   *Tag
-	cursor *Tag
 }
 
 // Create a new XML/HTML page, with a root tag
