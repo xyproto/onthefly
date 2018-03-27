@@ -20,6 +20,8 @@ func NewTinySVG(x, y, w, h int) (*Page, *Tag) {
 	return page, svg
 }
 
+// AddRect a rectangle, given x and y position, width and height.
+// No color is being set.
 func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
@@ -33,14 +35,28 @@ func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	return rect
 }
 
-// Add a box/rectangle, given x and y position, width, height and color
+// AddText adds text. No color is being set
+func (svg *Tag) AddText(x, y, fontSize int, fontFamily, text string) *Tag {
+	sx := strconv.Itoa(x)
+	sy := strconv.Itoa(y)
+	fs := strconv.Itoa(fontSize)
+	textTag := svg.AddNewTag("text")
+	textTag.AddAttrib("x", sx)
+	textTag.AddAttrib("y", sy)
+	textTag.AddAttrib("font-family", fontFamily)
+	textTag.AddAttrib("font-size", fs)
+	textTag.AddContent(text)
+	return textTag
+}
+
+// Box adds a rectangle, given x and y position, width, height and color
 func (svg *Tag) Box(x, y, w, h int, color string) *Tag {
 	rect := svg.AddRect(x, y, w, h)
 	rect.Fill(color)
 	return rect
 }
 
-// Add a circle, given a position (x, y) and a radius
+// AddCircle adds a circle Add a circle, given a position (x, y) and a radius
 func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
@@ -52,7 +68,7 @@ func (svg *Tag) AddCircle(x, y, radius int) *Tag {
 	return circle
 }
 
-// Add an ellipse, given a position (x, y), x-axis radius and a y-axis radius
+// AddEllipse adds an ellipse with a given position (x,y) and radius (rx, ry).
 func (svg *Tag) AddEllipse(x, y, rx, ry int) *Tag {
 	sx := strconv.Itoa(x)
 	sy := strconv.Itoa(y)
@@ -66,7 +82,7 @@ func (svg *Tag) AddEllipse(x, y, rx, ry int) *Tag {
 	return ellipse
 }
 
-// Add a line from (x1, y1) to (x2, y2) with a given stroke width and color
+// Line adds a line from (x1, y1) to (x2, y2) with a given stroke width and color
 func (svg *Tag) Line(x1, y1, x2, y2, thickness int, color string) *Tag {
 	sx1 := strconv.Itoa(x1)
 	sy1 := strconv.Itoa(y1)
@@ -83,7 +99,7 @@ func (svg *Tag) Line(x1, y1, x2, y2, thickness int, color string) *Tag {
 	return line
 }
 
-// Add a colored triangle
+// Triangle adds a colored triangle
 func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
 	triangle := svg.AddNewTag("path")
 	triangle.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x1, y1))
@@ -91,7 +107,7 @@ func (svg *Tag) Triangle(x1, y1, x2, y2, x3, y3 int, color string) *Tag {
 	return triangle
 }
 
-// Add a colored polygon with 4 points
+// Poly4 adds a colored polygon with 4 points
 func (svg *Tag) Poly4(x1, y1, x2, y2, x3, y3, x4, y4 int, color string) *Tag {
 	poly4 := svg.AddNewTag("path")
 	poly4.AddAttrib("d", fmt.Sprintf("M %d %d L %d %d L %d %d L %d %d L %d %d", x1, y1, x2, y2, x3, y3, x4, y4, x1, y1))
@@ -99,27 +115,27 @@ func (svg *Tag) Poly4(x1, y1, x2, y2, x3, y3, x4, y4 int, color string) *Tag {
 	return poly4
 }
 
-// Add a circle, given x and y position, radius and color
+// Circle adds a circle, given x and y position, radius and color
 func (svg *Tag) Circle(x, y, radius int, color string) *Tag {
 	circle := svg.AddCircle(x, y, radius)
 	circle.Fill(color)
 	return circle
 }
 
-// Add an ellipse, given x and y position, x radius, y radius and color
+// Ellipse adds an ellipse, given x and y position, radiuses and color
 func (svg *Tag) Ellipse(x, y, xr, yr int, color string) *Tag {
 	ellipse := svg.AddEllipse(x, y, xr, yr)
 	ellipse.Fill(color)
 	return ellipse
 }
 
-// Set the fill color
+// Fill selects the fill color that will be used when drawing
 func (svg *Tag) Fill(color string) {
 	svg.AddAttrib("fill", color)
 }
 
-// Convert r, g and b (integers in the range 0..255) to a color string
-// on the form "#nnnnnn".
+// ColorString converts r, g and b (integers in the range 0..255)
+// to a color string on the form "#nnnnnn".
 func ColorString(r, g, b int) string {
 	rs := strconv.FormatInt(int64(r), 16)
 	gs := strconv.FormatInt(int64(g), 16)
@@ -136,23 +152,23 @@ func ColorString(r, g, b int) string {
 	return "#" + rs + gs + bs
 }
 
-// Convert r, g and b which are integers in the range from 0..255
-// and a which is the alpha color in the range from 0.0 to 1.0
-// to a color-string on the form "rgba(255, 255, 255, 1.0)".
+// ColorStringAlpha converts integers r, g and b (the color) and also
+// a given alpha (opacity) to a color-string on the form
+// "rgba(255, 255, 255, 1.0)".
 func ColorStringAlpha(r, g, b int, a float64) string {
 	return fmt.Sprintf("rgba(%d, %d, %d, %f)", r, g, b, a)
 }
 
-// Create a rectangle that is 1 wide with the given color
-// Note that the size of the "pixel" depends on how large the viewBox is
+// Pixel creates a rectangle that is 1 wide with the given color.
+// Note that the size of the "pixel" depends on how large the viewBox is.
 func (svg *Tag) Pixel(x, y, r, g, b int) *Tag {
 	color := ColorString(r, g, b)
 	rect := svg.Box(x, y, 1, 1, color)
 	return rect
 }
 
-// Create a small circle that can be transparent
-// Takes a position (x, y) and a color (r, g, b, a)
+// AlphaDot creates a small circle that can be transparent.
+// Takes a position (x, y) and a color (r, g, b, a).
 func (svg *Tag) AlphaDot(x, y, r, g, b int, a float32) *Tag {
 	color := fmt.Sprintf("rgba(%d, %d, %d, %f)", r, g, b, a)
 	circle := svg.AddCircle(x, y, 1)
@@ -160,11 +176,13 @@ func (svg *Tag) AlphaDot(x, y, r, g, b int, a float32) *Tag {
 	return circle
 }
 
-// Create a small colored circle
-// Takes a position (x, y) and a color (r, g, b)
+// Dot adds a small colored circle.
+// Takes a position (x, y) and a color (r, g, b).
 func (svg *Tag) Dot(x, y, r, g, b int) *Tag {
 	color := ColorString(r, g, b)
 	circle := svg.AddCircle(x, y, 1)
 	circle.Fill(color)
 	return circle
 }
+
+//
