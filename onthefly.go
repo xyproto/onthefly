@@ -1,4 +1,4 @@
-// Generate TinySVG, HTML and CSS on the fly
+// onthefly can generate TinySVG, HTML and CSS on the fly
 package onthefly
 
 import (
@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	Version     = 0.8
+	Version     = 0.9
 	noAttribute = "NIL"
 )
 
@@ -29,7 +29,7 @@ type Page struct {
 	root  *Tag
 }
 
-// Create a new XML/HTML page, with a root tag
+// NewPage creates a new XML/HTML/SVG page, with a root tag.
 // If rootTagName contains "<" or ">", it can be used for preceding declarations,
 // like <!DOCTYPE html> or <?xml version=\"1.0\"?>.
 // Returns a pointer to a Page.
@@ -41,8 +41,8 @@ func NewPage(title, rootTagName string) *Page {
 	return &page
 }
 
-// Create a new tag based on a given name.
-// name is what will appear right after the "<" in the tag output
+// NewTag creates a new tag based on the given name.
+// "name" is what will appear right after "<" when rendering as XML/HTML/SVG.
 func NewTag(name string) *Tag {
 	var tag Tag
 	tag.name = name
@@ -55,45 +55,39 @@ func NewTag(name string) *Tag {
 	return &tag
 }
 
-// Add a new tag to another tag. This will place it one step
-// lower in the hierarchy of tags. You can for example add
-// a body tag to an html tag.
+// AddNewTag adds a new tag to another tag. This will place it one step lower
+// in the hierarchy of tags. You can for example add a body tag to an html tag.
 func (tag *Tag) AddNewTag(name string) *Tag {
 	child := NewTag(name)
 	tag.AddChild(child)
 	return child
 }
 
-// Add a tag to another tag
+// AddTag adds a tag to another tag
 func (tag *Tag) AddTag(child *Tag) {
 	tag.AddChild(child)
 }
 
-// Add CSS style to a tag, for instance
-// "background-color" and "red"
+// AddStyle adds CSS tyle to a tag, for instance "background-color" and "red"
 func (tag *Tag) AddStyle(styleName, styleValue string) {
 	tag.style[styleName] = styleValue
 }
 
-// Add an attribute to a tag, for instance
-// "size" and "20"
+// AddAttrib adds an attribute to a tag, for instance "size" and "20"
 func (tag *Tag) AddAttrib(attrName, attrValue string) {
 	tag.attrs[attrName] = attrValue
 }
 
-// Add an attribute without a value
+// AddSingularAttrib adds attribute without a value
 func (tag *Tag) AddSingularAttrib(attrName string) {
 	tag.attrs[attrName] = noAttribute
 }
 
-// Generate the CSS text for a given tag
-// The generated string can be used directly in a CSS file
-func (tag *Tag) GetCSS() string {
+// GetCSS renders CSS for a given tag
+func (tag *Tag) GetCSS() (ret string) {
 	if len(tag.style) == 0 {
-		return ""
+		return
 	}
-
-	ret := ""
 
 	// If there is an id="name" defined, use that id instead of the tag name
 
@@ -104,6 +98,7 @@ func (tag *Tag) GetCSS() string {
 	} else {
 		ret = tag.name
 	}
+
 	ret += " {\n"
 
 	// Attributes may appear in any order
@@ -111,12 +106,11 @@ func (tag *Tag) GetCSS() string {
 		ret += "  " + key + ": " + value + ";\n"
 	}
 
-	ret += "}\n\n"
-	return ret
+	return ret + "}\n\n"
 }
 
-// Get a string that represents all the attribute keys and values
-// of a tag. This can be used when generating HTML, for example.
+// GetAttrString returns a string that represents all the attribute keys and
+// values of a tag. This can be used when generating XML, SVG or HTML.
 func (tag *Tag) GetAttrString() string {
 	ret := ""
 	for key, value := range tag.attrs {
@@ -132,7 +126,7 @@ func (tag *Tag) GetAttrString() string {
 	return ret
 }
 
-// Get spaces for indenting based on a given level
+// getSpaces generates a string with spaces, based on the given indentation level
 func getSpaces(level int) string {
 	spacing := ""
 	for i := 1; i < level; i++ {
@@ -141,9 +135,10 @@ func getSpaces(level int) string {
 	return spacing
 }
 
-// Generate a string for a tag, non-recursively
-// indent is if the output should be indented or not
-// level is how many levels deep the output should be indented.
+// getFlatXML renders XML.
+// This will generate a string for a tag, non-recursively.
+// "indent" is if the output should be indented or not.
+// "level" is how many levels deep the output should be indented.
 func (tag *Tag) getFlatXML(indent bool, level int) string {
 	newLine := ""
 	if indent {
@@ -180,8 +175,8 @@ func (tag *Tag) getFlatXML(indent bool, level int) string {
 	return ret
 }
 
-// Get all the children for a given tag
-// Returns a slice of pointers to tags
+// GetChildren returns all children for a given tag.
+// Returns a slice of pointers to tags.
 func (tag *Tag) GetChildren() []*Tag {
 	var children []*Tag
 	current := tag.firstChild
@@ -192,7 +187,7 @@ func (tag *Tag) GetChildren() []*Tag {
 	return children
 }
 
-// Add a tag as a child to another tag
+// AddChild adds a tag as a child to another tag
 func (tag *Tag) AddChild(child *Tag) {
 	if tag.firstChild == nil {
 		tag.firstChild = child
@@ -203,21 +198,26 @@ func (tag *Tag) AddChild(child *Tag) {
 	lastChild.nextSibling = child
 }
 
-// Add content to a tag. This is what will appear
-// between two tags, for example: <tag>content</tag>
-// If the tag contains child tags, they will be added after this
+// AddContent adds text to a tag.
+// This is what will appear between two tag markers, for example:
+// <tag>content</tag>
+// If the tag contains child tags, they will be rendered after this content.
 func (tag *Tag) AddContent(content string) {
 	tag.content += content
 }
 
-// Add content that will be added within a tag, but after
-// the other content and any child tags
-func (tag *Tag) AddLastContent(content string) {
+// AppendContent appends content to the end of the exising content of a tag
+func (tag *Tag) AppendContent(content string) {
 	tag.lastContent += content
 }
 
-// Count how many children a tag has
-// Returns an integer
+// AddLastContent appends content to the end of the exising content of a tag.
+// Deprecated.
+func (tag *Tag) AddLastContent(content string) {
+	tag.AppendContent(content)
+}
+
+// CountChildren returns the number of children a tag has
 func (tag *Tag) CountChildren() int {
 	child := tag.firstChild
 	if child == nil {
@@ -235,7 +235,7 @@ func (tag *Tag) CountChildren() int {
 	return count
 }
 
-// Count the number of siblings a tag has
+// CountSiblings returns the number of siblings a tag has
 func (tag *Tag) CountSiblings() int {
 	sib := tag.nextSibling
 	if sib == nil {
@@ -253,7 +253,7 @@ func (tag *Tag) CountSiblings() int {
 	return count
 }
 
-// Find the last child of the children of a tag
+// LastChild returns the last child of a tag
 func (tag *Tag) LastChild() *Tag {
 	child := tag.firstChild
 	for child.nextSibling != nil {
@@ -262,13 +262,13 @@ func (tag *Tag) LastChild() *Tag {
 	return child
 }
 
-// Given the name of a tag, finds the first tag that matches
+// GetTag searches all tags for the given name
 func (page *Page) GetTag(name string) (*Tag, error) {
 	return page.root.GetTag(name)
 }
 
-// Find a tag by name, returns an error if not found
-// Returns the first tag that matches
+// GetTag finds a tag by name and returns an error if not found.
+// Returns the first tag that matches.
 func (tag *Tag) GetTag(name string) (*Tag, error) {
 	if strings.Index(tag.name, name) == 0 {
 		return tag, nil
@@ -291,10 +291,10 @@ func (tag *Tag) GetTag(name string) (*Tag, error) {
 	return nil, couldNotFindError
 }
 
-// Generate XML for a tag, recursively
-// indent is if the output should be indented or not
-// level is the indentation level
-// Returns the generated XML as a string
+// getXMLRecursively renders XML for a tag, recursively.
+// "indent" is if the output should be indented or not.
+// "level" is the indentation level.
+// The generated XML is returned as a string.
 func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 	var newLine, content, xmlContent string
 
@@ -328,9 +328,8 @@ func getXMLRecursively(cursor *Tag, indent bool, level int) string {
 	return ret
 }
 
-// Generate CSS for a tag, recursively
-// Returns the generated CSS as a string
-// The output can go directly in a CSS file
+// getCSSRecursively renders CSS for a tag, recursively.
+// The generated CSS is returned as a string.
 func getCSSRecursively(cursor *Tag) string {
 	var style, cssContent string
 
@@ -350,24 +349,22 @@ func getCSSRecursively(cursor *Tag) string {
 	return cursor.GetCSS() + style
 }
 
-// Generate XML for a page
-// The output can go directly in an XML file
+// GetXML renders XML for a Page
 func (page *Page) GetXML(indent bool) string {
 	return getXMLRecursively(page.root, indent, 0)
 }
 
-// Generate CSS for a page
-// The output can go directly in a CSS file
+// GetCSS renders CSS for a Page
 func (page *Page) GetCSS() string {
 	return getCSSRecursively(page.root)
 }
 
-// Generate HTML for a page
+// GetHTML renders HTML for a Page
 func (page *Page) GetHTML() string {
 	return page.GetXML(true)
 }
 
-// Show various information for a page, used for debugging
+// prettyPrint shows various information for a page, used for debugging
 func (page *Page) prettyPrint() {
 	root := *page.root
 	fmt.Println("Page title:", page.title)
@@ -377,9 +374,9 @@ func (page *Page) prettyPrint() {
 	fmt.Printf("CSS:\n%s\n", page.GetCSS())
 }
 
-// Add content to the body tag
-// Returns the body tag and nil if successful
-// Returns and an error if no body tag is found, else nil
+// AddContent adds content to the body tag.
+// Returns the body tag and nil if successful.
+// Returns and an error if no body tag is found, else nil.
 func (page *Page) AddContent(content string) (*Tag, error) {
 	body, err := page.root.GetTag("body")
 	if err == nil {
@@ -388,7 +385,7 @@ func (page *Page) AddContent(content string) (*Tag, error) {
 	return body, err
 }
 
-// Get the string for the page
+// String renders the page as an HTML string
 func (page *Page) String() string {
 	return page.GetHTML()
 }
