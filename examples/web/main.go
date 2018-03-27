@@ -18,6 +18,10 @@ func svgPage() *onthefly.Page {
 	svg.Circle(30, 10, 5, "red")
 	svg.Circle(110, 30, 2, "green")
 	svg.Circle(80, 40, 7, "blue")
+
+	// x, y, font size, font family, text and color
+	svg.Text(3, 60, 6, "Courier", "There will be cake", "#394851")
+
 	return page
 }
 
@@ -54,6 +58,7 @@ func indexPage(cssurl string) *onthefly.Page {
 	if err == nil {
 		// CSS attributes for the body tag
 		body.AddStyle("font-size", "2em")
+		body.AddStyle("font-family", "sans-serif")
 
 		// Paragraph
 		p := body.AddNewTag("p")

@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"time"
 
-	"github.com/urfave/negroni"
 	"github.com/xyproto/onthefly"
 )
 
@@ -46,6 +47,7 @@ func indexPage(svgurl string) *onthefly.Page {
 	// Include the generated SVG image on the page
 	body, err := page.GetTag("body")
 	if err == nil {
+
 		// CSS attributes for the body tag
 		body.AddStyle("font-size", "2em")
 		body.AddStyle("font-family", "sans-serif")
@@ -75,8 +77,7 @@ func indexPage(svgurl string) *onthefly.Page {
 func main() {
 	fmt.Println("onthefly ", onthefly.Version)
 
-	// Create a Negroni instance and a ServeMux instance
-	n := negroni.Classic()
+	// Create a mux
 	mux := http.NewServeMux()
 
 	// Publish the generated SVG as "/circles.svg"
@@ -88,12 +89,20 @@ func main() {
 
 	// Generate a Page that includes the svg image
 	page := indexPage(svgurl)
+
 	// Publish the generated Page in a way that connects the HTML and CSS
 	page.Publish(mux, "/", "/style.css", false)
 
-	// Handler goes last
-	n.UseHandler(mux)
+	// Configure the HTTP server and permissionHandler struct
+	s := &http.Server{
+		Addr:           ":3000",
+		Handler:        mux,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	log.Println("Listening for requests on port 3000")
 
-	// Listen for requests at port 3000
-	n.Run(":3000")
+	// Start listening
+	log.Fatal(s.ListenAndServe())
 }
