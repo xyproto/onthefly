@@ -94,3 +94,8 @@ func (svg *Tag) AlphaDot(x, y, r, g, b int, a float32) *Tag {
 func (svg *Tag) Dot(x, y, r, g, b int) *Tag {
 	return svg.Circle2(&Pos{x, y}, 1, RGB(r, g, b))
 }
+
+// Text adds text, with a color
+func (svg *Tag) Text(x, y, fontSize int, fontFamily, text, color string) *Tag {
+	return svg.Text2(&Pos{x, y}, &Font{fontFamily, fontSize}, text, ColorByName(color))
+}
