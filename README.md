@@ -15,7 +15,7 @@ On The Fly
 
 New/experimental features:
 * Generating WebGL graphics with Three.JS on the fly.
-* Generate AngularJS applications on the fly.
+* Generating AngularJS applications on the fly.
 
 Online API Documentation
 ------------------------
@@ -356,6 +356,8 @@ func main() {
 Additional screenshots
 ----------------------
 
+Screenshots from version 0.8:
+
 <img src="https://raw.github.com/xyproto/onthefly/master/img/svg_dark.png">
 
 <img src="https://raw.github.com/xyproto/onthefly/master/img/svg_light.png">
@@ -364,6 +366,6 @@ Version, license and author
 ---------------------------
 
 * Version: 0.9
+* Alexander F Rødseth &lt;xyproto@archlinux.org&gt;
 * License: MIT
-* Alexander F Rødseth
 
