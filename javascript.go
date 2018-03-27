@@ -6,39 +6,39 @@ import "errors"
 // Takes the url to a JS file as a string
 // The given page must have a "head" tag for this to work
 // Returns an error if no "head" tag is found, or nil
-func (page *Page) LinkToJS(jsurl string) error {
-	_, err := page.LinkToJSInHead(jsurl)
+func (page *Page) LinkToJS(jsURL string) error {
+	_, err := page.LinkToJSInHead(jsURL)
 	return err
 }
 
-// Link to javascript in the head
-func (page *Page) LinkToJSInHead(jsurl string) (*Tag, error) {
+// Link to JavaScript in the head
+func (page *Page) LinkToJSInHead(jsURL string) (*Tag, error) {
 	head, err := page.GetTag("head")
 	if err != nil {
 		return nil, err
 	}
 	script := head.AddNewTag("script")
-	script.AddAttrib("src", jsurl)
+	script.AddAttrib("src", jsURL)
 	script.AddAttrib("type", "text/javascript")
 	script.AddContent(" ")
 	return script, nil
 }
 
-// Link to javascript, at the end of the body
-func (page *Page) LinkToJSInBody(jsurl string) (*Tag, error) {
+// Link to JavaScript, at the end of the body
+func (page *Page) LinkToJSInBody(jsURL string) (*Tag, error) {
 	body, err := page.GetTag("body")
 	if err != nil {
 		return nil, err
 	}
 	script := body.AddNewTag("script")
-	script.AddAttrib("src", jsurl)
+	script.AddAttrib("src", jsURL)
 	script.AddAttrib("type", "text/javascript")
 	script.AddContent(" ")
 	return script, nil
 }
 
-// Add javascript code in a script tag in the head tag
-// todo: deprecate, use AddScriptToHead instead
+// Add JavaScript code in a script tag in the head tag
+// Deprecated, use AddScriptToHead instead.
 func AddScriptToHeader(page *Page, js string) error {
 	_, err := page.AddScriptToHead(js)
 	return err

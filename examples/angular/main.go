@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	angularVersion = "1.6.6"
+	angularVersion = "1.6.9"
 )
 
 // Generate a new onthefly Page (HTML5, Angular and CSS combined)

@@ -1,6 +1,6 @@
 package onthefly
 
-// Various JavaScript and JQuery functions. May add react.js at a later stage.
+// Various JavaScript and JQuery functions
 
 // Creates an anonymous function
 func fn(source string) string {
