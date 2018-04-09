@@ -349,6 +349,11 @@ func getCSSRecursively(cursor *Tag) string {
 	return cursor.GetCSS() + style
 }
 
+// String gets HTML for a single Tag
+func (tag *Tag) String() string {
+	return getXMLRecursively(tag, true, 0)
+}
+
 // GetXML renders XML for a Page
 func (page *Page) GetXML(indent bool) string {
 	return getXMLRecursively(page.root, indent, 0)
