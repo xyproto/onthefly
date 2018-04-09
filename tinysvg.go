@@ -49,8 +49,10 @@ type Font struct {
 // NewTinySVG2 creates new TinySVG 1.2 image. Pos and Size defines the viewbox
 func NewTinySVG2(p *Pos, s *Size) (*Page, *Tag) {
 	// No page title is needed when building an SVG tag tree
-	page := NewPage("", `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.2 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">`)
+	page := NewPage("", `<?xml version="1.0" encoding="UTF-8"?>`)
+
+	// No longer needed for TinySVG 1.2. See: https://www.w3.org/TR/SVGTiny12/intro.html#defining
+	// <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
 
 	// Add the root tag
 	svg := page.root.AddNewTag("svg")
