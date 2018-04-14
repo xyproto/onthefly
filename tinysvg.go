@@ -5,7 +5,7 @@ package onthefly
 //
 // Some functions are suffixed with "2" to avoid breaking backward compatibility.
 //
-// All functions here will be reorganized in a future release of onthefly, but then under a new package name.
+// TODO: Refactor this package as a new and shiny package in a different namespace.
 //
 
 import (
