@@ -66,3 +66,13 @@ func SamplePage(cssurl string) *Page {
 
 	return page
 }
+
+// SampleStar draws a star at the given position
+func SampleStar(svg *Tag) {
+	points, err := PointsFromString("350,75 379,161 469,161 397,215 423,301 350,250 277,301 303,215 231,161 321,161")
+	if err != nil {
+		panic(err)
+	}
+	polygon := svg.Polygon(points, NewColor("blue"))
+	polygon.Fill("red")
+}
