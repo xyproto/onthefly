@@ -267,6 +267,11 @@ func (page *Page) GetTag(name string) (*Tag, error) {
 	return page.root.GetTag(name)
 }
 
+// GetRoot returns the root tag of the page
+func (page *Page) GetRoot() *Tag {
+	return page.root
+}
+
 // GetTag finds a tag by name and returns an error if not found.
 // Returns the first tag that matches.
 func (tag *Tag) GetTag(name string) (*Tag, error) {
