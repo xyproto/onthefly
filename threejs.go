@@ -53,6 +53,26 @@ func NewThreeJS(titleText string) (*Page, *Tag) {
 	return page, script
 }
 
+// Create a HTML5 page that includes the given JavaScript code at the end of
+// the <body> tag, before </body>. The given JS code must be the contents of
+// the http://threejs.org/build/three.min.js script for this to work.
+func NewThreeJSWithGiven(titleText, js string) (*Page, *Tag) {
+	page := NewHTML5Page(titleText)
+
+	// Style the page for showing a fullscreen canvas
+	page.FullCanvas()
+
+	// Add the given JavaScript to the body
+	page.AddScriptToBody(js)
+
+	// Add a scene
+	script, _ := page.AddScriptToBody("var scene = new THREE.Scene();")
+
+	// Return the script tag that can be used for adding additional
+	// javascript/Three.JS code
+	return page, script
+}
+
 // Add a camera with default settings
 func (three *Tag) AddCamera() {
 	// TODO create an AddCustomCamera function
