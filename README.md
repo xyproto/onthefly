@@ -362,6 +362,11 @@ Screenshots from version 0.8:
 
 <img src="https://raw.github.com/xyproto/onthefly/master/img/svg_light.png">
 
+TODO
+----
+
+* Create a version 2 that is more focused on performance and has more consistent API function names.
+
 Version, license and author
 ---------------------------
 

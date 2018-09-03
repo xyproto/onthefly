@@ -74,6 +74,10 @@ func f2s(x float64) string {
 	if strings.HasSuffix(fs, ".0") {
 		return fs[:len(fs)-2]
 	}
+	// Drop ".000000" if the number ends with that
+	if strings.HasSuffix(fs, ".000000") {
+		return fs[:len(fs)-7]
+	}
 	return fs
 }
 
@@ -406,13 +410,13 @@ func (yna YesNoAuto) String() string {
 
 // Focusable sets the "focusable" attribute to either true, false or auto
 // If "auto" is true, it overrides the value of "yes".
-func (tag *Tag) Focusable(yes bool, auto bool) {
-	tag.AddAttrib("focusable", NewYesNoAuto(yes, auto).String())
+func (svg *Tag) Focusable(yes bool, auto bool) {
+	svg.AddAttrib("focusable", NewYesNoAuto(yes, auto).String())
 }
 
 // Thickness sets the stroke-width attribute
-func (tag *Tag) Thickness(thickness int) {
-	tag.AddAttrib("stroke-width", i2s(thickness))
+func (svg *Tag) Thickness(thickness int) {
+	svg.AddAttrib("stroke-width", i2s(thickness))
 }
 
 // Polyline adds a set of connected straight lines, an open shape
