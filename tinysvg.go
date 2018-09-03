@@ -70,15 +70,14 @@ func NewTinySVG2(p *Pos, s *Size) (*Page, *Tag) {
 
 // Create a new TinySVG document, where the width and height is defined in pixels, using the "px" suffix
 func NewTinySVGPixels(w, h int) (*Page, *Tag) {
-	// No page title is needed when building an SVG tag tree
 	page := NewPage("", `<?xml version="1.0" encoding="UTF-8"?>`)
-
-	// Add the root tag
 	svg := page.root.AddNewTag("svg")
 	svg.AddAttrib("xmlns", "http://www.w3.org/2000/svg")
 	svg.AddAttrib("version", "1.2")
 	svg.AddAttrib("baseProfile", "tiny")
-	svg.AddAttrib("viewBox", fmt.Sprintf("%dpx %dpx %dpx %dpx", 0, 0, w, h))
+	svg.AddAttrib("viewBox", fmt.Sprintf("%d %d %d %d", 0, 0, w, h))
+	svg.AddAttrib("width", fmt.Sprintf("%dpx", w))
+	svg.AddAttrib("height", fmt.Sprintf("%dpx", h))
 	return page, svg
 }
 
