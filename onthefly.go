@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	Version     = 0.9
+	Version     = 1.0
 	noAttribute = "NIL"
 )
 
