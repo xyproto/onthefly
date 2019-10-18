@@ -110,6 +110,20 @@ func (svg *Tag) Rect2(p *Pos, s *Size, c *Color) *Tag {
 	return rect
 }
 
+// RoundedRect2 a rectangle, given x and y position, width and height.
+// No color is being set.
+func (svg *Tag) RoundedRect2(p *Pos, r *Radius, s *Size, c *Color) *Tag {
+	rect := svg.AddNewTag("rect")
+	rect.AddAttrib("x", f2s(p.x))
+	rect.AddAttrib("y", f2s(p.y))
+	rect.AddAttrib("rx", f2s(r.x))
+	rect.AddAttrib("ry", f2s(r.y))
+	rect.AddAttrib("width", f2s(s.w))
+	rect.AddAttrib("height", f2s(s.h))
+	rect.Fill2(c)
+	return rect
+}
+
 // Text adds text. No color is being set
 func (svg *Tag) Text2(p *Pos, f *Font, message string, c *Color) *Tag {
 	text := svg.AddNewTag("text")
@@ -283,10 +297,22 @@ func (svg *Tag) AddRect(x, y, w, h int) *Tag {
 	return svg.Rect2(&Pos{float64(x), float64(y)}, &Size{float64(w), float64(h)}, nil)
 }
 
+// AddRoundedRect adds a rectangle, given x and y position, radius x, radius y, width and height.
+// No color is being set.
+func (svg *Tag) AddRoundedRect(x, y, rx, ry, w, h int) *Tag {
+	return svg.RoundedRect2(&Pos{float64(x), float64(y)}, &Radius{float64(rx), float64(ry)}, &Size{float64(w), float64(h)}, nil)
+}
+
 // AddRectf adds a rectangle, given x and y position, width and height.
 // No color is being set.
 func (svg *Tag) AddRectf(x, y, w, h float64) *Tag {
 	return svg.Rect2(&Pos{x, y}, &Size{w, h}, nil)
+}
+
+// AddRoundedRectf adds a rectangle, given x and y position, radius x, radius y, width and height.
+// No color is being set.
+func (svg *Tag) AddRoundedRectf(x, y, rx, ry, w, h float64) *Tag {
+	return svg.RoundedRect2(&Pos{x, y}, &Radius{rx, ry}, &Size{w, h}, nil)
 }
 
 // AddText adds text. No color is being set
