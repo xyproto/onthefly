@@ -24,31 +24,31 @@ const (
 var errPair = errors.New("position pairs must be exactly two comma separated numbers")
 
 type Pos struct {
-	x float64
-	y float64
+	X float64
+	Y float64
 }
 
 type Size struct {
-	w float64
-	h float64
+	W float64
+	H float64
 }
 
 type Radius struct {
-	x float64
-	y float64
+	X float64
+	Y float64
 }
 
 type Color struct {
-	r int     // red, 0..255
-	g int     // green, 0..255
-	b int     // blue, 0..255
-	a float64 // alpha, 0.0..1.0
-	n string  // name (optional, will override the above values)
+	R int     // red, 0..255
+	G int     // green, 0..255
+	B int     // blue, 0..255
+	A float64 // alpha, 0.0..1.0
+	N string  // name (optional, will override the above values)
 }
 
 type Font struct {
-	family string
-	size   int
+	Family string
+	Size   int
 }
 
 // NewTinySVG2 creates new TinySVG 1.2 image. Pos and Size defines the viewbox
@@ -64,7 +64,7 @@ func NewTinySVG2(p *Pos, s *Size) (*Page, *Tag) {
 	svg.AddAttrib("xmlns", "http://www.w3.org/2000/svg")
 	svg.AddAttrib("version", "1.2")
 	svg.AddAttrib("baseProfile", "tiny")
-	svg.AddAttrib("viewBox", fmt.Sprintf("%f %f %f %f", p.x, p.y, s.w, s.h))
+	svg.AddAttrib("viewBox", fmt.Sprintf("%f %f %f %f", p.X, p.Y, s.W, s.H))
 	return page, svg
 }
 
@@ -102,10 +102,10 @@ func i2s(x int) string {
 // No color is being set.
 func (svg *Tag) Rect2(p *Pos, s *Size, c *Color) *Tag {
 	rect := svg.AddNewTag("rect")
-	rect.AddAttrib("x", f2s(p.x))
-	rect.AddAttrib("y", f2s(p.y))
-	rect.AddAttrib("width", f2s(s.w))
-	rect.AddAttrib("height", f2s(s.h))
+	rect.AddAttrib("x", f2s(p.X))
+	rect.AddAttrib("y", f2s(p.Y))
+	rect.AddAttrib("width", f2s(s.W))
+	rect.AddAttrib("height", f2s(s.H))
 	rect.Fill2(c)
 	return rect
 }
@@ -114,12 +114,12 @@ func (svg *Tag) Rect2(p *Pos, s *Size, c *Color) *Tag {
 // No color is being set.
 func (svg *Tag) RoundedRect2(p *Pos, r *Radius, s *Size, c *Color) *Tag {
 	rect := svg.AddNewTag("rect")
-	rect.AddAttrib("x", f2s(p.x))
-	rect.AddAttrib("y", f2s(p.y))
-	rect.AddAttrib("rx", f2s(r.x))
-	rect.AddAttrib("ry", f2s(r.y))
-	rect.AddAttrib("width", f2s(s.w))
-	rect.AddAttrib("height", f2s(s.h))
+	rect.AddAttrib("x", f2s(p.X))
+	rect.AddAttrib("y", f2s(p.Y))
+	rect.AddAttrib("rx", f2s(r.X))
+	rect.AddAttrib("ry", f2s(r.Y))
+	rect.AddAttrib("width", f2s(s.W))
+	rect.AddAttrib("height", f2s(s.H))
 	rect.Fill2(c)
 	return rect
 }
@@ -127,10 +127,10 @@ func (svg *Tag) RoundedRect2(p *Pos, r *Radius, s *Size, c *Color) *Tag {
 // Text adds text. No color is being set
 func (svg *Tag) Text2(p *Pos, f *Font, message string, c *Color) *Tag {
 	text := svg.AddNewTag("text")
-	text.AddAttrib("x", f2s(p.x))
-	text.AddAttrib("y", f2s(p.y))
-	text.AddAttrib("font-family", f.family)
-	text.AddAttrib("font-size", i2s(f.size))
+	text.AddAttrib("x", f2s(p.X))
+	text.AddAttrib("y", f2s(p.Y))
+	text.AddAttrib("font-family", f.Family)
+	text.AddAttrib("font-size", i2s(f.Size))
 	text.Fill2(c)
 	text.AddContent(message)
 	return text
@@ -139,8 +139,8 @@ func (svg *Tag) Text2(p *Pos, f *Font, message string, c *Color) *Tag {
 // Circle adds a circle, given a position, radius and color
 func (svg *Tag) Circle2(p *Pos, radius int, c *Color) *Tag {
 	circle := svg.AddNewTag("circle")
-	circle.AddAttrib("cx", f2s(p.x))
-	circle.AddAttrib("cy", f2s(p.y))
+	circle.AddAttrib("cx", f2s(p.X))
+	circle.AddAttrib("cy", f2s(p.Y))
 	circle.AddAttrib("r", i2s(radius))
 	circle.Fill2(c)
 	return circle
@@ -149,8 +149,8 @@ func (svg *Tag) Circle2(p *Pos, radius int, c *Color) *Tag {
 // Circle adds a circle, given a position, radius and color
 func (svg *Tag) Circlef(p *Pos, radius float64, c *Color) *Tag {
 	circle := svg.AddNewTag("circle")
-	circle.AddAttrib("cx", f2s(p.x))
-	circle.AddAttrib("cy", f2s(p.y))
+	circle.AddAttrib("cx", f2s(p.X))
+	circle.AddAttrib("cy", f2s(p.Y))
 	circle.AddAttrib("r", f2s(radius))
 	circle.Fill2(c)
 	return circle
@@ -159,10 +159,10 @@ func (svg *Tag) Circlef(p *Pos, radius float64, c *Color) *Tag {
 // Ellipse adds an ellipse with a given position (x,y) and radius (rx, ry).
 func (svg *Tag) Ellipse2(p *Pos, r *Radius, c *Color) *Tag {
 	ellipse := svg.AddNewTag("ellipse")
-	ellipse.AddAttrib("cx", f2s(p.x))
-	ellipse.AddAttrib("cy", f2s(p.y))
-	ellipse.AddAttrib("rx", f2s(r.x))
-	ellipse.AddAttrib("ry", f2s(r.y))
+	ellipse.AddAttrib("cx", f2s(p.X))
+	ellipse.AddAttrib("cy", f2s(p.Y))
+	ellipse.AddAttrib("rx", f2s(r.X))
+	ellipse.AddAttrib("ry", f2s(r.Y))
 	ellipse.Fill2(c)
 	return ellipse
 }
@@ -170,10 +170,10 @@ func (svg *Tag) Ellipse2(p *Pos, r *Radius, c *Color) *Tag {
 // Line adds a line from (x1, y1) to (x2, y2) with a given stroke width and color
 func (svg *Tag) Line2(p1, p2 *Pos, thickness int, c *Color) *Tag {
 	line := svg.AddNewTag("line")
-	line.AddAttrib("x1", f2s(p1.x))
-	line.AddAttrib("y1", f2s(p1.y))
-	line.AddAttrib("x2", f2s(p2.x))
-	line.AddAttrib("y2", f2s(p2.y))
+	line.AddAttrib("x1", f2s(p1.X))
+	line.AddAttrib("y1", f2s(p1.Y))
+	line.AddAttrib("x2", f2s(p2.X))
+	line.AddAttrib("y2", f2s(p2.Y))
 	line.Thickness(thickness)
 	line.Stroke2(c)
 	return line
@@ -182,7 +182,7 @@ func (svg *Tag) Line2(p1, p2 *Pos, thickness int, c *Color) *Tag {
 // Triangle adds a colored triangle
 func (svg *Tag) Triangle2(p1, p2, p3 *Pos, c *Color) *Tag {
 	triangle := svg.AddNewTag("path")
-	triangle.AddAttrib("d", fmt.Sprintf("M %f %f L %f %f L %f %f L %f %f", p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p1.x, p1.y))
+	triangle.AddAttrib("d", fmt.Sprintf("M %f %f L %f %f L %f %f L %f %f", p1.X, p1.Y, p2.X, p2.Y, p3.X, p3.Y, p1.X, p1.Y))
 	triangle.Fill2(c)
 	return triangle
 }
@@ -190,7 +190,7 @@ func (svg *Tag) Triangle2(p1, p2, p3 *Pos, c *Color) *Tag {
 // Poly2 adds a colored path with 4 points
 func (svg *Tag) Poly2(p1, p2, p3, p4 *Pos, c *Color) *Tag {
 	poly4 := svg.AddNewTag("path")
-	poly4.AddAttrib("d", fmt.Sprintf("M %f %f L %f %f L %f %f L %f %f L %f %f", p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, p1.x, p1.y))
+	poly4.AddAttrib("d", fmt.Sprintf("M %f %f L %f %f L %f %f L %f %f L %f %f", p1.X, p1.Y, p2.X, p2.Y, p3.X, p3.Y, p4.X, p4.Y, p1.X, p1.Y))
 	poly4.Fill2(c)
 	return poly4
 }
@@ -198,7 +198,7 @@ func (svg *Tag) Poly2(p1, p2, p3, p4 *Pos, c *Color) *Tag {
 // Fill selects the fill color that will be used when drawing
 func (svg *Tag) Fill2(c *Color) {
 	// If no color name is given and the color is transparent, don't set a fill color
-	if (c == nil) || (len(c.n) == 0 && c.a == TRANSPARENT) {
+	if (c == nil) || (len(c.N) == 0 && c.A == TRANSPARENT) {
 		return
 	}
 	svg.AddAttrib("fill", c.String())
@@ -207,7 +207,7 @@ func (svg *Tag) Fill2(c *Color) {
 // Stroke selects the stroke color that will be used when drawing
 func (svg *Tag) Stroke2(c *Color) {
 	// If no color name is given and the color is transparent, don't set a stroke color
-	if (c == nil) || (len(c.n) == 0 && c.a == TRANSPARENT) {
+	if (c == nil) || (len(c.N) == 0 && c.A == TRANSPARENT) {
 		return
 	}
 	svg.AddAttrib("stroke", c.String())
@@ -253,7 +253,7 @@ func RGBA(r, g, b int, a float64) *Color {
 
 // ColorByName creates a new Color with a given name, like "blue"
 func ColorByName(name string) *Color {
-	return &Color{n: name}
+	return &Color{N: name}
 }
 
 // NewColor is the same as ColorByName
@@ -269,16 +269,16 @@ func (c *Color) String() string {
 		return ""
 	}
 	// Return the name, if specified
-	if len(c.n) != 0 {
-		return c.n
+	if len(c.N) != 0 {
+		return c.N
 	}
 	// Return a regular RGB string if alpha is 1.0
-	if c.a == OPAQUE {
+	if c.A == OPAQUE {
 		// Generate a rgb string
-		return RGBString(c.r, c.g, c.b)
+		return RGBString(c.R, c.G, c.B)
 	}
 	// Generate a rgba string if alpha is < 1.0
-	return RGBAString(c.r, c.g, c.b, c.a)
+	return RGBAString(c.R, c.G, c.B, c.A)
 }
 
 // --- Convenience functions and functions for backward compatibility ---
@@ -464,13 +464,13 @@ func (svg *Tag) Polyline(points []*Pos, c *Color) *Tag {
 	var buf bytes.Buffer
 	lastIndex := len(points) - 1
 	for i, p := range points {
-		buf.WriteString(f2s(p.x) + "," + f2s(p.y))
+		buf.WriteString(f2s(p.X) + "," + f2s(p.Y))
 		if i != lastIndex {
 			buf.WriteString(" ")
 		}
 	}
 	polyline.AddAttrib("points", buf.String())
-	polyline.Fill2(c)
+	//polyline.Fill2(c)
 	return polyline
 }
 
@@ -480,7 +480,7 @@ func (svg *Tag) Polygon(points []*Pos, c *Color) *Tag {
 	var buf bytes.Buffer
 	lastIndex := len(points) - 1
 	for i, p := range points {
-		buf.WriteString(f2s(p.x) + "," + f2s(p.y))
+		buf.WriteString(f2s(p.X) + "," + f2s(p.Y))
 		if i != lastIndex {
 			buf.WriteString(" ")
 		}
