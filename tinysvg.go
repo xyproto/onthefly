@@ -502,6 +502,10 @@ func NewPos(xString, yString string) (*Pos, error) {
 	return &Pos{x, y}, nil
 }
 
+func NewPosf(x, y float64) *Pos {
+	return &Pos{x, y}
+}
+
 func PointsFromString(pointString string) ([]*Pos, error) {
 	points := make([]*Pos, 0)
 	for _, positionPair := range strings.Split(pointString, " ") {
