@@ -6,13 +6,13 @@ import (
 
 	"github.com/urfave/negroni"
 	"github.com/xyproto/onthefly"
+	"github.com/xyproto/tinysvg"
 )
 
-// Generate a new SVG Page
-func svgPage() *onthefly.Page {
-	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Hello SVG")
+// Generate a new SVG image
+func svgImage() []byte {
+	document, svg := tinysvg.NewTinySVG(128, 64)
+	svg.Describe("Hello SVG")
 
 	// x, y, radius, color
 	svg.Circle(30, 10, 5, "red")
@@ -22,7 +22,7 @@ func svgPage() *onthefly.Page {
 	// x, y, font size, font family, text and color
 	svg.Text(3, 60, 6, "Courier", "There will be cake", "#394851")
 
-	return page
+	return document.Bytes()
 }
 
 // Generate a new onthefly Page (HTML5 and CSS combined)
@@ -83,7 +83,7 @@ func main() {
 	svgurl := "/circles.svg"
 	mux.HandleFunc(svgurl, func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add("Content-Type", "image/svg+xml")
-		fmt.Fprint(w, svgPage())
+		w.Write(svgImage())
 	})
 
 	// Generate a Page that includes the svg image

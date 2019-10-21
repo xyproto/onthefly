@@ -7,7 +7,7 @@ On The Fly
 [![Report Card](https://img.shields.io/badge/go_report-A+-brightgreen.svg?style=flat)](http://goreportcard.com/report/xyproto/onthefly)
 
 
-* Package for generating SVG (TinySVG) on the fly.
+* Package for generating HTML and CSS together, on the fly.
 * Can also be used for generating HTML, XML or CSS (or templates).
 * HTML and CSS can be generated together, but be presented as two seperate (but linked) files.
 * Could be used to set up a diskless webserver that generates all the content on the fly
@@ -16,6 +16,8 @@ On The Fly
 New/experimental features:
 * Generating WebGL graphics with Three.JS on the fly.
 * Generating AngularJS applications on the fly.
+
+The SVG related code has been refactored out, optimized and moved to the [tinysvg](https://github.com/xyproto/tinysvg) package.
 
 Online API Documentation
 ------------------------
@@ -46,13 +48,13 @@ import (
 
 	"github.com/urfave/negroni"
 	"github.com/xyproto/onthefly"
+	"github.com/xyproto/tinysvg"
 )
 
-// Generate a new SVG Page
-func svgPage() *onthefly.Page {
-	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Hello SVG")
+// Generate a new SVG image
+func svgImage() []byte {
+	document, svg := tinysvg.NewTinySVG(128, 64)
+	svg.Describe("Hello SVG")
 
 	// x, y, radius, color
 	svg.Circle(30, 10, 5, "red")
@@ -62,7 +64,7 @@ func svgPage() *onthefly.Page {
 	// x, y, font size, font family, text and color
 	svg.Text(3, 60, 6, "Courier", "There will be cake", "#394851")
 
-	return page
+	return document.Bytes()
 }
 
 // Generate a new onthefly Page (HTML5 and CSS combined)
@@ -123,7 +125,7 @@ func main() {
 	svgurl := "/circles.svg"
 	mux.HandleFunc(svgurl, func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add("Content-Type", "image/svg+xml")
-		fmt.Fprint(w, svgPage())
+		w.Write(svgImage())
 	})
 
 	// Generate a Page that includes the svg image
@@ -152,13 +154,13 @@ import (
 	"time"
 
 	"github.com/xyproto/onthefly"
+	"github.com/xyproto/tinysvg"
 )
 
-// Generate a new SVG Page
-func svgPage() *onthefly.Page {
-	page, svg := onthefly.NewTinySVG(0, 0, 128, 64)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Hello SVG")
+// Generate a new SVG image
+func svgImage() []byte {
+	document, svg := tinysvg.NewTinySVG(128, 64)
+	svg.Describe("Hello SVG")
 
 	// x, y, radius, color
 	svg.Circle(30, 10, 5, "red")
@@ -168,7 +170,7 @@ func svgPage() *onthefly.Page {
 	// x, y, font size, font family, text and color
 	svg.Text(3, 60, 6, "Courier", "There will be cake", "#394851")
 
-	return page
+	return document.Bytes()
 }
 
 // Generate a new onthefly Page (HTML5 and CSS combined)
@@ -229,7 +231,7 @@ func main() {
 	svgurl := "/circles.svg"
 	mux.HandleFunc(svgurl, func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add("Content-Type", "image/svg+xml")
-		fmt.Fprint(w, svgPage())
+		w.Write(svgImage())
 	})
 
 	// Generate a Page that includes the svg image
@@ -253,29 +255,6 @@ func main() {
 }
 ~~~
 
-Generating an SVG image
------------------------
-
-```go
-package main
-
-import (
-	"github.com/xyproto/onthefly"
-)
-
-// Generate a new SVG file
-
-func main() {
-	page, svg := onthefly.NewTinySVG(0, 0, 256, 256)
-	desc := svg.AddNewTag("desc")
-	desc.AddContent("Diagram")
-
-	rr := svg.AddRoundedRect(30, 10, 5, 5, 20, 20)
-	rr.Fill2(onthefly.ColorByName("red"))
-	page.SaveSVG("output.svg")
-}
-```
-
 Additional screenshots
 ----------------------
 
@@ -293,7 +272,7 @@ TODO
 Version, license and author
 ---------------------------
 
-* Version: 1.1.0
+* Version: 1.2.0
 * Alexander F Rødseth &lt;xyproto@archlinux.org&gt;
 * License: MIT
 

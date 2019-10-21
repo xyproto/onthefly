@@ -6,22 +6,11 @@ import (
 )
 
 func TestSVG(t *testing.T) {
-	svg := SampleSVG1()
-	_ = svg.String()
-	//s := svg.GetXML(false)
-	t.Log("hi")
-	//t.Errorf("%s\n", s)
-	//const in, out = 4, 2
-	//if x := Sqrt(in); x != out {
-	//	t.Errorf("Sqrt(%v) = %v, want %v", in, x, out)
-	//}
+	SampleSVG1()
 }
 
 func TestSVG2(t *testing.T) {
-	svg := SampleSVG2()
-	_ = svg.String()
-	//s := svg.String()
-	//t.Errorf("%s\n", s)
+	SampleSVG2()
 }
 
 func TestGen(t *testing.T) {
