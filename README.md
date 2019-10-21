@@ -272,7 +272,7 @@ TODO
 Version, license and author
 ---------------------------
 
-* Version: 1.2.0
+* Version: 1.2.1
 * Alexander F Rødseth &lt;xyproto@archlinux.org&gt;
 * License: MIT
 
