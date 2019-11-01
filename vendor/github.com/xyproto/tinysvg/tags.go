@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 )
 
+// Tag represents an XML tag, as part of a larger XML document
 type Tag struct {
 	name        []byte
 	content     []byte
@@ -20,6 +21,7 @@ type Tag struct {
 	firstChild  *Tag // first child
 }
 
+// Document is an XML document, with a title and a root tag
 type Document struct {
 	title []byte
 	root  *Tag
@@ -190,12 +192,12 @@ func (tag *Tag) AddContent(content []byte) {
 	tag.content = append(tag.content, content...)
 }
 
-// AppendContent appends content to the end of the exising content of a tag
+// AppendContent appends content to the end of the existing content of a tag
 func (tag *Tag) AppendContent(content []byte) {
 	tag.lastContent = append(tag.lastContent, content...)
 }
 
-// AddLastContent appends content to the end of the exising content of a tag.
+// AddLastContent appends content to the end of the existing content of a tag.
 // Deprecated.
 func (tag *Tag) AddLastContent(content []byte) {
 	tag.AppendContent(content)
@@ -331,7 +333,7 @@ func (image *Document) String() string {
 	return image.root.String()
 }
 
-// Save the current image as an SVG file
+// SaveSVG will save the current image as an SVG file
 func (image *Document) SaveSVG(filename string) error {
 	return ioutil.WriteFile(filename, image.Bytes(), 0644)
 }
