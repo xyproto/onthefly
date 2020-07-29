@@ -73,7 +73,7 @@ func indexPage(svgurl string) *onthefly.Page {
 
 // Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("onthefly ", onthefly.Version)
+	fmt.Println("onthefly", onthefly.Version)
 
 	// Create a Negroni instance and a ServeMux instance
 	n := negroni.Classic()

@@ -7,7 +7,7 @@ import (
 	"github.com/xyproto/onthefly"
 )
 
-// Create a Three.JS page
+// ThreeJSPage will create a new Page
 func ThreeJSPage() *onthefly.Page {
 	p, t := onthefly.NewThreeJS("My first Three.js app")
 

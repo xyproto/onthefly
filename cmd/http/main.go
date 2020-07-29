@@ -75,7 +75,7 @@ func indexPage(svgurl string) *onthefly.Page {
 
 // Set up the paths and handlers then start serving.
 func main() {
-	fmt.Println("onthefly ", onthefly.Version)
+	fmt.Println("onthefly", onthefly.Version)
 
 	// Create a mux
 	mux := http.NewServeMux()
