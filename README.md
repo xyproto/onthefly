@@ -1,9 +1,9 @@
 On The Fly
 ==========
 
-[![Build Status](https://travis-ci.org/xyproto/onthefly.svg?branch=master)](https://travis-ci.org/xyproto/onthefly)
+[![Build](https://github.com/xyproto/onthefly/actions/workflows/test.yml/badge.svg)](https://github.com/xyproto/onthefly/actions/workflows/test.yml)
 [![GoDoc](https://godoc.org/github.com/xyproto/onthefly?status.svg)](http://godoc.org/github.com/xyproto/onthefly)
-[![License](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/xyproto/onthefly/master/LICENSE)
+[![License](http://img.shields.io/badge/license-BSD-blue.svg?style=flat)](https://raw.githubusercontent.com/xyproto/onthefly/master/LICENSE)
 [![Report Card](https://img.shields.io/badge/go_report-A+-brightgreen.svg?style=flat)](http://goreportcard.com/report/xyproto/onthefly)
 
 
