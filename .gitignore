@@ -10,3 +10,4 @@
 *.dblite
 *.so
 .vscode
+include.txt
