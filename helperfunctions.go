@@ -4,7 +4,7 @@ import (
 	"strconv"
 )
 
-// StandaloneTag creates an empty page the only contains a tag with the given
+// StandaloneTag creates an empty page that only contains a tag with the given
 // name. Returns both the Page and the Tag.
 func StandaloneTag(tagname string) (*Page, *Tag) {
 	page := NewPage("blank", tagname)
