@@ -52,7 +52,7 @@ func NewThreeJS(args ...string) (*Page, *Tag) {
 		page.LinkToJSInBody(threeJSURL)
 	} else {
 		// Link to Three.JS
-		page.LinkToJSInBody("https://threejs.org/build/three.min.js")
+		page.LinkToJSInBody("https://cdnjs.cloudflare.com/ajax/libs/three.js/r177/three.min.js")
 	}
 
 	// Add a scene
