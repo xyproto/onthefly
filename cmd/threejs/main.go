@@ -14,7 +14,7 @@ func ThreeJSPage() *onthefly.Page {
 
 	// Add a camera at (0, 0, 5)
 	t.AddCamera()
-	t.CameraPos("z", 5)
+	t.CameraPos("z", 5.0)
 
 	// We also need a renderer
 	t.AddRenderer()
