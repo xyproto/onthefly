@@ -9,6 +9,9 @@ import (
 //go:embed vendor/angularjs/angular.min.js
 var angularJS string
 
+//go:embed vendor/threejs/three.min.js
+var threeJS string
+
 type (
 	// SimpleWebHandle is a function signature for handling requests
 	SimpleWebHandle (func(string) string)
@@ -41,6 +44,27 @@ func NewAngularPage(titleText, angularVersion string) *Page {
 	script.AddAttrib("type", "text/javascript")
 	script.AddContent(angularJS)
 	return page
+}
+
+// NewThreeJSPageWithEmbedded will create a blank HTML5 page that includes embedded Three.js
+func NewThreeJSPageWithEmbedded(titleText string) (*Page, *Tag) {
+	page := NewHTML5Page(titleText)
+	
+	// Style the page for showing a fullscreen canvas
+	page.FullCanvas()
+	
+	// Add embedded Three.js script to body
+	body, _ := page.GetTag("body")
+	script := body.AddNewTag("script")
+	script.AddAttrib("type", "text/javascript")
+	script.AddContent(threeJS)
+	
+	// Add a scene
+	sceneScript, _ := page.AddScriptToBody("var scene = new THREE.Scene();")
+	
+	// Return the script tag that can be used for adding additional
+	// javascript/Three.JS code
+	return page, sceneScript
 }
 
 // SetMargin sets the margins of the body

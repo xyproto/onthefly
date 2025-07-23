@@ -10,7 +10,7 @@ import (
 
 // ThreeJSPage will create a new Page
 func ThreeJSPage() *onthefly.Page {
-	p, t := onthefly.NewThreeJS("My first Three.js app")
+	p, t := onthefly.NewThreeJSPageWithEmbedded("My first Three.js app")
 
 	// Add a camera at (0, 0, 5)
 	t.AddCamera()
