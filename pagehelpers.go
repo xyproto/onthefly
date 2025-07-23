@@ -31,7 +31,8 @@ func NewHTML5Page(titleText string) *Page {
 }
 
 // NewAngularPage will create a blank HTML5 page that includes embedded AngularJS
-func NewAngularPage(titleText, angularVersion string) *Page {
+// The second argument used to be "angularVersion", but is now deprecated.
+func NewAngularPage(titleText string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
 	html.AddSingularAttrib("ng-app")
@@ -49,19 +50,19 @@ func NewAngularPage(titleText, angularVersion string) *Page {
 // NewThreeJSPageWithEmbedded will create a blank HTML5 page that includes embedded Three.js
 func NewThreeJSPageWithEmbedded(titleText string) (*Page, *Tag) {
 	page := NewHTML5Page(titleText)
-	
+
 	// Style the page for showing a fullscreen canvas
 	page.FullCanvas()
-	
+
 	// Add embedded Three.js script to body
 	body, _ := page.GetTag("body")
 	script := body.AddNewTag("script")
 	script.AddAttrib("type", "text/javascript")
 	script.AddContent(threeJS)
-	
+
 	// Add a scene
 	sceneScript, _ := page.AddScriptToBody("var scene = new THREE.Scene();")
-	
+
 	// Return the script tag that can be used for adding additional
 	// javascript/Three.JS code
 	return page, sceneScript
