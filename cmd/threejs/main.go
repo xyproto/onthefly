@@ -1,3 +1,4 @@
+// Package main demonstrates Three.JS usage with onthefly
 package main
 
 import (

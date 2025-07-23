@@ -1,3 +1,4 @@
+// Package main demonstrates Negroni usage with onthefly
 package main
 
 import (

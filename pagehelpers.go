@@ -6,9 +6,10 @@ import (
 )
 
 type (
-	// Various function signatures for handling requests
+	// SimpleWebHandle is a function signature for handling requests
 	SimpleWebHandle (func(string) string)
-	TemplateValues  map[string]string
+	// TemplateValues is a map of template values
+	TemplateValues map[string]string
 )
 
 // NewHTML5Page will create a blank new HTML5 page
@@ -66,7 +67,7 @@ func (page *Page) bodyAttr(key, value string) (*Tag, error) {
 	return tag, err
 }
 
-// Set the foreground and background color of the body
+// SetColor sets the foreground and background color of the body
 func (page *Page) SetColor(fgColor string, bgColor string) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {
@@ -76,7 +77,7 @@ func (page *Page) SetColor(fgColor string, bgColor string) (*Tag, error) {
 	return tag, err
 }
 
-// Set the font family
+// SetFontFamily sets the font family
 func (page *Page) SetFontFamily(fontFamily string) (*Tag, error) {
 	return page.bodyAttr("font-family", fontFamily)
 }
@@ -90,7 +91,7 @@ func (page *Page) addBox(id string, rounded bool) (*Tag, error) {
 	return tag, err
 }
 
-// Link a page up with a CSS file
+// LinkToCSS links a page up with a CSS file
 // Takes the url to a CSS file as a string
 // The given page must have a "head" tag for this to work
 // Returns an error if no "head" tag is found, or nil
@@ -105,7 +106,7 @@ func (page *Page) LinkToCSS(cssurl string) error {
 	return err
 }
 
-// Link a page up with a Favicon file
+// LinkToFavicon links a page up with a Favicon file
 // Takes the url to a favicon file as a string
 // The given page must have a "head" tag for this to work
 // Returns an error if no "head" tag is found, or nil
@@ -119,7 +120,7 @@ func (page *Page) LinkToFavicon(favurl string) error {
 	return err
 }
 
-// Takes a charset, for example UTF-8, and creates a <meta> tag in <head>
+// MetaCharset takes a charset, for example UTF-8, and creates a <meta> tag in <head>
 func (page *Page) MetaCharset(charset string) error {
 	// Add a meta tag
 	head, err := page.GetTag("head")
@@ -131,7 +132,7 @@ func (page *Page) MetaCharset(charset string) error {
 	return err
 }
 
-// Link to Google Fonts
+// LinkToGoogleFont links to Google Fonts
 func (page *Page) LinkToGoogleFont(name string) error {
 	url := "http://fonts.googleapis.com/css?family="
 	// Replace space with +, if needed
@@ -144,7 +145,7 @@ func (page *Page) LinkToGoogleFont(name string) error {
 	return page.LinkToCSS(url)
 }
 
-// Add javascript to the header and specify UTF-8 as the charset
+// AddHeader adds javascript to the header and specifies UTF-8 as the charset
 func AddHeader(page *Page, js string) {
 	page.MetaCharset("UTF-8")
 	AddScriptToHeader(page, js)

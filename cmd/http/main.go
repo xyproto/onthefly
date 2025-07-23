@@ -1,3 +1,4 @@
+// Package main demonstrates HTTP server usage with onthefly
 package main
 
 import (

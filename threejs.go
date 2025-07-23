@@ -20,22 +20,24 @@ const (
 )
 
 type (
-	// For Three.JS elements, like a mesh or material
+	// Element represents Three.JS elements, like a mesh or material
 	Element struct {
 		ID string // name of the variable
 		JS string // javascript code for creating the element
 	}
-	// The Three.JS render function, where head and tail are standard
+	// RenderFunc represents the Three.JS render function, where head and tail are standard
 	RenderFunc struct {
 		head, mid, tail string
 	}
-	// Different types of elements
+	// Geometry represents a Three.JS geometry
 	Geometry Element
+	// Material represents a Three.JS material
 	Material Element
-	Mesh     Element
+	// Mesh represents a Three.JS mesh
+	Mesh Element
 )
 
-// Create a HTML5 page that links with Three.JS and sets up a scene
+// NewThreeJS creates a HTML5 page that links with Three.JS and sets up a scene
 func NewThreeJS(args ...string) (*Page, *Tag) {
 	title := "Untitled"
 	if len(args) > 0 {
@@ -63,7 +65,7 @@ func NewThreeJS(args ...string) (*Page, *Tag) {
 	return page, script
 }
 
-// Create a HTML5 page that includes the given JavaScript code at the end of
+// NewThreeJSWithGiven creates a HTML5 page that includes the given JavaScript code at the end of
 // the <body> tag, before </body>. The given JS code must be the contents of
 // the http://threejs.org/build/three.min.js script for this to work.
 func NewThreeJSWithGiven(titleText, js string) (*Page, *Tag) {
@@ -83,26 +85,26 @@ func NewThreeJSWithGiven(titleText, js string) (*Page, *Tag) {
 	return page, script
 }
 
-// Add a camera with default settings
+// AddCamera adds a camera with default settings
 func (three *Tag) AddCamera() {
 	// TODO create an AddCustomCamera function
 	three.AddContent("var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);")
 }
 
-// Add a WebGL renderer with default settings
+// AddRenderer adds a WebGL renderer with default settings
 func (three *Tag) AddRenderer() {
 	three.AddContent("var renderer = new THREE.WebGLRenderer();")
 	three.AddContent("renderer.setSize(window.innerWidth, window.innerHeight);")
 	three.AddContent("document.body.appendChild(renderer.domElement);")
 }
 
-// Add a mesh to the current scene
+// AddToScene adds a mesh to the current scene
 func (three *Tag) AddToScene(mesh *Mesh) {
 	three.AddContent(mesh.JS)
 	three.AddContent("scene.add(" + mesh.ID + ");")
 }
 
-// Create a new mesh, given geometry and material.
+// NewMesh creates a new mesh, given geometry and material.
 // The geometry and material will be instanciated together with the mesh.
 func NewMesh(geometry *Geometry, material *Material) *Mesh {
 	id := fmt.Sprintf("%s%d", meshPrefix, meshCounter)
@@ -112,7 +114,7 @@ func NewMesh(geometry *Geometry, material *Material) *Mesh {
 	return &Mesh{id, js}
 }
 
-// Set the camera position. Axis must be "x", "y", or "z".
+// CameraPos sets the camera position. Axis must be "x", "y", or "z".
 func (three *Tag) CameraPos(axis string, value int) {
 	if (axis != "x") && (axis != "y") && (axis != "z") {
 		log.Fatalln("camera axis must be x, y or z")
@@ -120,7 +122,7 @@ func (three *Tag) CameraPos(axis string, value int) {
 	three.AddContent(fmt.Sprintf("camera.position.%s = %d;", axis, value))
 }
 
-// Very simple type of material
+// NewMaterial creates a very simple type of material
 func NewMaterial(color string) *Material {
 	id := fmt.Sprintf("%s%d", materialPrefix, materialCounter)
 	materialCounter++
@@ -128,7 +130,7 @@ func NewMaterial(color string) *Material {
 	return &Material{id, js}
 }
 
-// Create a material which reflects the normals of the geometry
+// NewNormalMaterial creates a material which reflects the normals of the geometry
 func NewNormalMaterial() *Material {
 	id := fmt.Sprintf("%s%d", materialPrefix, materialCounter)
 	materialCounter++
@@ -136,7 +138,7 @@ func NewNormalMaterial() *Material {
 	return &Material{id, js}
 }
 
-// Create geometry for a box
+// NewBoxGeometry creates geometry for a box
 func NewBoxGeometry(w, h, d int) *Geometry {
 	id := fmt.Sprintf("%s%d", geometryPrefix, geometryCounter)
 	geometryCounter++
@@ -144,7 +146,7 @@ func NewBoxGeometry(w, h, d int) *Geometry {
 	return &Geometry{id, js}
 }
 
-// Add a test cube to the scene
+// AddTestCube adds a test cube to the scene
 func (three *Tag) AddTestCube() *Mesh {
 	// TODO Create functions for adding geometry, material and creating meshes
 	//material := NewMaterial(color)
@@ -155,19 +157,19 @@ func (three *Tag) AddTestCube() *Mesh {
 	return cube
 }
 
-// Create a new render function, which is called at every animation frame
+// NewRenderFunction creates a new render function, which is called at every animation frame
 func NewRenderFunction() *RenderFunc {
 	head := "var render = function() { requestAnimationFrame(render);"
 	tail := "renderer.render(scene, camera); };"
 	return &RenderFunc{head, "", tail}
 }
 
-// Add javascript code to the body of a render function
+// AddJS adds javascript code to the body of a render function
 func (r *RenderFunc) AddJS(s string) {
 	r.mid += s
 }
 
-// Add a render function.
+// AddRenderFunction adds a render function.
 // If call is true, the render function is called at the end of the script.
 func (three *Tag) AddRenderFunction(r *RenderFunc, call bool) {
 	three.AddContent(r.head + r.mid + r.tail)

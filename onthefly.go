@@ -10,10 +10,12 @@ import (
 )
 
 const (
+	// Version is the current version of onthefly
 	Version     = 1.2
 	noAttribute = "NIL"
 )
 
+// Tag represents an XML/HTML/SVG tag with attributes, styles, and content
 type Tag struct {
 	style       map[string]string
 	attrs       map[string]string
@@ -25,6 +27,7 @@ type Tag struct {
 	xmlContent  string
 }
 
+// Page represents an XML/HTML/SVG page with a root tag and title
 type Page struct {
 	root  *Tag
 	title string

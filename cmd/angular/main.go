@@ -1,3 +1,4 @@
+// Package main demonstrates Angular.JS usage with onthefly
 package main
 
 import (

@@ -1,3 +1,4 @@
+// Package main generates SVG files using onthefly
 package main
 
 import (
