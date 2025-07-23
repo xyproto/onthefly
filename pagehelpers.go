@@ -1,9 +1,13 @@
 package onthefly
 
 import (
+	_ "embed"
 	"strconv"
 	"strings"
 )
+
+//go:embed vendor/angularjs/angular.min.js
+var angularJS string
 
 type (
 	// SimpleWebHandle is a function signature for handling requests
@@ -23,7 +27,7 @@ func NewHTML5Page(titleText string) *Page {
 	return page
 }
 
-// NewAngularPage will create a blank HTML5 page that links with Angular.JS
+// NewAngularPage will create a blank HTML5 page that includes embedded AngularJS
 func NewAngularPage(titleText, angularVersion string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
@@ -32,8 +36,10 @@ func NewAngularPage(titleText, angularVersion string) *Page {
 	title := head.AddNewTag("title")
 	title.AddContent(titleText)
 	html.AddNewTag("body")
-	// Must be added after head has been added
-	page.LinkToJS("//ajax.googleapis.com/ajax/libs/angularjs/" + angularVersion + "/angular.min.js")
+	// Add embedded AngularJS script directly to head
+	script := head.AddNewTag("script")
+	script.AddAttrib("type", "text/javascript")
+	script.AddContent(angularJS)
 	return page
 }
 
