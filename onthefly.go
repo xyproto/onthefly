@@ -409,32 +409,34 @@ func (page *Page) String() string {
 // If refresh is false, the contents are cached.
 func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string, refresh bool) {
 	page.LinkToCSS(cssurl)
+
 	if refresh {
 		// Serve HTML that is generated for each call
-		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
+		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, _ *http.Request) {
 			w.Header().Add("Content-Type", "text/html")
 			fmt.Fprint(w, page.GetHTML())
 		})
 		// Serve CSS that is generated for each call
-		mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
+		mux.HandleFunc(cssurl, func(w http.ResponseWriter, _ *http.Request) {
 			w.Header().Add("Content-Type", "text/css")
 			fmt.Fprint(w, page.GetCSS())
 		})
-	} else {
-		// Cached
-		html := page.GetHTML()
-		css := page.GetCSS()
-		// Serve HTML
-		mux.HandleFunc(htmlurl, func(w http.ResponseWriter, req *http.Request) {
-			w.Header().Add("Content-Type", "text/html")
-			fmt.Fprint(w, html)
-		})
-		// Serve CSS
-		mux.HandleFunc(cssurl, func(w http.ResponseWriter, req *http.Request) {
-			w.Header().Add("Content-Type", "text/css")
-			fmt.Fprint(w, css)
-		})
+		return // done
 	}
+
+	// Cached
+	html := page.GetHTML()
+	css := page.GetCSS()
+	// Serve HTML
+	mux.HandleFunc(htmlurl, func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Add("Content-Type", "text/html")
+		fmt.Fprint(w, html)
+	})
+	// Serve CSS
+	mux.HandleFunc(cssurl, func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Add("Content-Type", "text/css")
+		fmt.Fprint(w, css)
+	})
 }
 
 // SaveSVG tries to sSave the current page as an SVG file

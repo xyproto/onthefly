@@ -5,11 +5,11 @@ import (
 	"testing"
 )
 
-func TestSVG(t *testing.T) {
+func TestSVG(_ *testing.T) {
 	SampleSVG1()
 }
 
-func TestSVG2(t *testing.T) {
+func TestSVG2(_ *testing.T) {
 	SampleSVG2()
 }
 
