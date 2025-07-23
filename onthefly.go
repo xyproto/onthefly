@@ -15,19 +15,19 @@ const (
 )
 
 type Tag struct {
-	name        string
 	style       map[string]string
-	content     string
-	lastContent string
-	xmlContent  string
 	attrs       map[string]string
 	nextSibling *Tag // siblings
 	firstChild  *Tag // first child
+	name        string
+	content     string
+	lastContent string
+	xmlContent  string
 }
 
 type Page struct {
-	title string
 	root  *Tag
+	title string
 }
 
 // NewPage creates a new XML/HTML/SVG page, with a root tag.
