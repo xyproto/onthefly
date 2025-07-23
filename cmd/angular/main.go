@@ -9,15 +9,11 @@ import (
 	"github.com/xyproto/onthefly"
 )
 
-const (
-	angularVersion = "1.8.3"
-)
-
 // Generate a new onthefly Page (HTML5, AngularJS and CSS combined)
 func indexPage() *onthefly.Page {
 
 	// Create a new HTML5 page with AngularJS included
-	page := onthefly.NewAngularPage("AngularJS Demo with onthefly", angularVersion)
+	page := onthefly.NewAngularPage("onthefly with AngularJS")
 
 	// Add ng-app with controller name to html tag
 	html, _ := page.GetTag("html")
@@ -30,7 +26,7 @@ func indexPage() *onthefly.Page {
 	// Add a title paragraph
 	title := body.AddNewTag("h1")
 	title.AddAttrib("id", "title")
-	title.AddContent(fmt.Sprintf("onthefly %.1f with AngularJS %s", onthefly.Version, angularVersion))
+	title.AddContent(fmt.Sprintf("onthefly %.1f with AngularJS", onthefly.Version))
 	title.AddStyle("font-size", "2.5em")
 	title.AddStyle("font-family", "Arial, sans-serif")
 	title.AddStyle("color", "#333")
@@ -117,7 +113,7 @@ func indexPage() *onthefly.Page {
 angular.module('demoApp', [])
 .controller('DemoController', function($scope) {
     $scope.userMessage = '';
-    
+
     // Add a method to reverse string (since AngularJS doesn't have built-in reverse filter)
     $scope.reverseString = function(str) {
         return str ? str.split('').reverse().join('') : '';
