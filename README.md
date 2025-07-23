@@ -268,6 +268,6 @@ Screenshots from version 0.8:
 Version, license and author
 ---------------------------
 
-* Version: 1.2.3
+* Version: 1.3.0
 * Alexander F Rødseth &lt;xyproto@archlinux.org&gt;
 * License: BSD-3
