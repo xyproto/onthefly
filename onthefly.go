@@ -1,11 +1,11 @@
-// onthefly can generate TinySVG, HTML and CSS on the fly
+// Package onthefly can generate TinySVG, HTML and CSS on the fly
 package onthefly
 
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -434,7 +434,105 @@ func (page *Page) Publish(mux *http.ServeMux, htmlurl, cssurl string, refresh bo
 	}
 }
 
-// Save the current page as an SVG file
+// SaveSVG tries to sSave the current page as an SVG file
 func (page *Page) SaveSVG(filename string) error {
-	return ioutil.WriteFile(filename, []byte(page.GetXML(false)), 0644)
+	return os.WriteFile(filename, []byte(page.GetXML(false)), 0644)
+}
+
+// GetName returns the tag name
+func (tag *Tag) GetName() string {
+	return tag.name
+}
+
+// GetContent returns the tag content
+func (tag *Tag) GetContent() string {
+	return tag.content
+}
+
+// SetContent replaces the tag content
+func (tag *Tag) SetContent(content string) {
+	tag.content = content
+}
+
+// GetFirstChild returns the first child tag
+func (tag *Tag) GetFirstChild() *Tag {
+	return tag.firstChild
+}
+
+// GetNextSibling returns the next sibling tag
+func (tag *Tag) GetNextSibling() *Tag {
+	return tag.nextSibling
+}
+
+// ClearChildren removes all child tags
+func (tag *Tag) ClearChildren() {
+	tag.firstChild = nil
+}
+
+// RemoveAttribute removes an attribute from the tag
+func (tag *Tag) RemoveAttribute(attrName string) {
+	delete(tag.attrs, attrName)
+}
+
+// HasAttribute checks if the tag has a specific attribute
+func (tag *Tag) HasAttribute(attrName string) bool {
+	_, exists := tag.attrs[attrName]
+	return exists
+}
+
+// GetAttribute returns the value of an attribute
+func (tag *Tag) GetAttribute(attrName string) (string, bool) {
+	value, exists := tag.attrs[attrName]
+	return value, exists
+}
+
+// CloneTag creates a deep copy of a tag
+func (tag *Tag) CloneTag() *Tag {
+	clone := NewTag(tag.name)
+
+	// Copy attributes
+	for key, value := range tag.attrs {
+		clone.attrs[key] = value
+	}
+
+	// Copy styles
+	for key, value := range tag.style {
+		clone.style[key] = value
+	}
+
+	clone.content = tag.content
+	clone.lastContent = tag.lastContent
+	clone.xmlContent = tag.xmlContent
+
+	return clone
+}
+
+// FindChildByName searches for a child tag with the given name
+func (tag *Tag) FindChildByName(name string) *Tag {
+	child := tag.firstChild
+	for child != nil {
+		if child.name == name {
+			return child
+		}
+		if found := child.FindChildByName(name); found != nil {
+			return found
+		}
+		child = child.nextSibling
+	}
+	return nil
+}
+
+// FindChildByAttribute searches for a child tag with the given attribute
+func (tag *Tag) FindChildByAttribute(attrName, attrValue string) *Tag {
+	child := tag.firstChild
+	for child != nil {
+		if value, exists := child.attrs[attrName]; exists && value == attrValue {
+			return child
+		}
+		if found := child.FindChildByAttribute(attrName, attrValue); found != nil {
+			return found
+		}
+		child = child.nextSibling
+	}
+	return nil
 }
