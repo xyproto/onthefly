@@ -11,7 +11,7 @@ type (
 	TemplateValues  map[string]string
 )
 
-// Create a blank HTML5 page
+// NewHTML5Page will create a blank new HTML5 page
 func NewHTML5Page(titleText string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
@@ -22,7 +22,7 @@ func NewHTML5Page(titleText string) *Page {
 	return page
 }
 
-// Create a blank HTML5 page that links with Angular.JS
+// NewAngularPage will create a blank HTML5 page that links with Angular.JS
 func NewAngularPage(titleText, angularVersion string) *Page {
 	page := NewPage(titleText, "<!doctype html>")
 	html := page.root.AddNewTag("html")
@@ -36,18 +36,19 @@ func NewAngularPage(titleText, angularVersion string) *Page {
 	return page
 }
 
-// Set the margins of the body
+// SetMargin sets the margins of the body
 func (page *Page) SetMargin(em int) (*Tag, error) {
 	value := strconv.Itoa(em) + "em"
 	return page.bodyAttr("margin", value)
 }
 
-// Disable scrollbars. Needed when using "<!doctype html>" together with fullscreen canvas/webgl
+// NoScrollbars disables scrollbars.
+// Needed when using "<!doctype html>" together with fullscreen canvas/webgl.
 func (page *Page) NoScrollbars() (*Tag, error) {
 	return page.bodyAttr("overflow", "hidden")
 }
 
-// Prepare for a canvas/webgl tag that covers the entire page
+// FullCanvas perpares for a canvas/webgl tag that covers the entire page
 func (page *Page) FullCanvas() {
 	page.SetMargin(0)
 	// overflow:hidden
@@ -56,7 +57,7 @@ func (page *Page) FullCanvas() {
 	page.AddStyle("canvas { width: 100%; height: 100%; }")
 }
 
-// Set one of the CSS styles of the body
+// bodyAttr sets one of the CSS styles of the body
 func (page *Page) bodyAttr(key, value string) (*Tag, error) {
 	tag, err := page.root.GetTag("body")
 	if err == nil {
