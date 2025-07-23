@@ -10,63 +10,131 @@ import (
 )
 
 const (
-	angularVersion = "1.6.9"
+	angularVersion = "1.8.3"
 )
 
-// Generate a new onthefly Page (HTML5, Angular and CSS combined)
+// Generate a new onthefly Page (HTML5, AngularJS and CSS combined)
 func indexPage() *onthefly.Page {
 
-	// Create a new HTML5 page, with CSS included
-	page := onthefly.NewAngularPage("Demonstration", angularVersion)
+	// Create a new HTML5 page with AngularJS included
+	page := onthefly.NewAngularPage("AngularJS Demo with onthefly", angularVersion)
+
+	// Add ng-app with controller name to html tag
+	html, _ := page.GetTag("html")
+	html.AddAttrib("ng-app", "demoApp")
+	html.AddAttrib("ng-controller", "DemoController")
 
 	// Rely on the body tag being present
 	body, _ := page.GetTag("body")
 
 	// Add a title paragraph
-	title := body.AddNewTag("p")
-	// Use id attributes to style similar tags separately
+	title := body.AddNewTag("h1")
 	title.AddAttrib("id", "title")
-	title.AddContent(fmt.Sprintf("onthefly %.1f and AngularJS %s", onthefly.Version, angularVersion))
-	title.AddStyle("font-size", "2em")
-	title.AddStyle("font-family", "sans-serif")
-	title.AddStyle("font-style", "italic")
+	title.AddContent(fmt.Sprintf("onthefly %.1f with AngularJS %s", onthefly.Version, angularVersion))
+	title.AddStyle("font-size", "2.5em")
+	title.AddStyle("font-family", "Arial, sans-serif")
+	title.AddStyle("color", "#333")
+	title.AddStyle("text-align", "center")
+	title.AddStyle("margin-bottom", "2em")
 
-	// Add a paragraph for the angular related tags
-	angularp := body.AddNewTag("p")
-	angularp.AddAttrib("id", "angular")
-	angularp.AddStyle("margin-top", "2em")
+	// Create a container div
+	container := body.AddNewTag("div")
+	container.AddAttrib("class", "container")
+	container.AddStyle("max-width", "800px")
+	container.AddStyle("margin", "0 auto")
+	container.AddStyle("padding", "2em")
+
+	// Add input section
+	inputSection := container.AddNewTag("div")
+	inputSection.AddAttrib("class", "input-section")
+	inputSection.AddStyle("margin-bottom", "2em")
 
 	// Label for the input box
-	label := angularp.AddNewTag("label")
-	inputID := "input1"
-	label.AddAttrib("for", inputID)
-	label.AddContent("Enter text:")
-	label.AddStyle("margin-right", "3em")
+	label := inputSection.AddNewTag("label")
+	label.AddAttrib("for", "textInput")
+	label.AddContent("Enter your message:")
+	label.AddStyle("display", "block")
+	label.AddStyle("margin-bottom", "0.5em")
+	label.AddStyle("font-weight", "bold")
+	label.AddStyle("color", "#555")
 
-	// Angular input
-	input := angularp.AddNewTag("input")
-	input.AddAttrib("id", inputID)
+	// AngularJS input with improved styling
+	input := inputSection.AddNewTag("input")
+	input.AddAttrib("id", "textInput")
 	input.AddAttrib("type", "text")
-	dataBindingName := "sometext"
-	input.AddAttrib("ng-model", dataBindingName)
+	input.AddAttrib("ng-model", "userMessage")
+	input.AddAttrib("placeholder", "Type something here...")
+	input.AddStyle("width", "100%")
+	input.AddStyle("padding", "12px")
+	input.AddStyle("font-size", "16px")
+	input.AddStyle("border", "2px solid #ddd")
+	input.AddStyle("border-radius", "8px")
+	input.AddStyle("box-sizing", "border-box")
+	input.AddStyle("transition", "border-color 0.3s")
 
-	// Angular output
-	h1 := angularp.AddNewTag("h1")
-	h1.AddAttrib("ng-show", dataBindingName)
-	h1.AddContent("HI {{ " + dataBindingName + " | uppercase }}")
-	h1.AddStyle("color", "blue")
-	h1.AddStyle("margin", "2em")
-	h1.AddStyle("font-size", "3em")
-	h1.AddStyle("font-family", "courier")
+	// Add CSS for input focus
+	page.AddStyle("input:focus { border-color: #4CAF50; outline: none; }")
 
-	// Set the margin (em is default)
-	page.SetMargin(4)
+	// Output section
+	outputSection := container.AddNewTag("div")
+	outputSection.AddAttrib("class", "output-section")
+	outputSection.AddAttrib("ng-show", "userMessage && userMessage.length > 0")
 
-	// Set the font family
-	page.SetFontFamily("serif")
+	// Display message in different formats
+	formats := []struct {
+		title string
+		expr  string
+		style map[string]string
+	}{
+		{"Uppercase:", "{{ userMessage | uppercase }}", map[string]string{"color": "#2196F3", "font-weight": "bold"}},
+		{"Lowercase:", "{{ userMessage | lowercase }}", map[string]string{"color": "#FF9800", "font-style": "italic"}},
+		{"Character count:", "{{ userMessage.length }} characters", map[string]string{"color": "#4CAF50", "font-size": "14px"}},
+		{"Reversed:", "{{ userMessage.split('').reverse().join('') }}", map[string]string{"color": "#9C27B0", "font-family": "monospace"}},
+	}
 
-	// Set the color scheme (fg, bg)
-	page.SetColor("black", "#e0e0e0")
+	for _, format := range formats {
+		formatDiv := outputSection.AddNewTag("div")
+		formatDiv.AddStyle("margin", "1em 0")
+		formatDiv.AddStyle("padding", "1em")
+		formatDiv.AddStyle("background-color", "#f9f9f9")
+		formatDiv.AddStyle("border-radius", "6px")
+		formatDiv.AddStyle("border", "1px solid #ddd")
+
+		titleSpan := formatDiv.AddNewTag("strong")
+		titleSpan.AddContent(format.title + " ")
+		titleSpan.AddStyle("color", "#333")
+
+		valueSpan := formatDiv.AddNewTag("span")
+		valueSpan.AddContent(format.expr)
+		for key, value := range format.style {
+			valueSpan.AddStyle(key, value)
+		}
+	}
+
+	// Add AngularJS controller script
+	script := body.AddNewTag("script")
+	script.AddContent(`
+angular.module('demoApp', [])
+.controller('DemoController', function($scope) {
+    $scope.userMessage = '';
+    
+    // Add a method to reverse string (since AngularJS doesn't have built-in reverse filter)
+    $scope.reverseString = function(str) {
+        return str ? str.split('').reverse().join('') : '';
+    };
+});`)
+
+	// Set overall page styling
+	page.SetMargin(0)
+	page.SetFontFamily("Arial, sans-serif")
+	page.SetColor("#333", "#ffffff")
+
+	// Add responsive CSS
+	page.AddStyle(`
+@media (max-width: 600px) {
+    .container { padding: 1em; }
+    h1 { font-size: 1.8em !important; }
+}`)
 
 	return page
 }
