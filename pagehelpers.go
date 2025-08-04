@@ -6,10 +6,10 @@ import (
 	"strings"
 )
 
-//go:embed vendor/angularjs/angular.min.js
+//go:embed angular.min.js
 var angularJS string
 
-//go:embed vendor/threejs/three.min.js
+//go:embed three.min.js
 var threeJS string
 
 type (
